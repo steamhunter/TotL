@@ -131,7 +131,7 @@ namespace PathFinder.Character
           
             
         }
-        new string ai = "baseattack";
+        //new string ai = "baseattack";
     }
 }
 

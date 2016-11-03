@@ -18,14 +18,12 @@ namespace PathFinder.Toolkit
         protected KeyboardManager Mykeyboardmanager;
         protected MouseManager Mymousemanager;
         protected Graphics.SpriteBatch spriteBatch;
-        public delegate void Del(GraphicsDeviceManager deviceManager);
         protected override void Initialize()
         {
             Vars.state = gamestates.initializing;
-            Task.Run(() =>
-            {
+           
                 LoopInitialize();
-            });
+          
             Vars.state = gamestates.initialized_notLoaded;
             base.Initialize();
         }
@@ -53,7 +51,10 @@ namespace PathFinder.Toolkit
         {
             if (Vars.state==gamestates.intitalized_loaded)
             {
-                TickDraw(gameTime);
+                Task.Run(() =>
+                {
+                    TickDraw(gameTime);
+                });
             }
            ;
             base.Draw(gameTime);
@@ -64,9 +65,15 @@ namespace PathFinder.Toolkit
         }
         protected override void Update(GameTime gameTime)
         {
+
             if (Vars.state==gamestates.intitalized_loaded)
             {
-                TickUpdate(gameTime);
+
+                Task.Run(() =>
+                {
+                    TickUpdate(gameTime);
+                   
+                });
             }
             base.Update(gameTime);
         }
