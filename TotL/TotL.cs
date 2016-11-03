@@ -26,7 +26,7 @@ namespace TotL
         }
         protected override void LoopInitialize()
         {
-            Del graphdev = DeviceManagerAplyChanges;
+           
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -40,10 +40,7 @@ namespace TotL
 
             IsMouseVisible = true;
         }
-        public static void DeviceManagerAplyChanges(GraphicsDeviceManager deviceManager)
-        {
-            deviceManager.ApplyChanges();
-        }
+       
         protected override void Load()
         {
 
