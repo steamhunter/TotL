@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PathFinder.Map
 {
-    class AreaBase
+    public abstract class AreaBase
     {
         private Game igame;
         protected bool ready = false;
@@ -39,7 +39,7 @@ namespace PathFinder.Map
         {
 
         }
-        public virtual void Draw(GameTime gameTime, ref SpriteBatch spritebatch)
+        public virtual void Draw(GameTime gameTime)
         {
 
         }

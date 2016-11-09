@@ -1,5 +1,5 @@
 ﻿using SharpDX;
-
+using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using System;
@@ -12,15 +12,16 @@ namespace PathFinder._2D
 {
     public class Unit2D
     {
-        Texture2D texture;
+        ShaderResourceView texture;
         public Rectangle rectangle;
         public int locationX;
         public int locationY;
         
         
-        public static Texture2D getTexture(string entity, Game game)
+        public static SharpDX.Toolkit.Graphics.Texture2D getTexture(string entity, Game game)
         {
 
+            /*
             switch (entity)
             {
                 case "player": return game.Content.Load<Texture2D>("player");
@@ -31,13 +32,16 @@ namespace PathFinder._2D
 
                 default: return null;
 
-            }
+            }*/
+            throw new DeprecatedMethodException("getTexture is not useable no working code");
+            
 
         }
-        public Unit2D(string entity, Game game)
+       
+        public Unit2D(string texturename, Game game)
         {
-            texture = getTexture(entity, game);
-            
+            texture = TextureFromFile.TextureProcessor.getTexture(texturename);
+
 
         }
         public void update()
@@ -50,7 +54,8 @@ namespace PathFinder._2D
         {
 
            
-            spritebatch.Draw(texture, new Vector2(locationX, locationY), null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+            //spritebatch.Draw(texture, new Vector2(locationX, locationY), null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+            spritebatch.Draw(texture, new RectangleF(locationX, locationY, 32, 32), Color.CornflowerBlue);
         }
         public void draw(SpriteBatch spritebatch, float rotation)
         {
