@@ -13,16 +13,17 @@ namespace TotL
 {
     class mapArea: AreaBase
     {
-        Unit2D[,] map= new Unit2D[25,18];
+        Unit2D[,] map= new Unit2D[25,15];
         public override void Initialize()
         {
+            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             for (int i = 0; i < 25; i++)
             {
-                for (int j = 0; j < 18; j++)
+                for (int j = 0; j < 15; j++)
                 {
                     map[i, j] = new Unit2D("CrossCell", game);
-                    map[i, j].locationX = i * 32;
-                    map[i, j].locationY = j * 32;
+                    map[i, j].locationX =20+( i * unitSize);
+                    map[i, j].locationY = 20+(j * unitSize);
                 }
             }
             
@@ -39,7 +40,7 @@ namespace TotL
         {
             for (int i = 0; i < 25; i++)
             {
-                for (int j = 0; j < 18; j++)
+                for (int j = 0; j < 15; j++)
                 {
                     map[i, j].draw(Vars.spriteBatch);
                 }

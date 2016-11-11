@@ -31,12 +31,14 @@ namespace TotL
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            deviceManager.IsFullScreen = false;
+            deviceManager.IsFullScreen = true;
             Vars.device = deviceManager.GraphicsDevice;
             Vars.spriteBatch = spriteBatch;
 #pragma warning disable CS0618 // Type or member is obsolete
-            deviceManager.PreferredBackBufferWidth = 800;//GraphicsDevice.Adapter.DesktopBounds.Width;
-            deviceManager.PreferredBackBufferHeight = 600;// GraphicsDevice.Adapter.DesktopBounds.Height;
+            deviceManager.PreferredBackBufferWidth = GraphicsDevice.Adapter.DesktopBounds.Width;
+            deviceManager.PreferredBackBufferHeight = GraphicsDevice.Adapter.DesktopBounds.Height;
+            Vars.ScreenWidth =  GraphicsDevice.Adapter.DesktopBounds.Width;
+            Vars.ScreenHeight = GraphicsDevice.Adapter.DesktopBounds.Height;
 #pragma warning restore CS0618 // Type or member is obsolete
             deviceManager.ApplyChanges();
             IsMouseVisible = true;
@@ -50,6 +52,7 @@ namespace TotL
         }
         protected override void TickDraw(GameTime gameTime)
         {
+
             spriteBatch.Begin();
             GraphicsDevice.Clear(Color.CornflowerBlue);
             

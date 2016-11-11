@@ -13,6 +13,8 @@ namespace PathFinder
         public static gamestates state = gamestates.world;
         public static SpriteBatch spriteBatch;
         public static SharpDX.Direct3D11.Device device;
+        public static int ScreenWidth;
+        public static int ScreenHeight;
 
 
         
