@@ -94,6 +94,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Content\CrossCell.xcf" />
+    <None Include="Content\DeadEndCell.xcf" />
+    <None Include="Content\OneSideBlockedCell.xcf" />
+    <None Include="Content\TwoSideBlockedCell.xcf" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +107,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\CrossCell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DeadEndCell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\oneSideBlockedCell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\twoSideBlockedCell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
