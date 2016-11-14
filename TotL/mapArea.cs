@@ -21,7 +21,14 @@ namespace TotL
             {
                 for (int j = 0; j < 15; j++)
                 {
-                    map[i, j] = new Unit2D("CrossCell", game);
+                    if (i == 0 || j == 0 || i == 24 || j == 14)
+                    {
+                        map[i, j] = new Unit2D("oneSideBlockedCell", game);
+                    }
+                    else
+                    {
+                        map[i, j] = new Unit2D("CrossCell", game);
+                    }
                     map[i, j].locationX =20+( i * unitSize);
                     map[i, j].locationY = 20+(j * unitSize);
                 }
@@ -42,7 +49,14 @@ namespace TotL
             {
                 for (int j = 0; j < 15; j++)
                 {
-                    map[i, j].draw(Vars.spriteBatch);
+                    if (j == 0 && i > 0)
+                    {
+                        map[i, j].draw(Vars.spriteBatch, 3f);
+                    }
+                    else
+                    {
+                        map[i, j].draw(Vars.spriteBatch);
+                    }
                 }
             }
         }
