@@ -16,4 +16,15 @@ namespace PathFinder
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
+
+    [Serializable]
+    public class InvalidConstructorCallException : Exception
+    {
+        public InvalidConstructorCallException() { }
+        public InvalidConstructorCallException(string message) : base(message) { }
+        public InvalidConstructorCallException(string message, Exception inner) : base(message, inner) { }
+        protected InvalidConstructorCallException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
 }

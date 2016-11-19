@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PathFinder._2D
 {
-    class TextureFromFile
+    public class TextureFromFile
     {
         public class TextureProcessor
         {

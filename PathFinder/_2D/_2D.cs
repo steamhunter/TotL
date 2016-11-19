@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PathFinder;
 
 namespace PathFinder._2D
 {
     public class Unit2D
     {
-        ShaderResourceView texture;
+        protected ShaderResourceView texture;
         public Rectangle rectangle;
         public float locationX;
         public float locationY;
@@ -37,31 +38,32 @@ namespace PathFinder._2D
             
 
         }
-       
-        public Unit2D(string texturename, Game game)
+
+        public Unit2D()
         {
-            texture = TextureFromFile.TextureProcessor.getTexture(texturename);
+           
 
 
         }
+       
         public void update()
         {
 
             
 
         }
-        public void draw(SpriteBatch spritebatch)
+        public virtual void draw()
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
 
             //spritebatch.Draw(texture, new Vector2(locationX, locationY), null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
-            spritebatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize),Color.White);
+           Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize),Color.White);
         
         }
-        public void draw(SpriteBatch spritebatch, float rotation)
+        public virtual void draw(float rotation)
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            spritebatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
         }
     }

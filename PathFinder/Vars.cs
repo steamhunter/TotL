@@ -1,5 +1,5 @@
 ﻿using PathFinder.Toolkit.Graphics;
-
+using SharpDX.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +15,7 @@ namespace PathFinder
         public static SharpDX.Direct3D11.Device device;
         public static int ScreenWidth;
         public static int ScreenHeight;
+        public static Game game;
 
 
         
