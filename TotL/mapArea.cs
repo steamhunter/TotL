@@ -29,8 +29,30 @@ namespace TotL
                     {
                         map[i, j] = new Unit2D("CrossCell", game);
                     }
-                    map[i, j].locationX =20+( i * unitSize);
-                    map[i, j].locationY = 20+(j * unitSize);
+                    if (j == 14)
+                    {
+                        map[i, j].locationX = 20 + (i * unitSize);
+                        map[i, j].locationY = 20 + ((j + 1) * unitSize);
+                    }
+                    else if (i == 24 && j != 0)
+                    {
+                        map[i, j].locationX = 20 + ((i + 1) * unitSize);
+                        map[i, j].locationY = 20 + ((j + 1) * unitSize);
+                    } else if (i == 24 && j == 0)
+                    {
+                        map[i, j].locationX = 20 + ((i + 1) * unitSize);
+                        map[i, j].locationY = 20 + (j  * unitSize);
+                    }
+                    else if (j == 0 && i != 0)
+                    {
+                        map[i, j].locationX = 20 + ((i + 1) * unitSize);
+                        map[i, j].locationY = 20 + (j * unitSize);
+                    }
+                    else
+                    {
+                        map[i, j].locationX = 20 + (i * unitSize);
+                        map[i, j].locationY = 20 + (j * unitSize);
+                    }
                 }
             }
             
@@ -51,7 +73,13 @@ namespace TotL
                 {
                     if (j == 0 && i > 0)
                     {
-                        map[i, j].draw(Vars.spriteBatch, 3f);
+                        map[i, j].draw(Vars.spriteBatch, Convert.ToSingle(Math.PI) / 2);
+                    } else if (j == 14)
+                    {
+                        map[i, j].draw(Vars.spriteBatch, -Convert.ToSingle(Math.PI) / 2);
+                    } else if (i==24)
+                    {
+                        map[i, j].draw(Vars.spriteBatch, Convert.ToSingle(Math.PI));
                     }
                     else
                     {

@@ -55,7 +55,7 @@ namespace PathFinder._2D
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
 
             //spritebatch.Draw(texture, new Vector2(locationX, locationY), null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
-            spritebatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), Color.CornflowerBlue);
+            spritebatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize),Color.White);
         
         }
         public void draw(SpriteBatch spritebatch, float rotation)
