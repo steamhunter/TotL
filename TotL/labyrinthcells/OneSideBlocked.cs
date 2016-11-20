@@ -11,11 +11,41 @@ using SharpDX.Toolkit.Graphics;
 
 namespace TotL.labyrinthcells
 {
-    class OneSideBlocked : Unit2D
+    class OneSideBlocked : Unit2D,IConnections
     {
         public OneSideBlocked() 
         {
             texture = TextureFromFile.TextureProcessor.getTexture("OneSideBlockedCell");
+        }
+        bool _up, _down, _right = true;
+        bool _left = false;
+        public bool down
+        {
+            get
+            {
+                return _down;
+            }
+        }
+        public bool left
+        {
+            get
+            {
+                return _left;
+            }
+        }
+        public bool right
+        {
+            get
+            {
+                return _right;
+            }
+        }
+        public bool up
+        {
+            get
+            {
+                return _up;
+            }
         }
         public override void draw()
         {

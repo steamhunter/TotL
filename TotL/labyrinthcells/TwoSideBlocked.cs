@@ -10,11 +10,42 @@ using System.Threading.Tasks;
 
 namespace TotL.labyrinthcells
 {
-    class TwoSideBlocked : Unit2D
+    class TwoSideBlocked : Unit2D,IConnections
     {
         public TwoSideBlocked()
         {
             texture = TextureFromFile.TextureProcessor.getTexture("twoSideBlockedCell");
+        }
+
+        bool _up, _right = true;
+        bool _left, _down = false;
+        public bool down
+        {
+            get
+            {
+                return _down;
+            }
+        }
+        public bool left
+        {
+            get
+            {
+                return _left;
+            }
+        }
+        public bool right
+        {
+            get
+            {
+                return _right;
+            }
+        }
+        public bool up
+        {
+            get
+            {
+                return _up;
+            }
         }
         public override void draw()
         {

@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="labyrinthcells\CrossCell.cs" />
+    <Compile Include="labyrinthcells\Iconnections.cs" />
     <Compile Include="labyrinthcells\OneSideBlocked.cs" />
     <Compile Include="labyrinthcells\TwoSideBlocked.cs" />
     <Compile Include="mapArea.cs" />

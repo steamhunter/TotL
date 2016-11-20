@@ -11,11 +11,42 @@ using SharpDX;
 
 namespace TotL.labyrinthcells
 {
-    class CrossCell : Unit2D
+    class CrossCell : Unit2D,IConnections
     {
         public CrossCell(Game game)
         {
             texture = TextureFromFile.TextureProcessor.getTexture("CrossCell");
+            
+        }
+
+        bool _up,_down,_left,_right=true;
+        public bool down
+        {
+            get
+            {
+                return _down;
+            }    
+        }
+        public bool left
+        {
+            get
+            {
+                return _left;
+            }
+        }
+        public bool right
+        {
+            get
+            {
+                return _right;
+            }
+        }
+        public bool up
+        {
+            get
+            {
+                return _up;
+            }
         }
 
         public override void draw()
