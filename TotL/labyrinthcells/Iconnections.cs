@@ -22,6 +22,7 @@ namespace TotL.labyrinthcells
         bool left
         {
             get;
+        }
            
         bool right
         {
