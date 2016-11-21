@@ -62,16 +62,31 @@ namespace TotL.labyrinthcells
                 _up = value;
             }
         }
+        float _rotation;
+        public float rotation
+        {
+            get
+            {
+                return _rotation;
+            }
+
+            set
+            {
+                _rotation=value;
+            }
+        }
+
         public override void draw()
         {
+           
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, _rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
-
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), Color.White);
         }
-        public override void draw(float rotation)
+
+        public float rotate(float rotate)
         {
-            if (rotation== Convert.ToSingle(Math.PI) / 2)
+            if (rotate == Convert.ToSingle(Math.PI) / 2)
             {
                 up = true;
                 left = true;
@@ -79,9 +94,8 @@ namespace TotL.labyrinthcells
                 right = false;
 
             }
-            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
-
+            _rotation = rotate;
+            return rotate;
         }
     }
     
