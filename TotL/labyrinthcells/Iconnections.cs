@@ -6,32 +6,38 @@ using System.Threading.Tasks;
 
 namespace TotL.labyrinthcells
 {
-   
-   interface IConnections
+
+    interface IConnections
     {
-         bool up
+        bool up
         {
             get;
             set;
-            
+
         }
         bool down
         {
             get;
             set;
-            
+
         }
         bool left
         {
             get;
             set;
         }
-           
+
         bool right
         {
             get;
             set;
         }
+        float rotation
+        {
+            get;set;
+        }
+        float rotate(float rotate);
+        
         
     }
 }
