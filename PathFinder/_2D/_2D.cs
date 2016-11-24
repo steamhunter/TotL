@@ -46,7 +46,7 @@ namespace PathFinder._2D
 
         }
        
-        public void update()
+        public virtual void update()
         {
 
             

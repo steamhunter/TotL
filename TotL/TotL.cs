@@ -63,7 +63,7 @@ namespace TotL
         }
         protected override void TickUpdate(GameTime gameTime)
         {
-
+            map.Update(gameTime);
         }
     }
 }

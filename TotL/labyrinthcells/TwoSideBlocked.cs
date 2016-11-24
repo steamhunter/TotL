@@ -10,75 +10,60 @@ using System.Threading.Tasks;
 
 namespace TotL.labyrinthcells
 {
-    class TwoSideBlocked : Unit2D,IConnections
+    class TwoSideBlocked : Cell
     {
         public TwoSideBlocked()
         {
             texture = TextureFromFile.TextureProcessor.getTexture("twoSideBlockedCell");
+            setRotation(0f);
+
         }
 
-        bool _up, _right = true;
-        bool _left, _down = false;
-        public bool down
+        public override void setRotation(float rotation)
         {
-            get
+            base.rotation = rotation;
+            if (rotation == Rotaitions.zero)
             {
-                return _down;
-            }set
-            {
-                _down = value;
+                up = true;
+                left = false;
+                down = false;
+                right = true;
             }
-        }
-        public bool left
-        {
-            get
-            {
-                return _left;
-            }
-            set
-            {
-                _left = value;
-            }
-        }
-        public bool right
-        {
-            get
-            {
-                return _right;
-            }
-            set
-            {
-                _right = value;
-            }
-        }
-        public bool up
-        {
-            get
-            {
-                return _up;
-            }
-            set
-            {
-                _up = value;
-            }
-        }
-        public override void draw()
-        {
-            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-
-
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), Color.White);
-        }
-        public override void draw(float rotation)
-        {
-            if (rotation== Convert.ToSingle(Math.PI) / 2)
+            else
+            if (rotation == Rotaitions.plus90)
             {
                 up = true;
                 left = true;
                 down = false;
                 right = false;
 
+            }else
+            if (rotation == Rotaitions.half)
+            {
+                up = false;
+                left = true;
+                down = true;
+                right = false;
+
+            }else
+            if (rotation == Rotaitions.minus90)
+            {
+                up = false;
+                left = false;
+                down = true;
+                right = true;
+
             }
+            
+        }
+       
+        public override void update()
+        {
+           
+        }
+        public override void draw()
+        {
+            
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 

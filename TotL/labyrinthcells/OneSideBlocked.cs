@@ -11,50 +11,54 @@ using SharpDX.Toolkit.Graphics;
 
 namespace TotL.labyrinthcells
 {
-    class OneSideBlocked : Unit2D,IConnections
+    class OneSideBlocked : Cell
     {
         public OneSideBlocked() 
         {
             texture = TextureFromFile.TextureProcessor.getTexture("OneSideBlockedCell");
         }
-        bool _up, _down, _right = true;
-        bool _left = false;
-        public bool down
-        {
-            get
-            {
-                return _down;
-            }
-        }
-        public bool left
-        {
-            get
-            {
-                return _left;
-            }
-        }
-        public bool right
-        {
-            get
-            {
-                return _right;
-            }
-        }
-        public bool up
-        {
-            get
-            {
-                return _up;
-            }
-        }
-        public override void draw()
-        {
-            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
 
-           
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), Color.White);
+        public override void setRotation(float paramrotation)
+        {
+            rotation = paramrotation;
+            if (rotation == Rotaitions.zero)
+            {
+                up = true;
+                left = false;
+                down = true;
+                right = true;
+            }
+            else
+            if (rotation == Rotaitions.plus90)
+            {
+                up = true;
+                left = true;
+                down = false;
+                right = true;
+
+            }
+            else
+            if (rotation == Rotaitions.half)
+            {
+                up = true;
+                left = true;
+                down = true;
+                right = false;
+
+            }
+            else
+            if (rotation == Rotaitions.minus90)
+            {
+                up = false;
+                left = true;
+                down = true;
+                right = true;
+
+            }
+            
         }
-        public override void draw(float rotation)
+
+        public override void draw()
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
