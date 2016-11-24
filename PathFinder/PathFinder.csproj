@@ -72,6 +72,7 @@
     <Compile Include="character\stuff.cs" />
     <Compile Include="debug.cs" />
     <Compile Include="error.cs" />
+    <Compile Include="Exeptions.cs" />
     <Compile Include="fightHandler.cs" />
     <Compile Include="GUI\GUI.cs" />
     <Compile Include="Map\AreaBase.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Toolkit\PathFinderGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vars.cs" />
+    <Compile Include="_2D\TextureFromFile.cs" />
     <Compile Include="_2D\_2D.cs" />
   </ItemGroup>
   <ItemGroup>

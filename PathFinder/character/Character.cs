@@ -43,7 +43,7 @@ namespace PathFinder.Character
             if (ready)
             {
 
-                unit = new Unit2D(entity,game);
+                unit = new Unit2D();
                management.register(this);
             }
             else
@@ -69,7 +69,7 @@ namespace PathFinder.Character
             {
                 if (!isdead)
                 {
-                    unit.draw(spritebatch);
+                    unit.draw();
                 }
                
             }
@@ -126,7 +126,7 @@ namespace PathFinder.Character
             if (ready)
             {
                // caracter = new caracter("enemy", game);
-                unit = new Unit2D("enemy", game);
+                unit = new Unit2D( );
             }
           
             

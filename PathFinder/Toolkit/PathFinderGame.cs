@@ -51,13 +51,13 @@ namespace PathFinder.Toolkit
         {
             if (Vars.state==gamestates.intitalized_loaded)
             {
-                Task.Run(() =>
-                {
+              
                     TickDraw(gameTime);
-                });
+
+                base.Draw(gameTime);
             }
-           ;
-            base.Draw(gameTime);
+            
+           
         }
         protected virtual void TickDraw(GameTime gameTime)
         {

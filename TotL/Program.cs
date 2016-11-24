@@ -14,10 +14,14 @@ namespace TotL
         {
             foreach (string ar in args)
             {
-                if (ar == "-console=on")
+                if (ar == "-console")
                 {
                     cons.consoleMsg("debug enabled");
 
+                }
+                else
+                {
+                    
                 }
             }
             using (TotL game = new TotL())

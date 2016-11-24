@@ -1,5 +1,5 @@
 ﻿using SharpDX;
-
+using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using System;
@@ -7,20 +7,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PathFinder;
 
 namespace PathFinder._2D
 {
     public class Unit2D
     {
-        Texture2D texture;
+        protected ShaderResourceView texture;
         public Rectangle rectangle;
-        public int locationX;
-        public int locationY;
+        public float locationX;
+        public float locationY;
         
         
-        public static Texture2D getTexture(string entity, Game game)
+        public static SharpDX.Toolkit.Graphics.Texture2D getTexture(string entity, Game game)
         {
 
+            /*
             switch (entity)
             {
                 case "player": return game.Content.Load<Texture2D>("player");
@@ -31,30 +33,38 @@ namespace PathFinder._2D
 
                 default: return null;
 
-            }
-
-        }
-        public Unit2D(string entity, Game game)
-        {
-            texture = getTexture(entity, game);
+            }*/
+            throw new DeprecatedMethodException("getTexture is not useable no working code");
             
 
         }
-        public void update()
+
+        public Unit2D()
         {
-
-            
-
-        }
-        public void draw(SpriteBatch spritebatch)
-        {
-
            
-            spritebatch.Draw(texture, new Vector2(locationX, locationY), null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+
+
         }
-        public void draw(SpriteBatch spritebatch, float rotation)
+       
+        public virtual void update()
         {
-            spritebatch.Draw(texture, new Vector2(locationX, locationY), null, Color.White, rotation, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+
+            
+
+        }
+        /*public virtual void draw()
+        {
+            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+
+            //spritebatch.Draw(texture, new Vector2(locationX, locationY), null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+           Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize),Color.White);
+        
+        }*/
+        public virtual void draw()
+        {
+            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+
         }
     }
 }
