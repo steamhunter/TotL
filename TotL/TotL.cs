@@ -63,6 +63,10 @@ namespace TotL
         }
         protected override void TickUpdate(GameTime gameTime)
         {
+            if (Mykeyboardmanager.GetState().IsKeyDown(Keys.E))
+            {
+                Exit();
+            }
             map.Update(gameTime);
         }
     }

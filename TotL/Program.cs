@@ -29,7 +29,7 @@ namespace TotL
                 game.Run();
             }
 
-            Console.ReadKey();
+          
         }
        
     }

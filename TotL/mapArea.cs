@@ -15,9 +15,13 @@ namespace TotL
     class mapArea: AreaBase
     {
         Cell[,] map= new Cell[25,15];
+        Connection[,] connect = new Connection[27,17];
         public override void Initialize()
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+
+           
+
             for (int i = 0; i < 25; i++)
             {
                 for (int j = 0; j < 15; j++)
@@ -36,7 +40,7 @@ namespace TotL
                         map[i, j] = new TwoSideBlocked();
                     }
 
-
+                    
 
 
                     if (i != 24 && j == 0)
@@ -66,7 +70,29 @@ namespace TotL
 
                 }
             }
-            
+            for (int i = 0; i < 27; i++)
+            {
+                for (int j = 0; j < 17; j++)
+                {
+                    if (i == 0 || j == 0 || i == 26 || j == 16)
+                    {
+                        connect[i, j] = new Connection();
+                        connect[i, j].up = false;
+                        connect[i, j].down = false;
+                        connect[i, j].left = false;
+                        connect[i, j].right = false;
+                    }
+                    else
+                    {
+                        connect[i, j] = new Connection();
+                        connect[i, j].up = map[i - 1, j - 1].up;
+                        connect[i, j].down = map[i - 1, j - 1].down;
+                        connect[i, j].left = map[i - 1, j - 1].left;
+                        connect[i, j].right = map[i - 1, j - 1].right;
+                    }
+                }
+            }
+
         }
         public override void LoadContent()
         {
