@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace PathFinder
 {
+
+    [Serializable]
+    public class InvalidCallException : Exception
+    {
+        public InvalidCallException() { }
+        public InvalidCallException(string message) : base(message) { }
+        public InvalidCallException(string message, Exception inner) : base(message, inner) { }
+        protected InvalidCallException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
     [Serializable]
     public class DeprecatedMethodException : Exception
     {
