@@ -19,8 +19,14 @@ namespace TotL
         public override void Initialize()
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-
-           
+            int now = DateTime.Now.Millisecond*DateTime.Now.Second;
+            Console.WriteLine(now);
+            Random random = new Random(now);
+            Vars.seed = random.Next(10000000,99999999);
+            Console.WriteLine(Vars.seed);
+            random = new Random(Vars.seed);
+            
+            
 
             for (int i = 0; i < 25; i++)
             {
