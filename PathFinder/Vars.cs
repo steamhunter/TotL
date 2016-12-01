@@ -17,6 +17,7 @@ namespace PathFinder
         public static int ScreenHeight;
         public static Game game;
         public static int seed;
+        public static Random random;
 
 
         

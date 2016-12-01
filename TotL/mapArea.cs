@@ -25,8 +25,8 @@ namespace TotL
             Vars.seed = random.Next(10000000,99999999);
             Console.WriteLine(Vars.seed);
             random = new Random(Vars.seed);
-            
-            
+
+
 
             for (int i = 0; i < 25; i++)
             {
@@ -39,40 +39,28 @@ namespace TotL
                     }
                     else
                     {
-                        map[i, j] = new CrossCell(game);
+                        switch ((random.Next(0, 3)))
+                        {
+                            case 0: map[i, j] = new OneSideBlocked();
+                                break;
+                            case 1: map[i, j] = new CrossCell();
+                                break;
+                            case 2: map[i, j] = new TwoSideBlocked();
+                                break;
+                            default:
+                                break;
+                        }
+                        
+
                     }
                     if (i == 0 && j == 0 || i == 24 && j == 0 || i == 0 && j == 14 || i == 24 && j == 14)
                     {
                         map[i, j] = new TwoSideBlocked();
                     }
 
-                    
-
-
-                    if (i != 24 && j == 0)
-                    {
-                        map[i, j].locationX = 20 + ((i + 1) * unitSize);
-                        map[i, j].locationY = 20 + (j * unitSize);
-                    }
-                    else if (j == 0 && i == 24)
-                    {
-                        map[i, j].locationX = 20 + ((i + 1) * unitSize);
-                        map[i, j].locationY = 20 + ((j + 1) * unitSize);
-                    }
-                    else if(j == 14 && i != 0)
-                    {
-                        map[i, j].locationX = 20 + ((i) * unitSize);
-                        map[i, j].locationY = 20 + ((j+1) * unitSize);
-                    }
-                    else if (i == 24 && j != 0 && j != 14)
-                    {
-                        map[i, j].locationX = 20 + ((i+1) * unitSize);
-                        map[i, j].locationY = 20 + ((j+1) * unitSize);
-                    }else 
-                    {
-                        map[i, j].locationX = 20 + ((i) * unitSize);
-                        map[i, j].locationY = 20 + ((j) * unitSize);
-                    }
+                    map[i, j].locationX = 20 + ((i) * unitSize);
+                    map[i, j].locationY = 20 + ((j) * unitSize);
+                   
 
                 }
             }
@@ -102,10 +90,6 @@ namespace TotL
         }
         public override void LoadContent()
         {
-            
-        }
-        public override void Update(GameTime gameTime)
-        {
             for (int i = 0; i < 25; i++)
             {
                 for (int j = 0; j < 15; j++)
@@ -122,13 +106,17 @@ namespace TotL
                     {
                         map[i, j].setRotation(Rotaitions.minus90);
                     }
-                    else if (i == 24 && j != 0 && j!=14)
+                    else if (i == 24 && j != 0 && j != 14)
                     {
                         map[i, j].setRotation(Rotaitions.half);
                     }
 
                 }
             }
+        }
+        public override void Update(GameTime gameTime)
+        {
+           
         }
         public override void Draw(GameTime gameTime)
         {

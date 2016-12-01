@@ -13,7 +13,7 @@ namespace TotL.labyrinthcells
 {
     class CrossCell : Cell 
     {
-        public CrossCell(Game game)
+        public CrossCell()
         {
             texture = TextureFromFile.TextureProcessor.getTexture("CrossCell");
             

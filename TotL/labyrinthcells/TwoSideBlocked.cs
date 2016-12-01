@@ -32,6 +32,8 @@ namespace TotL.labyrinthcells
             else
             if (rotation == Rotaitions.plus90)
             {
+                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+                locationX += unitSize;
                 up = true;
                 left = true;
                 down = false;
@@ -40,6 +42,9 @@ namespace TotL.labyrinthcells
             }else
             if (rotation == Rotaitions.half)
             {
+                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+                locationX += unitSize;
+                locationY += unitSize;
                 up = false;
                 left = true;
                 down = true;
@@ -48,6 +53,8 @@ namespace TotL.labyrinthcells
             }else
             if (rotation == Rotaitions.minus90)
             {
+                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+                locationY += unitSize;
                 up = false;
                 left = false;
                 down = true;
