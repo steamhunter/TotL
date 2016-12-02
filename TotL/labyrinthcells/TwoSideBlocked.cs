@@ -16,6 +16,7 @@ namespace TotL.labyrinthcells
         {
             texture = TextureFromFile.TextureProcessor.getTexture("twoSideBlockedCell");
             setRotation(0f);
+            closedsides = 2;
 
         }
 

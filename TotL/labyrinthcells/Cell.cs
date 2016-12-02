@@ -19,6 +19,7 @@ namespace TotL.labyrinthcells
         private float _rotation = 0f;
        
         private bool _up, _right, _left, _down;
+        private int _closedsides;
         public bool down
         {
             get
@@ -64,7 +65,7 @@ namespace TotL.labyrinthcells
             }
         }
       
-        public float rotation
+         public float rotation
         {
             get
             {
@@ -77,11 +78,20 @@ namespace TotL.labyrinthcells
             }
         }
 
+        public int closedsides
+        {
+            get
+            {
+                return _closedsides;
+            }
+
+            set
+            {
+                _closedsides = value;
+            }
+        }
+
         public virtual void setRotation(float rotation) { }
 
-        public float rotate(float rotate)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

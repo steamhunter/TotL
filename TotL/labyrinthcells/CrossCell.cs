@@ -16,6 +16,7 @@ namespace TotL.labyrinthcells
         public CrossCell()
         {
             texture = TextureFromFile.TextureProcessor.getTexture("CrossCell");
+            closedsides = 0;
             
         }
 

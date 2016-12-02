@@ -16,6 +16,7 @@ namespace TotL.labyrinthcells
         public OneSideBlocked() 
         {
             texture = TextureFromFile.TextureProcessor.getTexture("OneSideBlockedCell");
+            closedsides = 1;
         }
 
         public override void setRotation(float paramrotation)

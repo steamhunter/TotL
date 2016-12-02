@@ -9,6 +9,11 @@ namespace TotL.labyrinthcells
 
     interface IConnections
     {
+        int closedsides
+        {
+            get;
+            set;
+        }
         bool up
         {
             get;
@@ -36,7 +41,7 @@ namespace TotL.labyrinthcells
         {
             get;set;
         }
-        float rotate(float rotate);
+        void setRotation(float rotation);
         
         
     }
