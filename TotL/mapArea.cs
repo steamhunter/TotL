@@ -15,7 +15,7 @@ namespace TotL
     class mapArea: AreaBase
     {
         Cell[,] map= new Cell[25,15];
-        Connection[,] connect = new Connection[27,17];
+        Connection[,] connect = new Connection[27,18];
         public override void Initialize()
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
@@ -28,9 +28,9 @@ namespace TotL
 
             for (int i = 0; i < 27; i++)
             {
-                for (int j = 0; j < 17; j++)
+                for (int j = 0; j < 18; j++)
                 {
-                    if (i == 0 || j == 0 || i == 26 || j == 16)
+                    if (i == 0 || j == 0 || i == 26 || j == 17)
                     {
                         connect[i, j] = new Connection();
                         connect[i, j].up = false;
@@ -64,9 +64,9 @@ namespace TotL
                         {
                             case 0:
                                     Cell cell= new OneSideBlocked();
-                                if (cell.closedsides==Connection.getClosedSides(connect[ci,cj-1],connect[ci+1,cj],connect[ci,cj+1],connect[ci-1,cj]))
+                                if (cell.closedsides==Connection.getClosedSides(connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                 {
-                                    if (Connection.isFiting(cell, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                    if (Connection.isFiting(cell, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                     {
                                         valid = true;
                                         connect[ci, cj].up =cell.up;
@@ -77,7 +77,7 @@ namespace TotL
                                     else
                                     {
                                         cell.setRotation(Rotaitions.plus90);
-                                        if (Connection.isFiting(cell, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                        if (Connection.isFiting(cell, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                         {
                                             valid = true;
                                             connect[ci, cj].up = cell.up;
@@ -88,7 +88,7 @@ namespace TotL
                                         else
                                         {
                                             cell.setRotation(Rotaitions.half);
-                                            if (Connection.isFiting(cell, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                            if (Connection.isFiting(cell, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                             {
                                                 valid = true;
                                                 connect[ci, cj].up = cell.up;
@@ -99,7 +99,7 @@ namespace TotL
                                             else
                                             {
                                                 cell.setRotation(Rotaitions.minus90);
-                                                if (Connection.isFiting(cell, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                                if (Connection.isFiting(cell, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                                 {
                                                     valid = true;
                                                     connect[ci, cj].up = cell.up;
@@ -130,9 +130,9 @@ namespace TotL
 
 
 
-                                if (cell2.closedsides == Connection.getClosedSides(connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                if (cell2.closedsides == Connection.getClosedSides(connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                 {
-                                    if (Connection.isFiting(cell2, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                    if (Connection.isFiting(cell2, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                     {
                                         valid = true;
                                         connect[ci, cj].up = cell2.up;
@@ -143,7 +143,7 @@ namespace TotL
                                     else
                                     {
                                         cell2.setRotation(Rotaitions.plus90);
-                                        if (Connection.isFiting(cell2, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                        if (Connection.isFiting(cell2, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                         {
                                             valid = true;
                                             connect[ci, cj].up = cell2.up;
@@ -154,7 +154,7 @@ namespace TotL
                                         else
                                         {
                                             cell2.setRotation(Rotaitions.half);
-                                            if (Connection.isFiting(cell2, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                            if (Connection.isFiting(cell2, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                             {
                                                 valid = true;
                                                 connect[ci, cj].up = cell2.up;
@@ -165,7 +165,7 @@ namespace TotL
                                             else
                                             {
                                                 cell2.setRotation(Rotaitions.minus90);
-                                                if (Connection.isFiting(cell2, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                                if (Connection.isFiting(cell2, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                                 {
                                                     valid = true;
                                                     connect[ci, cj].up = cell2.up;
@@ -194,9 +194,9 @@ namespace TotL
                             case 2:
                                 Cell cell3 = new TwoSideBlocked();
 
-                                if (cell3.closedsides == Connection.getClosedSides(connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                if (cell3.closedsides == Connection.getClosedSides(connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                 {
-                                    if (Connection.isFiting(cell3, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                    if (Connection.isFiting(cell3, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                     {
                                         valid = true;
                                         connect[ci, cj].up = cell3.up;
@@ -207,7 +207,7 @@ namespace TotL
                                     else
                                     {
                                         cell3.setRotation(Rotaitions.plus90);
-                                        if (Connection.isFiting(cell3, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                        if (Connection.isFiting(cell3, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                         {
                                             valid = true;
                                             connect[ci, cj].up = cell3.up;
@@ -218,7 +218,7 @@ namespace TotL
                                         else
                                         {
                                             cell3.setRotation(Rotaitions.half);
-                                            if (Connection.isFiting(cell3, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                            if (Connection.isFiting(cell3, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                             {
                                                 valid = true;
                                                 connect[ci, cj].up = cell3.up;
@@ -229,7 +229,7 @@ namespace TotL
                                             else
                                             {
                                                 cell3.setRotation(Rotaitions.minus90);
-                                                if (Connection.isFiting(cell3, connect[ci, cj - 1], connect[ci + 1, cj], connect[ci, cj + 1], connect[ci - 1, cj]))
+                                                if (Connection.isFiting(cell3, connect[ci - 1, cj], connect[ci, cj + 1], connect[ci + 1, cj], connect[ci, cj - 1]))
                                                 {
                                                     valid = true;
                                                     connect[ci, cj].up = cell3.up;
@@ -293,7 +293,9 @@ namespace TotL
                    
 
                 }
+                cj = 0;
             }
+            ci = 0;
             
 
         }

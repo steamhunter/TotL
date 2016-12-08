@@ -16,7 +16,7 @@ namespace TotL
             {
                 if (ar == "-console")
                 {
-                    cons.consoleMsg("debug enabled");
+                    cons.debugMessage("debug enabled");
 
                 }
                 else
