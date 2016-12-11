@@ -23,7 +23,7 @@ namespace TotL.labyrinthcells
 
         public override void setRotation(float rotation)
         {
-            base.rotation = rotation;
+            base.rotation = 0;
            
             up = true;
             left = true;

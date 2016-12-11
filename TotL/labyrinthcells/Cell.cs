@@ -19,6 +19,7 @@ namespace TotL.labyrinthcells
         private float _rotation = 0f;
        
         private bool _up, _right, _left, _down;
+        protected float LocationXoffset, LocationYoffset;
         private int _closedsides;
         public bool down
         {
@@ -78,6 +79,27 @@ namespace TotL.labyrinthcells
             }
         }
 
+        public float locationX {
+            get
+            {
+                return _locationX;
+            }
+            set
+            {
+                _locationX = LocationXoffset + value;
+            }
+        }
+        public float locationY
+        {
+            get
+            {
+                return _locationY;
+            }
+            set
+            {
+                _locationY = LocationYoffset + value;
+            }
+        }
         public int closedsides
         {
             get
