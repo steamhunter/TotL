@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpDX.Toolkit;
 using PathFinder;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
@@ -16,12 +15,13 @@ namespace TotL.labyrinthcells
         public OneSideBlocked() 
         {
             texture = TextureFromFile.TextureProcessor.getTexture("OneSideBlockedCell");
+            setRotation(0f);
             closedsides = 1;
         }
 
-        public override void setRotation(float paramrotation)
+        public override void setRotation(float rotation)
         {
-            rotation = paramrotation;
+            base.rotation = rotation;
             if (rotation == Rotaitions.zero)
             {
                 up = true;

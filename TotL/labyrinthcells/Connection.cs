@@ -32,13 +32,13 @@ namespace TotL.labyrinthcells
         }
         public static bool isFiting(Cell cell,Connection top, Connection right, Connection bottom, Connection left)
         {
-            if (cell.up == top.down)
+            if (cell.up == top.down||!top.isPopulated)
             {
-                if (cell.right == right.left)
+                if (cell.right == right.left||!right.isPopulated)
                 {
-                    if (cell.down == bottom.up)
+                    if (cell.down == bottom.up||!bottom.isPopulated)
                     {
-                        if (cell.left == left.right)
+                        if (cell.left == left.right||!left.isPopulated)
                         {
                             return true;
                         }

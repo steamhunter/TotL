@@ -39,7 +39,6 @@ namespace TotL
                         connect[s,o].left = false;
                         connect[s,o].right = false;
                         connect[s, o].closedsides = 4;
-                        connect[s, o].isPopulated = false;
                     }
                     else
                     {
@@ -63,6 +62,10 @@ namespace TotL
                     co++;
                     cons.groupedMessage(s + " " +o , "TERGEN");
 
+                    if (s==14&&o==2)
+                    {
+                        cons.infoMessage("break point");
+                    }
                     bool valid = false;
                     while (!valid)
                     {
@@ -100,6 +103,7 @@ namespace TotL
                                         connect[cs, co].down = cell.down;
                                         connect[cs, co].left = cell.left;
                                         connect[cs, co].right = cell.right;
+                                        
                                     }
                                     else
                                     {
