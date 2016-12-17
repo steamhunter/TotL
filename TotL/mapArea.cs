@@ -31,7 +31,7 @@ namespace TotL
             {
                 for (int o = 0; o < 27; o++)
                 {
-                    if (s == 0 || o == 0 || o == 26 || s == 17)
+                    if (s == 0 || o == 0 || o == 26 || s == 16)
                     {
                         connect[s,o] = new Connection();
                         connect[s,o].up = false;

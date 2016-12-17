@@ -33,7 +33,7 @@ namespace TotL.labyrinthcells
             if (rotation == Rotaitions.minus90)
             {
                 float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-                LocationXoffset = unitSize;
+                LocationXoffset = 0;// unitSize;
                 up = true;
                 left = true;
                 down = false;
