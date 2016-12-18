@@ -61,11 +61,6 @@ namespace TotL
                 {
                     co++;
                     cons.groupedMessage(s + " " +o , "TERGEN");
-
-                    if (s==14&&o==2)
-                    {
-                        cons.infoMessage("break point");
-                    }
                     bool valid = false;
                     while (!valid)
                     {
@@ -91,285 +86,64 @@ namespace TotL
                        
                         switch (random.Next(0,4))
                         {
-                            case 0: cell = new CrossCell();
-                                if (cell.closedsides == Connection.getClosedSides(connect[cs-1,co], connect[cs, co+1], connect[cs+1, co], connect[cs, co-1]))
+                            case 0:
+                                cell = new CrossCell();
+
+                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
                                 {
-                                    if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                    {
-                                        cell.locationX = 20 + ((o) * unitSize);
-                                        cell.locationY = 20 + ((s) * unitSize);
-                                        valid = true;
-                                        connect[cs,co].up = cell.up;
-                                        connect[cs, co].down = cell.down;
-                                        connect[cs, co].left = cell.left;
-                                        connect[cs, co].right = cell.right;
-                                        
-                                    }
-                                    else
-                                    {
-                                        cell.setRotation(Rotaitions.plus90);
-                                        if (Connection.isFiting(cell,connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                        {
-                                            cell.locationX = 20 + ((o) * unitSize);
-                                            cell.locationY = 20 + ((s) * unitSize);
-                                            valid = true;
-                                            connect[cs, co].up = cell.up;
-                                            connect[cs, co].down = cell.down;
-                                            connect[cs, co].left = cell.left;
-                                            connect[cs, co].right = cell.right;
-                                        }
-                                        else
-                                        {
-                                            cell.setRotation(Rotaitions.half);
-                                            if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                            {
-                                                cell.locationX = 20 + ((o) * unitSize);
-                                                cell.locationY = 20 + ((s) * unitSize);
-                                                valid = true;
-                                                connect[cs, co].up = cell.up;
-                                                connect[cs, co].down = cell.down;
-                                                connect[cs, co].left = cell.left;
-                                                connect[cs, co].right = cell.right;
-                                            }
-                                            else
-                                            {
-                                                cell.setRotation(Rotaitions.minus90);
-                                                if (Connection.isFiting(cell,connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                                {
-                                                    cell.locationX = 20 + ((o) * unitSize);
-                                                    cell.locationY = 20 + ((s) * unitSize);
-                                                    valid = true;
-                                                    connect[cs, co].up = cell.up;
-                                                    connect[cs, co].down = cell.down;
-                                                    connect[cs, co].left = cell.left;
-                                                    connect[cs, co].right = cell.right;
-                                                }
-                                                else
-                                                {
-                                                    valid = false;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    valid = true;
+                                    cons.groupedMessage("cross", "TERGEN");
+                                    map[s, o] = cell;
                                 }
                                 else
                                 {
                                     valid = false;
-                                    break;
                                 }
-                                map[s,o] = cell;
-                              
+                               
                                 break;
                             case 1:
                                 cell = new OneSideBlocked();
-                                if (cell.closedsides == Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+
+                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
                                 {
-                                    if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                    {
-                                        cell.locationX = 20 + ((o) * unitSize);
-                                        cell.locationY = 20 + ((s) * unitSize);
-                                        valid = true;
-                                        connect[cs, co].up = cell.up;
-                                        connect[cs, co].down = cell.down;
-                                        connect[cs, co].left = cell.left;
-                                        connect[cs, co].right = cell.right;
-                                    }
-                                    else
-                                    {
-                                        cell.setRotation(Rotaitions.plus90);
-                                        if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                        {
-                                            cell.locationX = 20 + ((o) * unitSize);
-                                            cell.locationY = 20 + ((s) * unitSize);
-                                            valid = true;
-                                            connect[cs, co].up = cell.up;
-                                            connect[cs, co].down = cell.down;
-                                            connect[cs, co].left = cell.left;
-                                            connect[cs, co].right = cell.right;
-                                        }
-                                        else
-                                        {
-                                            cell.setRotation(Rotaitions.half);
-                                            if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                            {
-                                                cell.locationX = 20 + ((o) * unitSize);
-                                                cell.locationY = 20 + ((s) * unitSize);
-                                                valid = true;
-                                                connect[cs, co].up = cell.up;
-                                                connect[cs, co].down = cell.down;
-                                                connect[cs, co].left = cell.left;
-                                                connect[cs, co].right = cell.right;
-                                            }
-                                            else
-                                            {
-                                                cell.setRotation(Rotaitions.minus90);
-                                                if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                                {
-                                                    cell.locationX = 20 + ((o) * unitSize);
-                                                    cell.locationY = 20 + ((s) * unitSize);
-                                                    valid = true;
-                                                    connect[cs, co].up = cell.up;
-                                                    connect[cs, co].down = cell.down;
-                                                    connect[cs, co].left = cell.left;
-                                                    connect[cs, co].right = cell.right;
-                                                }
-                                                else
-                                                {
-                                                    valid = false;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    valid = true;
+                                    cons.groupedMessage("oneside", "TERGEN");
+                                    map[s, o] = cell;
                                 }
                                 else
                                 {
                                     valid = false;
-                                    break;
                                 }
-                                map[s,o] = cell;
-                                
+
                                 break;
                             case 2:
                                 cell = new TwoSideBlocked();
-                                if (cell.closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+
+                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
                                 {
-                                    if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                    {
-                                        cell.locationX = 20 + ((o) * unitSize);
-                                        cell.locationY = 20 + ((s) * unitSize);
-                                        valid = true;
-                                        connect[cs, co].up = cell.up;
-                                        connect[cs, co].down = cell.down;
-                                        connect[cs, co].left = cell.left;
-                                        connect[cs, co].right = cell.right;
-                                    }
-                                    else
-                                    {
-                                        cell.setRotation(Rotaitions.plus90);
-                                        if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                        {
-                                            cell.locationX = 20 + ((o) * unitSize);
-                                            cell.locationY = 20 + ((s) * unitSize);
-                                            valid = true;
-                                            connect[cs, co].up = cell.up;
-                                            connect[cs, co].down = cell.down;
-                                            connect[cs, co].left = cell.left;
-                                            connect[cs, co].right = cell.right;
-                                        }
-                                        else
-                                        {
-                                            cell.setRotation(Rotaitions.half);
-                                            if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                            {
-                                                cell.locationX = 20 + ((o) * unitSize);
-                                                cell.locationY = 20 + ((s) * unitSize);
-                                                valid = true;
-                                                connect[cs, co].up = cell.up;
-                                                connect[cs, co].down = cell.down;
-                                                connect[cs, co].left = cell.left;
-                                                connect[cs, co].right = cell.right;
-                                            }
-                                            else
-                                            {
-                                                cell.setRotation(Rotaitions.minus90);
-                                                if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                                {
-                                                    cell.locationX = 20 + ((o) * unitSize);
-                                                    cell.locationY = 20 + ((s) * unitSize);
-                                                    valid = true;
-                                                    connect[cs, co].up = cell.up;
-                                                    connect[cs, co].down = cell.down;
-                                                    connect[cs, co].left = cell.left;
-                                                    connect[cs, co].right = cell.right;
-                                                }
-                                                else
-                                                {
-                                                    valid = false;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    valid = true;
+                                    cons.groupedMessage("twoside", "TERGEN");
+                                    map[s, o] = cell;
                                 }
                                 else
                                 {
                                     valid = false;
-                                    break;
                                 }
-                                map[s,o] = cell;
-                               
                                 break;
 
                             case 3:
                                 cell = new DeadEndCell();
-                                if (cell.closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+
+                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
                                 {
-                                    if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                    {
-                                        cell.locationX = 20 + ((o) * unitSize);
-                                        cell.locationY = 20 + ((s) * unitSize);
-                                        valid = true;
-                                        connect[cs, co].up = cell.up;
-                                        connect[cs, co].down = cell.down;
-                                        connect[cs, co].left = cell.left;
-                                        connect[cs, co].right = cell.right;
-                                    }
-                                    else
-                                    {
-                                        cell.setRotation(Rotaitions.plus90);
-                                        if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                        {
-                                            cell.locationX = 20 + ((o) * unitSize);
-                                            cell.locationY = 20 + ((s) * unitSize);
-                                            valid = true;
-                                            connect[cs, co].up = cell.up;
-                                            connect[cs, co].down = cell.down;
-                                            connect[cs, co].left = cell.left;
-                                            connect[cs, co].right = cell.right;
-                                        }
-                                        else
-                                        {
-                                            cell.setRotation(Rotaitions.half);
-                                            if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                            {
-                                                cell.locationX = 20 + ((o) * unitSize);
-                                                cell.locationY = 20 + ((s) * unitSize);
-                                                valid = true;
-                                                connect[cs, co].up = cell.up;
-                                                connect[cs, co].down = cell.down;
-                                                connect[cs, co].left = cell.left;
-                                                connect[cs, co].right = cell.right;
-                                            }
-                                            else
-                                            {
-                                                cell.setRotation(Rotaitions.minus90);
-                                                if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                                                {
-                                                    cell.locationX = 20 + ((o) * unitSize);
-                                                    cell.locationY = 20 + ((s) * unitSize);
-                                                    valid = true;
-                                                    connect[cs, co].up = cell.up;
-                                                    connect[cs, co].down = cell.down;
-                                                    connect[cs, co].left = cell.left;
-                                                    connect[cs, co].right = cell.right;
-                                                }
-                                                else
-                                                {
-                                                    valid = false;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    valid = true;
+                                    cons.groupedMessage("deadend", "TERGEN");
+                                    map[s, o] = cell;
                                 }
                                 else
                                 {
                                     valid = false;
-                                    break;
                                 }
-                                map[s, o] = cell;
 
                                 break;
                             default:

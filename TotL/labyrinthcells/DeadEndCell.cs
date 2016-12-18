@@ -16,7 +16,7 @@ namespace TotL.labyrinthcells
         {
             texture = TextureFromFile.TextureProcessor.getTexture("DeadEndCell");
             setRotation(0f);
-            closedsides = 1;
+            closedsides = 3;
         }
         public override void setRotation(float rotation)
         {
