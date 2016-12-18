@@ -34,9 +34,9 @@ namespace TotL.labyrinthcells
                 float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
                 LocationXoffset = 0;// unitSize;
                 up = false;
-                left = false;
+                left = true;
                 down = false;
-                right = true;
+                right = false;
 
             }
             else
@@ -57,9 +57,9 @@ namespace TotL.labyrinthcells
                 float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
                 LocationXoffset = unitSize;
                 up = false;
-                left = true;
+                left = false;
                 down = false;
-                right = false;
+                right = true;
 
             }
 
