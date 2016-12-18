@@ -13,16 +13,17 @@ namespace TotL.labyrinthcells
 {
     class CrossCell : Cell 
     {
-        public CrossCell(Game game)
+        public CrossCell()
         {
             texture = TextureFromFile.TextureProcessor.getTexture("CrossCell");
+            closedsides = 0;
             
         }
 
 
         public override void setRotation(float rotation)
         {
-            base.rotation = rotation;
+            base.rotation = 0;
            
             up = true;
             left = true;

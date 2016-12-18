@@ -9,7 +9,48 @@ namespace TotL.labyrinthcells
 {
     class Connection : IConnections
     {
+        public static int getClosedSides(Connection top,Connection right,Connection bottom,Connection left)
+        {
+            int closedsides = 0;
+            if (top.isPopulated&& top.down==false)
+            {
+                closedsides++;
+            }
+            if (right.isPopulated&& right.left==false)
+            {
+                closedsides++;
+            }
+            if (left.isPopulated&&left.right==false)
+            {
+                closedsides++;
+            }
+            if (bottom.isPopulated&& bottom.up==false)
+            {
+                closedsides++;
+            }
+            return closedsides;
+        }
+        public static bool isFiting(Cell cell,Connection top, Connection right, Connection bottom, Connection left)
+        {
+            if (cell.up == top.down||!top.isPopulated)
+            {
+                if (cell.right == right.left||!right.isPopulated)
+                {
+                    if (cell.down == bottom.up||!bottom.isPopulated)
+                    {
+                        if (cell.left == left.right||!left.isPopulated)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool isPopulated=false;
         private bool _up,_down,_left,_right;
+        private int _closedsides;
         private float _rotation = 0f;
         public bool down
         {
@@ -20,6 +61,7 @@ namespace TotL.labyrinthcells
 
             set
             {
+                isPopulated = true;
                 _down = value;
             }
         }
@@ -33,6 +75,7 @@ namespace TotL.labyrinthcells
 
             set
             {
+                isPopulated = true;
                 _left = value;
             }
         }
@@ -46,6 +89,7 @@ namespace TotL.labyrinthcells
 
             set
             {
+                isPopulated = true;
                 _right = value;
             }
         }
@@ -72,13 +116,27 @@ namespace TotL.labyrinthcells
 
             set
             {
+                isPopulated = true;
                 _up = value;
             }
         }
 
-        public float rotate(float rotate)
+        public int closedsides
         {
-            throw new InvalidCallException("rotate nem hívható a connection osztályon");
+            get
+            {
+                return _closedsides;
+            }
+
+            set
+            {
+                _closedsides = value;
+            }
+        }
+
+        public void setRotation(float rotation)
+        {
+            throw new InvalidCallException("setRotation nem hívható a connection osztályon");
         }
     }
 }

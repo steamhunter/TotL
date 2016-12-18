@@ -15,8 +15,8 @@ namespace PathFinder._2D
     {
         protected ShaderResourceView texture;
         public Rectangle rectangle;
-        public float locationX;
-        public float locationY;
+        protected float _locationX;
+        protected float _locationY;
         
         
         public static SharpDX.Toolkit.Graphics.Texture2D getTexture(string entity, Game game)
@@ -63,7 +63,7 @@ namespace PathFinder._2D
         public virtual void draw()
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(texture, new RectangleF(_locationX, _locationY, unitSize, unitSize), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
 
         }
     }

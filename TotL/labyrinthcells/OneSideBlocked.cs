@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpDX.Toolkit;
 using PathFinder;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
@@ -16,11 +15,13 @@ namespace TotL.labyrinthcells
         public OneSideBlocked() 
         {
             texture = TextureFromFile.TextureProcessor.getTexture("OneSideBlockedCell");
+            setRotation(0f);
+            closedsides = 1;
         }
 
-        public override void setRotation(float paramrotation)
+        public override void setRotation(float rotation)
         {
-            rotation = paramrotation;
+            base.rotation = rotation;
             if (rotation == Rotaitions.zero)
             {
                 up = true;
@@ -29,8 +30,10 @@ namespace TotL.labyrinthcells
                 right = true;
             }
             else
-            if (rotation == Rotaitions.plus90)
+            if (rotation == Rotaitions.minus90)
             {
+                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+                LocationXoffset = 0;// unitSize;
                 up = true;
                 left = true;
                 down = false;
@@ -40,6 +43,9 @@ namespace TotL.labyrinthcells
             else
             if (rotation == Rotaitions.half)
             {
+                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+                LocationXoffset = unitSize;
+                LocationYoffset = unitSize;
                 up = true;
                 left = true;
                 down = true;
@@ -47,8 +53,10 @@ namespace TotL.labyrinthcells
 
             }
             else
-            if (rotation == Rotaitions.minus90)
+            if (rotation == Rotaitions.plus90)
             {
+                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+                LocationXoffset = unitSize;
                 up = false;
                 left = true;
                 down = true;

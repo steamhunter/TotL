@@ -9,17 +9,13 @@ namespace PathFinder.Debug
     {
 
         private static bool vanconsole = false;
-        public static void consoleMsg(String msg)
+        public static void debugMessage(string msg)
         {
             if (vanconsole == false)
             {
                 if (NativeMethods.AllocConsole())
                 {
-                    if (msg == "debug enabled")
-                    {
-                        Console.WriteLine(msg);
-                    }
-                    else Console.WriteLine("[debug]" + msg);
+                    Console.WriteLine("[DEBUG] " + msg);
 
 
                     vanconsole = true;
@@ -28,11 +24,46 @@ namespace PathFinder.Debug
             else
             {
 
-                if (msg == "debug enabled")
+                Console.WriteLine("[DEBUG] " + msg);
+            }
+
+        }
+
+        public static void groupedMessage(string msg,string group)
+        {
+            
+            if (vanconsole == false)
+            {
+                if (NativeMethods.AllocConsole())
                 {
-                    Console.WriteLine(msg);
+                   Console.WriteLine("["+group+"] " + msg);
+                    vanconsole = true;
                 }
-                else Console.WriteLine("[debug]" + msg);
+            }
+            else
+            {
+
+               Console.WriteLine("["+group+"] " + msg);
+            }
+
+        }
+
+        public static void infoMessage(string msg)
+        {
+            if (vanconsole == false)
+            {
+                if (NativeMethods.AllocConsole())
+                {
+                  Console.WriteLine("[INFO] " + msg);
+
+
+                    vanconsole = true;
+                }
+            }
+            else
+            {
+
+              Console.WriteLine("[INFO] " + msg);
             }
 
         }

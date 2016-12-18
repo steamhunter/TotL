@@ -9,129 +9,207 @@ using SharpDX.Toolkit.Graphics;
 using PathFinder._2D;
 using PathFinder;
 using TotL.labyrinthcells;
+using PathFinder.Debug;
 
 namespace TotL
 {
     class mapArea: AreaBase
     {
-        Cell[,] map= new Cell[25,15];
-        Connection[,] connect = new Connection[27,17];
+        Cell[,] map= new Cell[15,25];
+        Connection[,] connect = new Connection[18,27];
         public override void Initialize()
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+            int now = DateTime.Now.Millisecond*DateTime.Now.Second;
+            Console.WriteLine(now);
+            Random random = new Random(now);
+            Vars.seed = random.Next(10000000,99999999);
+            Console.WriteLine(Vars.seed);
+            random = new Random(Vars.seed);
 
-           
-
-            for (int i = 0; i < 25; i++)
+            for (int s = 0; s < 18; s++)
             {
-                for (int j = 0; j < 15; j++)
+                for (int o = 0; o < 27; o++)
                 {
+                    if (s == 0 || o == 0 || o == 26 || s == 16)
+                    {
+                        connect[s,o] = new Connection();
+                        connect[s,o].up = false;
+                        connect[s,o].down = false;
+                        connect[s,o].left = false;
+                        connect[s,o].right = false;
+                        connect[s, o].closedsides = 4;
+                    }
+                    else
+                    {
+                        connect[s,o] = new Connection();
+                        connect[s, o].closedsides = 0;
+                        connect[s, o].up = true; //map[i - 1, j - 1].up;
+                        connect[s, o].down = true; //map[i - 1, j - 1].down;
+                        connect[s, o].left = true;// map[i - 1, j - 1].left;
+                        connect[s, o].right = true;//map[i - 1, j - 1].right;
+                        connect[s, o].isPopulated = false;
+                    }
+                }
+            }
+            int co = 0;
+            int cs = 0;
+            for (int s = 0; s < 15; s++)
+            {
+                cs++;
+                for (int o = 0; o < 25; o++)
+                {
+                    co++;
+                    cons.groupedMessage(s + " " +o , "TERGEN");
+                    bool valid = false;
+                    while (!valid)
+                    {
+                        Cell cell;
+                        if (s > 0 &&s!=14&& o == 0)
+                        {
+                            cell = new OneSideBlocked();
+                            map[s,o] = cell;
+                            map[s,o].locationX = 20 + ((o) * unitSize);
+                            map[s,o].locationY = 20 + ((s) * unitSize);
+                            valid = true;
+                            break;
+                        }
+                        if (s==14&&o==0)
+                        {
+                            cell = new TwoSideBlocked();
+                            map[s, o] = cell;
+                            map[s, o].locationX = 20 + ((o) * unitSize);
+                            map[s, o].locationY = 20 + ((s) * unitSize);
+                            valid = true;
+                            break;
+                        }
+                       
+                        switch (random.Next(0,4))
+                        {
+                            case 0:
+                                cell = new CrossCell();
+
+                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
+                                {
+                                    valid = true;
+                                    cons.groupedMessage("cross", "TERGEN");
+                                    map[s, o] = cell;
+                                }
+                                else
+                                {
+                                    valid = false;
+                                }
+                               
+                                break;
+                            case 1:
+                                cell = new OneSideBlocked();
+
+                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
+                                {
+                                    valid = true;
+                                    cons.groupedMessage("oneside", "TERGEN");
+                                    map[s, o] = cell;
+                                }
+                                else
+                                {
+                                    valid = false;
+                                }
+
+                                break;
+                            case 2:
+                                cell = new TwoSideBlocked();
+
+                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
+                                {
+                                    valid = true;
+                                    cons.groupedMessage("twoside", "TERGEN");
+                                    map[s, o] = cell;
+                                }
+                                else
+                                {
+                                    valid = false;
+                                }
+                                break;
+
+                            case 3:
+                                cell = new DeadEndCell();
+
+                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
+                                {
+                                    valid = true;
+                                    cons.groupedMessage("deadend", "TERGEN");
+                                    map[s, o] = cell;
+                                }
+                                else
+                                {
+                                    valid = false;
+                                }
+
+                                break;
+                            default:
+                                break;
+                        }
+                       
+                    }
+                }
+                co = 0;
+            }
+            cs = 0;
+            co = 0;
+
+           /* for (int i = 0; i < 15; i++)
+            {
+                for (int j = 0; j < 25; j++)
+                {
+                    map[j, i] = new OneSideBlocked();
+                     map[j,i].locationX = 20 + ((j) * unitSize);
+                     map[j,i].locationY = 20 + ((i) * unitSize);
+                }
+            }*/
+                  
                    
-                    if (i == 0 || j == 0 || i == 24 || j == 14)
-                    {
-                        map[i, j] = new OneSideBlocked();
-                    }
-                    else
-                    {
-                        map[i, j] = new CrossCell(game);
-                    }
-                    if (i == 0 && j == 0 || i == 24 && j == 0 || i == 0 && j == 14 || i == 24 && j == 14)
-                    {
-                        map[i, j] = new TwoSideBlocked();
-                    }
 
-                    
-
-
-                    if (i != 24 && j == 0)
-                    {
-                        map[i, j].locationX = 20 + ((i + 1) * unitSize);
-                        map[i, j].locationY = 20 + (j * unitSize);
-                    }
-                    else if (j == 0 && i == 24)
-                    {
-                        map[i, j].locationX = 20 + ((i + 1) * unitSize);
-                        map[i, j].locationY = 20 + ((j + 1) * unitSize);
-                    }
-                    else if(j == 14 && i != 0)
-                    {
-                        map[i, j].locationX = 20 + ((i) * unitSize);
-                        map[i, j].locationY = 20 + ((j+1) * unitSize);
-                    }
-                    else if (i == 24 && j != 0 && j != 14)
-                    {
-                        map[i, j].locationX = 20 + ((i+1) * unitSize);
-                        map[i, j].locationY = 20 + ((j+1) * unitSize);
-                    }else 
-                    {
-                        map[i, j].locationX = 20 + ((i) * unitSize);
-                        map[i, j].locationY = 20 + ((j) * unitSize);
-                    }
-
-                }
-            }
-            for (int i = 0; i < 27; i++)
-            {
-                for (int j = 0; j < 17; j++)
-                {
-                    if (i == 0 || j == 0 || i == 26 || j == 16)
-                    {
-                        connect[i, j] = new Connection();
-                        connect[i, j].up = false;
-                        connect[i, j].down = false;
-                        connect[i, j].left = false;
-                        connect[i, j].right = false;
-                    }
-                    else
-                    {
-                        connect[i, j] = new Connection();
-                        connect[i, j].up = map[i - 1, j - 1].up;
-                        connect[i, j].down = map[i - 1, j - 1].down;
-                        connect[i, j].left = map[i - 1, j - 1].left;
-                        connect[i, j].right = map[i - 1, j - 1].right;
-                    }
-                }
-            }
+            
 
         }
         public override void LoadContent()
         {
-            
-        }
-        public override void Update(GameTime gameTime)
-        {
-            for (int i = 0; i < 25; i++)
+           /* for (int i = 0; i < 15; i++)
             {
-                for (int j = 0; j < 15; j++)
+                for (int j = 0; j < 25; j++)
                 {
-                    if (j == 0 && i != 24)
+                    if (i == 0 && j != 24)
                     {
-                        map[i, j].setRotation(Rotaitions.plus90);
+                        map[j, i].setRotation(Rotaitions.plus90);
                     }
-                    else if (j == 0 && i == 24)
+                    else if (i == 0 && j == 24)
                     {
-                        map[i, j].setRotation(Rotaitions.half);
+                        map[j, i].setRotation(Rotaitions.half);
                     }
-                    else if (j == 14 && i != 0)
+                    else if (i == 14 && j != 0)
                     {
-                        map[i, j].setRotation(Rotaitions.minus90);
+                        map[j, i].setRotation(Rotaitions.minus90);
                     }
-                    else if (i == 24 && j != 0 && j!=14)
+                    else if (j == 24 && i != 0 && i != 14)
                     {
-                        map[i, j].setRotation(Rotaitions.half);
+                        map[j, i].setRotation(Rotaitions.half);
                     }
 
                 }
-            }
+            }*/
+        }
+        public override void Update(GameTime gameTime)
+        {
+           
         }
         public override void Draw(GameTime gameTime)
         {
-            for (int i = 0; i < 25; i++)
+            for (int s = 0; s < 15; s++)
             {
-                for (int j = 0; j < 15; j++)
+                for (int o = 0; o < 25; o++)
                 {
 
-                    map[i, j].draw();
+                    map[s,o].draw();
                   
                 }
             }

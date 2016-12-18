@@ -89,6 +89,7 @@
     <Compile Include="labyrinthcells\Cell.cs" />
     <Compile Include="labyrinthcells\Connection.cs" />
     <Compile Include="labyrinthcells\CrossCell.cs" />
+    <Compile Include="labyrinthcells\DeadEndCell.cs" />
     <Compile Include="labyrinthcells\Iconnections.cs" />
     <Compile Include="labyrinthcells\OneSideBlocked.cs" />
     <Compile Include="labyrinthcells\TwoSideBlocked.cs" />
