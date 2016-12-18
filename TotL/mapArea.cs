@@ -89,7 +89,7 @@ namespace TotL
                             break;
                         }
                        
-                        switch (random.Next(0,3))
+                        switch (random.Next(0,4))
                         {
                             case 0: cell = new CrossCell();
                                 if (cell.closedsides == Connection.getClosedSides(connect[cs-1,co], connect[cs, co+1], connect[cs+1, co], connect[cs, co-1]))
@@ -233,7 +233,7 @@ namespace TotL
                                 break;
                             case 2:
                                 cell = new TwoSideBlocked();
-                                if (cell.closedsides == Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                                if (cell.closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
                                 {
                                     if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
                                     {
@@ -300,6 +300,77 @@ namespace TotL
                                 }
                                 map[s,o] = cell;
                                
+                                break;
+
+                            case 3:
+                                cell = new DeadEndCell();
+                                if (cell.closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                                {
+                                    if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                                    {
+                                        cell.locationX = 20 + ((o) * unitSize);
+                                        cell.locationY = 20 + ((s) * unitSize);
+                                        valid = true;
+                                        connect[cs, co].up = cell.up;
+                                        connect[cs, co].down = cell.down;
+                                        connect[cs, co].left = cell.left;
+                                        connect[cs, co].right = cell.right;
+                                    }
+                                    else
+                                    {
+                                        cell.setRotation(Rotaitions.plus90);
+                                        if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                                        {
+                                            cell.locationX = 20 + ((o) * unitSize);
+                                            cell.locationY = 20 + ((s) * unitSize);
+                                            valid = true;
+                                            connect[cs, co].up = cell.up;
+                                            connect[cs, co].down = cell.down;
+                                            connect[cs, co].left = cell.left;
+                                            connect[cs, co].right = cell.right;
+                                        }
+                                        else
+                                        {
+                                            cell.setRotation(Rotaitions.half);
+                                            if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                                            {
+                                                cell.locationX = 20 + ((o) * unitSize);
+                                                cell.locationY = 20 + ((s) * unitSize);
+                                                valid = true;
+                                                connect[cs, co].up = cell.up;
+                                                connect[cs, co].down = cell.down;
+                                                connect[cs, co].left = cell.left;
+                                                connect[cs, co].right = cell.right;
+                                            }
+                                            else
+                                            {
+                                                cell.setRotation(Rotaitions.minus90);
+                                                if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                                                {
+                                                    cell.locationX = 20 + ((o) * unitSize);
+                                                    cell.locationY = 20 + ((s) * unitSize);
+                                                    valid = true;
+                                                    connect[cs, co].up = cell.up;
+                                                    connect[cs, co].down = cell.down;
+                                                    connect[cs, co].left = cell.left;
+                                                    connect[cs, co].right = cell.right;
+                                                }
+                                                else
+                                                {
+                                                    valid = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    valid = false;
+                                    break;
+                                }
+                                map[s, o] = cell;
+
                                 break;
                             default:
                                 break;
