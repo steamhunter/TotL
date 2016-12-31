@@ -18,7 +18,7 @@ namespace TotL.labyrinthcells
     class Cell : Unit2D, IConnections
     {
         private float _rotation = 0f;
-        static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+        protected static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
         private bool _up, _right, _left, _down;
         protected float LocationXoffset, LocationYoffset;
         private int _closedsides;
@@ -118,74 +118,11 @@ namespace TotL.labyrinthcells
 
 
 
-        public static bool CheckFitting(ref Cell cell, Connection[,] connect ,int co,int cs,int o,int s)
-        { 
-            if (cell.closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-            {
-                if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                {
-                    cell.locationX = 20 + ((o) * unitSize);
-                    cell.locationY = 20 + ((s) * unitSize);
-                    connect[cs, co].up = cell.up;
-                    connect[cs, co].down = cell.down;
-                    connect[cs, co].left = cell.left;
-                    connect[cs, co].right = cell.right;
-                    return true;
-
-                }
-                else
-                {
-                    cell.setRotation(Rotaitions.plus90);
-                    if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                    {
-                        cell.locationX = 20 + ((o) * unitSize);
-                        cell.locationY = 20 + ((s) * unitSize);
-                        connect[cs, co].up = cell.up;
-                        connect[cs, co].down = cell.down;
-                        connect[cs, co].left = cell.left;
-                        connect[cs, co].right = cell.right;
-                        return true;
-                    }
-                    else
-                    {
-                        cell.setRotation(Rotaitions.half);
-                        if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                        {
-                            cell.locationX = 20 + ((o) * unitSize);
-                            cell.locationY = 20 + ((s) * unitSize);
-                            connect[cs, co].up = cell.up;
-                            connect[cs, co].down = cell.down;
-                            connect[cs, co].left = cell.left;
-                            connect[cs, co].right = cell.right;
-                            return true;
-                        }
-                        else
-                        {
-                            cell.setRotation(Rotaitions.minus90);
-                            if (Connection.isFiting(cell, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
-                            {
-                                cell.locationX = 20 + ((o) * unitSize);
-                                cell.locationY = 20 + ((s) * unitSize);
-                                connect[cs, co].up = cell.up;
-                                connect[cs, co].down = cell.down;
-                                connect[cs, co].left = cell.left;
-                                connect[cs, co].right = cell.right;
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-          
-
+        public virtual bool CheckFitting( Connection[,] connect ,int co,int cs,int o,int s)
+        {
+            throw new PathFinder.InvalidCallException("hívás a Cell alap fügvényre"+this.GetType().ToString());
         }
+
+       
     }
 }

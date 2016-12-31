@@ -19,12 +19,13 @@ namespace TotL
         Connection[,] connect = new Connection[18,27];
         public override void Initialize()
         {
+            
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             int now = DateTime.Now.Millisecond*DateTime.Now.Second;
-            Console.WriteLine(now);
+           cons.debugMessage(now.ToString());
             Random random = new Random(now);
             Vars.seed = random.Next(10000000,99999999);
-            Console.WriteLine(Vars.seed);
+            cons.debugMessage(Vars.seed.ToString());
             random = new Random(Vars.seed);
 
             for (int s = 0; s < 18; s++)
@@ -84,12 +85,12 @@ namespace TotL
                             break;
                         }
                        
-                        switch (random.Next(0,4))
+                        switch (random.Next(0,5))
                         {
                             case 0:
                                 cell = new CrossCell();
 
-                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
+                                if (cell.CheckFitting( connect, co, cs,o,s))
                                 {
                                     valid = true;
                                     cons.groupedMessage("cross", "TERGEN");
@@ -104,7 +105,7 @@ namespace TotL
                             case 1:
                                 cell = new OneSideBlocked();
 
-                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
+                                if (cell.CheckFitting( connect, co, cs,o,s))
                                 {
                                     valid = true;
                                     cons.groupedMessage("oneside", "TERGEN");
@@ -119,7 +120,7 @@ namespace TotL
                             case 2:
                                 cell = new TwoSideBlocked();
 
-                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
+                                if (cell.CheckFitting(connect, co, cs,o,s))
                                 {
                                     valid = true;
                                     cons.groupedMessage("twoside", "TERGEN");
@@ -134,7 +135,22 @@ namespace TotL
                             case 3:
                                 cell = new DeadEndCell();
 
-                                if (Cell.CheckFitting(ref cell, connect, co, cs,o,s))
+                                if (cell.CheckFitting(connect, co, cs,o,s))
+                                {
+                                    valid = true;
+                                    cons.groupedMessage("deadend", "TERGEN");
+                                    map[s, o] = cell;
+                                }
+                                else
+                                {
+                                    valid = false;
+                                }
+
+                                break;
+                            case 4:
+                                cell = new FullCell();
+
+                                if (cell.CheckFitting(connect, co, cs, o, s))
                                 {
                                     valid = true;
                                     cons.groupedMessage("deadend", "TERGEN");
