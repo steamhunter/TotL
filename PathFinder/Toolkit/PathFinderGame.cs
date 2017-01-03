@@ -69,9 +69,11 @@ namespace PathFinder.Toolkit
             if (Vars.state==gamestates.intitalized_loaded)
             {
 
-
+                Task.Run(() =>
+                {
                     TickUpdate(gameTime);
                    
+                });
             }
             base.Update(gameTime);
         }

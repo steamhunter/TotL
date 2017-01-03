@@ -16,9 +16,12 @@ namespace TotL
             {
                 if (ar == "-console")
                 {
-                    cons.onDebug = true;
                     cons.debugMessage("debug enabled");
 
+                }
+                else
+                {
+                    
                 }
             }
             using (TotL game = new TotL())

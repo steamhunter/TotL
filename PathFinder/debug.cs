@@ -9,74 +9,62 @@ namespace PathFinder.Debug
     {
 
         private static bool vanconsole = false;
-        public static bool onDebug = false;
         public static void debugMessage(string msg)
         {
-            if (onDebug)
+            if (vanconsole == false)
             {
-                if (vanconsole == false)
+                if (NativeMethods.AllocConsole())
                 {
-                    if (NativeMethods.AllocConsole())
-                    {
-                        Console.WriteLine("[DEBUG] " + msg);
-
-
-                        vanconsole = true;
-                    }
-                }
-                else
-                {
-
                     Console.WriteLine("[DEBUG] " + msg);
+
+
+                    vanconsole = true;
                 }
             }
-            
+            else
+            {
+
+                Console.WriteLine("[DEBUG] " + msg);
+            }
 
         }
 
         public static void groupedMessage(string msg,string group)
         {
-            if (onDebug)
-            {
-                if (vanconsole == false)
-                {
-                    if (NativeMethods.AllocConsole())
-                    {
-                        Console.WriteLine("[" + group + "] " + msg);
-                        vanconsole = true;
-                    }
-                }
-                else
-                {
-
-                    Console.WriteLine("[" + group + "] " + msg);
-                }
-            }   
             
+            if (vanconsole == false)
+            {
+                if (NativeMethods.AllocConsole())
+                {
+                   Console.WriteLine("["+group+"] " + msg);
+                    vanconsole = true;
+                }
+            }
+            else
+            {
+
+               Console.WriteLine("["+group+"] " + msg);
+            }
 
         }
 
         public static void infoMessage(string msg)
         {
-            if (onDebug)
+            if (vanconsole == false)
             {
-                if (vanconsole == false)
+                if (NativeMethods.AllocConsole())
                 {
-                    if (NativeMethods.AllocConsole())
-                    {
-                        Console.WriteLine("[INFO] " + msg);
+                  Console.WriteLine("[INFO] " + msg);
 
 
-                        vanconsole = true;
-                    }
-                }
-                else
-                {
-
-                    Console.WriteLine("[INFO] " + msg);
+                    vanconsole = true;
                 }
             }
-            
+            else
+            {
+
+              Console.WriteLine("[INFO] " + msg);
+            }
 
         }
 

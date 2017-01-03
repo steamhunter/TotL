@@ -28,7 +28,6 @@ namespace PathFinder
         initializing,
         initialized_notLoaded,
         intitalized_loaded,
-        onreset,
         world
 
 
