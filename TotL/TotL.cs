@@ -9,6 +9,7 @@ using SharpDX.Toolkit.Input;
 using PathFinder.Toolkit.Graphics;
 using PathFinder;
 using SharpDX;
+using PathFinder.Debug;
 
 namespace TotL
 {
@@ -24,10 +25,13 @@ namespace TotL
             Content.RootDirectory = "Content";
             PathFinder.Error.error.game = this;
         }
+
+        int unixTimestamp;
         protected mapArea map = new mapArea();
         protected override void LoopInitialize()
         {
-           
+
+            unixTimestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -53,13 +57,15 @@ namespace TotL
         }
         protected override void TickDraw(GameTime gameTime)
         {
+            if (Vars.state != gamestates.onreset)
+            {
+                spriteBatch.Begin();
+                GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            
 
-            map.Draw(gameTime);
-            spriteBatch.End();
+                map.Draw(gameTime);
+                spriteBatch.End();
+            }
         }
         protected override void TickUpdate(GameTime gameTime)
         {
@@ -67,6 +73,8 @@ namespace TotL
             {
                 Exit();
             }
+
+
             map.Update(gameTime);
         }
     }
