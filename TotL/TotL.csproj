@@ -94,6 +94,7 @@
     <Compile Include="labyrinthcells\FullCell.cs" />
     <Compile Include="labyrinthcells\Iconnections.cs" />
     <Compile Include="labyrinthcells\OneSideBlocked.cs" />
+    <Compile Include="labyrinthcells\TunnelCell.cs" />
     <Compile Include="labyrinthcells\TwoSideBlocked.cs" />
     <Compile Include="mapArea.cs" />
     <Compile Include="Program.cs" />
@@ -106,6 +107,7 @@
     <None Include="Content\DeadEndCell.xcf" />
     <None Include="Content\FullCell.xcf" />
     <None Include="Content\OneSideBlockedCell.xcf" />
+    <None Include="Content\TunnelCell.xcf" />
     <None Include="Content\TwoSideBlockedCell.xcf" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -126,6 +128,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\oneSideBlockedCell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TunnelCell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\twoSideBlockedCell.png">

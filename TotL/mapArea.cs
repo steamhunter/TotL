@@ -27,6 +27,7 @@ namespace TotL
             Vars.seed = random.Next(10000000,99999999);
             cons.debugMessage(Vars.seed.ToString());
             random = new Random(Vars.seed);
+            Vars.config = configjson.getConfig();
 
             for (int s = 0; s < 18; s++)
             {
@@ -66,104 +67,106 @@ namespace TotL
                     while (!valid)
                     {
                         Cell cell;
-                        if (s > 0 &&s!=14&& o == 0)
+
+                        int fcw, ccw, osb, tsb,tcw, dec = 0;
+
+                        fcw = Vars.config.fc_weight;
+                        ccw = fcw + Vars.config.cross_weight;
+                        dec = ccw + Vars.config.deadend_weight;
+                        tsb = dec + Vars.config.twoside_weight;
+                        tcw = tsb + Vars.config.tunnel_weight;
+                        osb = tcw + Vars.config.oneside_weight;
+
+                        int randomcellweight = random.Next(0, 101);
+                        if (randomcellweight<=fcw)
                         {
-                            cell = new OneSideBlocked();
-                            map[s,o] = cell;
-                            map[s,o].locationX = 20 + ((o) * unitSize);
-                            map[s,o].locationY = 20 + ((s) * unitSize);
-                            valid = true;
-                            break;
+                            cell = new FullCell();
+
+                            if (cell.CheckFitting(connect, co, cs, o, s))
+                            {
+                                valid = true;
+                                cons.groupedMessage("fullcell", "TERGEN");
+                                map[s, o] = cell;
+                            }
+                            else
+                            {
+                                valid = false;
+                            }
                         }
-                        if (s==14&&o==0)
+                        else if (randomcellweight<=ccw)
+                        {
+                            cell = new CrossCell();
+
+                            if (cell.CheckFitting(connect, co, cs, o, s))
+                            {
+                                valid = true;
+                                cons.groupedMessage("cross", "TERGEN");
+                                map[s, o] = cell;
+                            }
+                            else
+                            {
+                                valid = false;
+                            }
+                        }
+                        else if (randomcellweight<=dec)
+                        {
+                            cell = new DeadEndCell();
+
+                            if (cell.CheckFitting(connect, co, cs, o, s))
+                            {
+                                valid = true;
+                                cons.groupedMessage("deadend", "TERGEN");
+                                map[s, o] = cell;
+                            }
+                            else
+                            {
+                                valid = false;
+                            }
+                        }
+                        else if (randomcellweight<=tsb)
                         {
                             cell = new TwoSideBlocked();
-                            map[s, o] = cell;
-                            map[s, o].locationX = 20 + ((o) * unitSize);
-                            map[s, o].locationY = 20 + ((s) * unitSize);
-                            valid = true;
-                            break;
+
+                            if (cell.CheckFitting(connect, co, cs, o, s))
+                            {
+                                valid = true;
+                                cons.groupedMessage("twoside", "TERGEN");
+                                map[s, o] = cell;
+                            }
+                            else
+                            {
+                                valid = false;
+                            }
                         }
-                       
-                        switch (random.Next(0,5))
+                        else if (randomcellweight<=tcw)
                         {
-                            case 0:
-                                cell = new CrossCell();
+                            cell = new TunnelCell();
 
-                                if (cell.CheckFitting( connect, co, cs,o,s))
-                                {
-                                    valid = true;
-                                    cons.groupedMessage("cross", "TERGEN");
-                                    map[s, o] = cell;
-                                }
-                                else
-                                {
-                                    valid = false;
-                                }
-                               
-                                break;
-                            case 1:
-                                cell = new OneSideBlocked();
+                            if (cell.CheckFitting(connect, co, cs, o, s))
+                            {
+                                valid = true;
+                                cons.groupedMessage("tunnel", "TERGEN");
+                                map[s, o] = cell;
+                            }
+                            else
+                            {
+                                valid = false;
+                            }
+                        }
+                        else if(randomcellweight<=osb)
+                        {
+                            cell = new OneSideBlocked();
 
-                                if (cell.CheckFitting( connect, co, cs,o,s))
-                                {
-                                    valid = true;
-                                    cons.groupedMessage("oneside", "TERGEN");
-                                    map[s, o] = cell;
-                                }
-                                else
-                                {
-                                    valid = false;
-                                }
-
-                                break;
-                            case 2:
-                                cell = new TwoSideBlocked();
-
-                                if (cell.CheckFitting(connect, co, cs,o,s))
-                                {
-                                    valid = true;
-                                    cons.groupedMessage("twoside", "TERGEN");
-                                    map[s, o] = cell;
-                                }
-                                else
-                                {
-                                    valid = false;
-                                }
-                                break;
-
-                            case 3:
-                                cell = new DeadEndCell();
-
-                                if (cell.CheckFitting(connect, co, cs,o,s))
-                                {
-                                    valid = true;
-                                    cons.groupedMessage("deadend", "TERGEN");
-                                    map[s, o] = cell;
-                                }
-                                else
-                                {
-                                    valid = false;
-                                }
-
-                                break;
-                            case 4:
-                                cell = new FullCell();
-
-                                if (cell.CheckFitting(connect, co, cs, o, s))
-                                {
-                                    valid = true;
-                                    cons.groupedMessage("deadend", "TERGEN");
-                                    map[s, o] = cell;
-                                }
-                                else
-                                {
-                                    valid = false;
-                                }
-
-                                break;
-                            default:
-                                break;
+                            if (cell.CheckFitting(connect, co, cs, o, s))
+                            {
+                                valid = true;
+                                cons.groupedMessage("oneside", "TERGEN");
+                                map[s, o] = cell;
+                            }
+                            else
+                            {
+                                valid = false;
+                            }
                         }
                        
                     }
