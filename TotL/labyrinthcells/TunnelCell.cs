@@ -1,35 +1,70 @@
-﻿using System;
+﻿using PathFinder;
+using PathFinder._2D;
+using SharpDX;
+using SharpDX.Toolkit.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PathFinder._2D;
-using SharpDX.Toolkit;
-using SharpDX.Toolkit.Graphics;
-using PathFinder;
-using SharpDX;
 
 namespace TotL.labyrinthcells
 {
-    class CrossCell : Cell 
+    class TunnelCell:Cell
     {
-        public CrossCell()
-        {
-            texture = TextureFromFile.TextureProcessor.getTexture("CrossCell");
-            closedsides = 0;
-            
-        }
 
+        public TunnelCell()
+        {
+            texture = TextureFromFile.TextureProcessor.getTexture("TunnelCell");
+            setRotation(0f);
+            closedsides = 2;
+        }
 
         public override void setRotation(float rotation)
         {
-            base.rotation = 0;
-           
-            up = true;
-            left = true;
-            down = true;
-            right = true;
-            
+            base.rotation = rotation;
+            if (rotation == Rotaitions.zero)
+            {
+                up = true;
+                left = false;
+                down = true;
+                right = false;
+            }
+            else
+            if (rotation == Rotaitions.minus90)
+            {
+                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+                LocationXoffset = 0;// unitSize;
+                up = false;
+                left = true;
+                down = false;
+                right = true;
+
+            }
+            else
+            if (rotation == Rotaitions.half)
+            {
+                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+                LocationXoffset = unitSize;
+                LocationYoffset = unitSize;
+                up = true;
+                left = false;
+                down = true;
+                right = false;
+
+            }
+            else
+            if (rotation == Rotaitions.plus90)
+            {
+                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+                LocationXoffset = unitSize;
+                up = false;
+                left = true;
+                down = false;
+                right = true;
+
+            }
+
         }
 
         public override void draw()
@@ -38,6 +73,7 @@ namespace TotL.labyrinthcells
             Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
         }
+
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
             if (closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
