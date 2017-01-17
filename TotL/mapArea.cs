@@ -78,7 +78,7 @@ namespace TotL
                         osb = tcw + Vars.config.oneside_weight;
 
                         int randomcellweight = random.Next(0, 101);
-                        if (randomcellweight<=fcw)
+                        if (randomcellweight<fcw)
                         {
                             cell = new FullCell();
 
@@ -93,7 +93,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if (randomcellweight<=ccw)
+                        else if (randomcellweight<ccw)
                         {
                             cell = new CrossCell();
 
@@ -108,7 +108,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if (randomcellweight<=dec)
+                        else if (randomcellweight<dec)
                         {
                             cell = new DeadEndCell();
 
@@ -123,7 +123,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if (randomcellweight<=tsb)
+                        else if (randomcellweight<tsb)
                         {
                             cell = new TwoSideBlocked();
 
@@ -138,7 +138,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if (randomcellweight<=tcw)
+                        else if (randomcellweight<tcw)
                         {
                             cell = new TunnelCell();
 
@@ -153,7 +153,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if(randomcellweight<=osb)
+                        else if(randomcellweight<osb)
                         {
                             cell = new OneSideBlocked();
 
