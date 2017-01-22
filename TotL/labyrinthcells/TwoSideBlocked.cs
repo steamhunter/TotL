@@ -108,10 +108,6 @@ namespace TotL.labyrinthcells
                 _blockedvolumes.Add(new RectangleF(locationX-unitSize/4,(locationY-unitSize)+unitSize/4,unitSize/4,unitSize-unitSize/4));
             }
         }
-        public override bool CheckBlockingState(RectangleF location)
-        {
-            return base.CheckBlockingState(location);
-        }
 
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {

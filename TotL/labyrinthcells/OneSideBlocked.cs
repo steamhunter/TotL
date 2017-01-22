@@ -179,10 +179,6 @@ namespace TotL.labyrinthcells
             }
         }
 
-        public override bool CheckBlockingState(RectangleF location)
-        {
-            
-            return base.CheckBlockingState(location);
-        }
+
     }
 }

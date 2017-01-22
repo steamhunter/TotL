@@ -93,10 +93,7 @@ namespace TotL.labyrinthcells
             }
         }
             
-        public override bool CheckBlockingState(RectangleF location)
-        {
-            return base.CheckBlockingState(location);
-        }
+
 
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {

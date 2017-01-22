@@ -124,12 +124,18 @@ namespace TotL.labyrinthcells
 
         public virtual void SetBlockingVolumes()
         {
-           // throw new InvalidCallException("hívás a Cell alap fügvényre" + GetType().ToString());
+            throw new InvalidCallException("hívás a Cell alap fügvényre" + GetType().ToString());
         }
 
         public virtual bool CheckBlockingState(RectangleF location)
         {
-            throw new InvalidCallException("hívás a Cell alap fügvényre " + GetType().ToString());
+
+            bool colision = false;
+            for (int i = 0; i < _blockedvolumes.Count && !colision; i++)
+            {
+                colision = _blockedvolumes[i].Intersects(location);
+            }
+            return colision;
         }
 
 

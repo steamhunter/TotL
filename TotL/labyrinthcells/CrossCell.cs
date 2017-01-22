@@ -50,10 +50,7 @@ namespace TotL.labyrinthcells
             _blockedvolumes.Add(new RectangleF(locationX, locationY, unitSize / 4, unitSize / 4));
             _blockedvolumes.Add(new RectangleF(locationX , (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
         }
-        public override bool CheckBlockingState(RectangleF location)
-        {
-            return base.CheckBlockingState(location);
-        }
+
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
             if (closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
