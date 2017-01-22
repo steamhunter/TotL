@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace TotL.labyrinthcells
         private bool _up, _right, _left, _down;
         protected float LocationXoffset, LocationYoffset;
         private int _closedsides;
+        protected List<RectangleF> _blockedvolumes = new List<RectangleF>(); 
+
         public bool down
         {
             get
@@ -114,8 +117,20 @@ namespace TotL.labyrinthcells
             }
         }
 
-        public virtual void setRotation(float rotation) { }
+        public virtual void setRotation(float rotation)
+        {
+            throw new InvalidCallException("hívás a Cell alap fügvényre" + GetType().ToString());
+        }
 
+        public virtual void SetBlockingVolumes()
+        {
+           // throw new InvalidCallException("hívás a Cell alap fügvényre" + GetType().ToString());
+        }
+
+        public virtual bool CheckBlockingState(RectangleF location)
+        {
+            throw new InvalidCallException("hívás a Cell alap fügvényre" + GetType().ToString());
+        }
 
 
         public virtual bool CheckFitting( Connection[,] connect ,int co,int cs,int o,int s)

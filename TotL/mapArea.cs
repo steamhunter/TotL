@@ -170,6 +170,8 @@ namespace TotL
                         }
                        
                     }
+                    map[s, o].SetBlockingVolumes();
+
                 }
                 co = 0;
             }

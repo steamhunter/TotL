@@ -15,6 +15,7 @@ namespace TotL.labyrinthcells
         public OneSideBlocked() 
         {
             texture = TextureFromFile.TextureProcessor.getTexture("OneSideBlockedCell");
+
             setRotation(0f);
             closedsides = 1;
         }
@@ -68,9 +69,15 @@ namespace TotL.labyrinthcells
 
         public override void draw()
         {
-            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
+            if (rotation == Rotaitions.minus90)
+            {
+                Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            }
+            foreach (var item in _blockedvolumes)
+            {
+                Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), item, Color.White);
+            }
         }
 
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
@@ -141,6 +148,44 @@ namespace TotL.labyrinthcells
             }
 
 
+        }
+
+        public override void SetBlockingVolumes()
+        {
+          
+
+            if (rotation == Rotaitions.zero)
+            {
+               // _blockedvolumes.Add(new RectangleF(locationX, locationY, unitSize / 4, unitSize));
+               // _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, locationY, unitSize / 4, unitSize / 4));
+               // _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+            }
+            else
+            if (rotation == Rotaitions.plus90)
+            {
+              //  _blockedvolumes.Add(new RectangleF(locationX - unitSize, locationY, unitSize, unitSize / 4));
+              //  _blockedvolumes.Add(new RectangleF(locationX - unitSize, locationY + (unitSize - unitSize / 4), unitSize / 4, unitSize / 4));
+              //  _blockedvolumes.Add(new RectangleF(locationX - unitSize / 4, (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+            }
+            else
+            if (rotation == Rotaitions.half)
+            {
+                //_blockedvolumes.Add(new RectangleF(locationX - unitSize / 4, locationY - unitSize, unitSize / 4, unitSize));
+                //_blockedvolumes.Add(new RectangleF(locationX - unitSize, locationY - unitSize / 4, unitSize / 4, unitSize / 4));
+                //_blockedvolumes.Add(new RectangleF(locationX - unitSize, locationY - unitSize, unitSize / 4, unitSize / 4));
+            }
+            else if (true)
+            {
+                  _blockedvolumes.Add(new RectangleF(locationX , locationY, unitSize, unitSize / 4));
+                  _blockedvolumes.Add(new RectangleF(locationX, locationY + (unitSize - unitSize / 4), unitSize / 4, unitSize / 4));
+                  //_blockedvolumes.Add(new RectangleF(locationX - unitSize / 4, (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+            }
+        }
+
+        public override bool CheckBlockingState(RectangleF location)
+        {
+            
+            return base.CheckBlockingState(location);
         }
     }
 }

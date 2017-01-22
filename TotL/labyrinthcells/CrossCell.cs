@@ -34,9 +34,25 @@ namespace TotL.labyrinthcells
 
         public override void draw()
         {
-            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            
+           // Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            foreach (var item in _blockedvolumes)
+            {
+               // Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), item, Color.White);
+            }
 
+        }
+        public override void SetBlockingVolumes()
+        {
+           
+            _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, locationY, unitSize / 4, unitSize / 4));
+            _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+            _blockedvolumes.Add(new RectangleF(locationX, locationY, unitSize / 4, unitSize / 4));
+            _blockedvolumes.Add(new RectangleF(locationX , (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+        }
+        public override bool CheckBlockingState(RectangleF location)
+        {
+            return base.CheckBlockingState(location);
         }
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
