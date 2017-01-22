@@ -129,7 +129,7 @@ namespace TotL.labyrinthcells
 
         public virtual bool CheckBlockingState(RectangleF location)
         {
-            throw new InvalidCallException("hívás a Cell alap fügvényre" + GetType().ToString());
+            throw new InvalidCallException("hívás a Cell alap fügvényre " + GetType().ToString());
         }
 
 

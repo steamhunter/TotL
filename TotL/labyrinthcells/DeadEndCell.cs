@@ -67,14 +67,14 @@ namespace TotL.labyrinthcells
 
         public override void draw()
         {
-           
-               // Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
-           
-            
-            foreach (var item in _blockedvolumes)
+
+            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+
+
+            /*foreach (var item in _blockedvolumes)
             {
-                //Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), item, Color.White);
-            }
+                Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), item, Color.White);
+            }*/
 
         }
 
