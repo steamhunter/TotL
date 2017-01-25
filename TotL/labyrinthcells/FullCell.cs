@@ -42,7 +42,11 @@ namespace TotL.labyrinthcells
               Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
         }
-
+        public override void SetBlockingVolumes()
+        {
+            _blockedvolumes.Add(rectangle);
+            //base.SetBlockingVolumes();
+        }
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
             if (closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
