@@ -19,29 +19,28 @@ namespace PathFinder.Astar
         /// </summary>        
         static void Main(string[] args)
         {
-            double[] bench = new double[1000];            
-            World world = new World(10, 10, 10);
+            double[] bench = new double[100];            
+            World world = new World(10, 10);
 
             Random random = new Random();
             for (int x = 0; x < world.Right; x++)
             {
                 for (int y = 0; y < world.Top; y++)
                 {
-                    for (int z = 0; z < world.Back; z++)
-                    {
+                    
                         //prevent the starting square from being blocked
-                        if ((x + y + z) % 3 == 0 && (x + y + z) != 0)
+                        if ((x + y) % 3 == 0 && (x + y ) != 0)
                         {
-                            world.MarkPosition(new Point3D(x, y, z), true);
+                            world.MarkPosition(new Point2D(x, y), true);
                         }
-                    }
+                    
                 }
             }
 
             for (int i = 0; i < bench.Length; i++)
             {
                 DateTime start = DateTime.Now;
-                Astar.FindPath(world, Point3D.Zero, new Point3D(5, 8, 9));
+                Astar.FindPath(world, Point2D.Zero, new Point2D(5, 8));
                 TimeSpan ts = DateTime.Now - start;
                 bench[i] = ts.TotalMilliseconds;
             }
@@ -52,7 +51,7 @@ namespace PathFinder.Astar
             Console.Out.WriteLine("Min: " + bench.Min() + "ms");
 
             Console.Out.WriteLine("Output: ");
-            SearchNode crumb2 = Astar.FindPath(world, Point3D.Zero, new Point3D(5, 8, 9));                                   
+            SearchNode crumb2 = Astar.FindPath(world, Point2D.Zero, new Point2D(5, 8));                                   
             Console.Out.WriteLine("Start: " + crumb2.position.ToString());
             while (crumb2.next != null)
             {

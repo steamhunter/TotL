@@ -19,7 +19,7 @@ namespace PathFinder.Astar
         /// Method that switfly finds the best path from start to end.
         /// </summary>
         /// <returns>The starting breadcrumb traversable via .next to the end or null if there is no path</returns>        
-        public static SearchNode FindPath(World world, Point3D start, Point3D end)
+        public static SearchNode FindPath(World world, Point2D start, Point2D end)
         {
             //note we just flip start and end here so you don't have to.            
             return FindPathReversed(world, end, start); 
@@ -29,7 +29,7 @@ namespace PathFinder.Astar
         /// Method that switfly finds the best path from start to end. Doesn't reverse outcome
         /// </summary>
         /// <returns>The end breadcrump where each .next is a step back)</returns>
-        private static SearchNode FindPathReversed(World world, Point3D start, Point3D end)
+        private static SearchNode FindPathReversed(World world, Point2D start, Point2D end)
         {
             SearchNode startNode = new SearchNode(start, 0, 0, null);
 
@@ -38,9 +38,9 @@ namespace PathFinder.Astar
 
             int sx = world.Right;
             int sy = world.Top;
-            int sz = world.Back;
-            bool[] brWorld = new bool[sx * sy * sz];
-            brWorld[start.X + (start.Y + start.Z * sy) * sx] = true;
+
+            bool[] brWorld = new bool[sx * sy];
+            brWorld[start.X + start.Y  * sx] = true;
 
             while (openList.HasNext())
             {                
@@ -54,10 +54,10 @@ namespace PathFinder.Astar
                 for (int i = 0; i < surrounding.Length; i++)
                 {
                     Surr surr = surrounding[i];
-                    Point3D tmp = new Point3D(current.position, surr.Point);
-                    int brWorldIdx = tmp.X + (tmp.Y + tmp.Z * sy) * sx;
+                    Point2D tmp = new Point2D(current.position, surr.Point);
+                    int brWorldIdx = tmp.X + tmp.Y * sx;
 
-                    if (world.PositionIsFree(tmp) && brWorld[brWorldIdx] == false)
+                    if (world.PositionIsFree(tmp) && brWorld[brWorldIdx] == false)//index out of array error
                     {
                         brWorld[brWorldIdx] = true;
                         int pathCost = current.pathCost + surr.Cost;
@@ -72,30 +72,25 @@ namespace PathFinder.Astar
 
         class Surr
         {
-            public Surr(int x, int y, int z)
+            public Surr(int x, int y)
             {
-                Point = new Point3D(x, y, z);
-                Cost = x * x + y * y + z * z;
+                Point = new Point2D(x, y);
+                Cost = x * x + y * y ;
             }
 
-            public Point3D Point;
+            public Point2D Point;
             public int Cost;
         }
 
         //Neighbour options
         private static Surr[] surrounding = new Surr[]{                        
             //Top slice (Y=1)
-            new Surr(-1,1,1), new Surr(0,1,1), new Surr(1,1,1),
-            new Surr(-1,1,0), new Surr(0,1,0), new Surr(1,1,0),
-            new Surr(-1,1,-1), new Surr(0,1,-1), new Surr(1,1,-1),
+            new Surr(-1,1), new Surr(0,1), new Surr(1,1),
             //Middle slice (Y=0)
-            new Surr(-1,0,1), new Surr(0,0,1), new Surr(1,0,1),
-            new Surr(-1,0,0), new Surr(1,0,0), //(0,0,0) is self
-            new Surr(-1,0,-1), new Surr(0,0,-1), new Surr(1,0,-1),
+            new Surr(-1,0), new Surr(0,0), new Surr(1,0),
+            new Surr(-1,0), new Surr(1,0), //(0,0,0) is self
             //Bottom slice (Y=-1)
-            new Surr(-1,-1,1), new Surr(0,-1,1), new Surr(1,-1,1),
-            new Surr(-1,-1,0), new Surr(0,-1,0), new Surr(1,-1,0),
-            new Surr(-1,-1,-1), new Surr(0,-1,-1), new Surr(1,-1,-1)            
+            new Surr(-1,-1), new Surr(0,-1), new Surr(1,-1),          
         };
     }           
 }

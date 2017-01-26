@@ -11,13 +11,13 @@ namespace PathFinder.Astar
     /// </summary>
     public class SearchNode
     {
-        public Point3D position;
+        public Point2D position;
         public int cost;
         public int pathCost;
         public SearchNode next;
         public SearchNode nextListElem;
 
-        public SearchNode(Point3D position, int cost, int pathCost, SearchNode next)
+        public SearchNode(Point2D position, int cost, int pathCost, SearchNode next)
         {
             this.position = position;
             this.cost = cost;
