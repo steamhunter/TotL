@@ -15,7 +15,7 @@ namespace PathFinder.Astar
         private int sy;
         //private int sz;
        // private int offsetIdx;
-        private bool[] worldBlocked; //extremely simple world where each node can be free or blocked: true=blocked        
+        private bool[,] worldBlocked; //extremely simple world where each node can be free or blocked: true=blocked        
 
         //Note: we use Y as height and Z as depth here!
         public int Left { get { return 0; } }
@@ -36,7 +36,7 @@ namespace PathFinder.Astar
             sy = height + 2;
            // sz = depth + 2;
             //offsetIdx = (0 + 1) + ((0 + 1) * sy) * sx;
-            worldBlocked = new Boolean[sx * sy];
+            worldBlocked = new Boolean[sx , sy];
 
             // add solid border
             for (int x = 0; x < sx; ++x)
@@ -71,12 +71,12 @@ namespace PathFinder.Astar
         /// <param name="value">use true if you wan't to block the value</param>
         public void MarkPosition(Point2D position, bool value)
         {
-            worldBlocked[position.X + position.Y * sx] = value;
+            worldBlocked[position.X , position.Y] = value;
         }
 
         private void MarkPositionEx(Point2D position, bool value)
         {
-            worldBlocked[position.X + position.Y * sx] = value;
+            worldBlocked[position.X, position.Y ] = value;
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace PathFinder.Astar
         public bool PositionIsFree(Point2D position)
         {
             return
-                !worldBlocked[position.X + position.Y  * sx];
+                !worldBlocked[position.X , position.Y];
         }
     }
 }

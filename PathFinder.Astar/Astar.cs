@@ -39,32 +39,41 @@ namespace PathFinder.Astar
             int sx = world.Right;
             int sy = world.Top;
 
-            bool[] brWorld = new bool[sx * sy];
-            brWorld[start.X + start.Y  * sx] = true;
+            bool[,] brWorld = new bool[sx , sy];
+            brWorld[start.X , start.Y] = true;
 
             while (openList.HasNext())
             {                
                 SearchNode current = openList.ExtractFirst();
 
-                if (current.position.GetDistanceSquared(end) <= 3)
+               /* if (current.position.EqualsSS(new Point2D(1,1)))
                 {
                     return new SearchNode(end, current.pathCost + 1, current.cost + 1, current);
+                }*/
+                if (Math.Abs(current.position.X-end.X)<=1&&Math.Abs(current.position.Y-end.Y)<=1 )//with math abs==0 it get null not going into it
+                {
+
+                    return new SearchNode(end, current.pathCost + 1, current.cost + 1, current);//returns with (1,1) not (1,0)or(0,1)
                 }
 
+                
                 for (int i = 0; i < surrounding.Length; i++)
                 {
                     Surr surr = surrounding[i];
                     Point2D tmp = new Point2D(current.position, surr.Point);
-                    int brWorldIdx = tmp.X + tmp.Y * sx;
 
-                    if (world.PositionIsFree(tmp) && brWorld[brWorldIdx] == false)//index out of array error
+                    if (tmp.X < 10 && tmp.Y < 10 && tmp.X >= 0 && tmp.Y >= 0)
                     {
-                        brWorld[brWorldIdx] = true;
-                        int pathCost = current.pathCost + surr.Cost;
-                        int cost = pathCost + tmp.GetDistanceSquared(end);
-                        SearchNode node = new SearchNode(tmp, cost, pathCost, current);
-                        openList.Add(node);
+                        if (world.PositionIsFree(tmp) && brWorld[tmp.X, tmp.Y] == false)
+                        {
+                            brWorld[tmp.X, tmp.Y] = true;
+                            int pathCost = current.pathCost + surr.Cost;
+                            int cost = pathCost + tmp.GetDistanceSquared(end);
+                            SearchNode node = new SearchNode(tmp, cost, pathCost, current);
+                            openList.Add(node);
+                        }
                     }
+                    
                 }
             }
             return null; //no path found
@@ -83,14 +92,8 @@ namespace PathFinder.Astar
         }
 
         //Neighbour options
-        private static Surr[] surrounding = new Surr[]{                        
-            //Top slice (Y=1)
-            new Surr(-1,1), new Surr(0,1), new Surr(1,1),
-            //Middle slice (Y=0)
-            new Surr(-1,0), new Surr(0,0), new Surr(1,0),
-            new Surr(-1,0), new Surr(1,0), //(0,0,0) is self
-            //Bottom slice (Y=-1)
-            new Surr(-1,-1), new Surr(0,-1), new Surr(1,-1),          
+        private static Surr[] surrounding = new Surr[]{
+             new Surr(0,1), new Surr(-1,0), new Surr(1,0), new Surr(0,-1),        
         };
     }           
 }

@@ -23,19 +23,11 @@ namespace PathFinder.Astar
             World world = new World(10, 10);
 
             Random random = new Random();
-            for (int x = 0; x < world.Right; x++)
-            {
-                for (int y = 0; y < world.Top; y++)
-                {
+            
+            world.MarkPosition(new Point2D(0, 0), true);
+                        
                     
-                        //prevent the starting square from being blocked
-                        if ((x + y) % 3 == 0 && (x + y ) != 0)
-                        {
-                            world.MarkPosition(new Point2D(x, y), true);
-                        }
-                    
-                }
-            }
+                
 
             for (int i = 0; i < bench.Length; i++)
             {
