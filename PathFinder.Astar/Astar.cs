@@ -43,40 +43,51 @@ namespace PathFinder.Astar
             brWorld[start.X , start.Y] = true;
 
             while (openList.HasNext())
-            {                
+            {
                 SearchNode current = openList.ExtractFirst();
 
-               /* if (current.position.EqualsSS(new Point2D(1,1)))
-                {
-                    return new SearchNode(end, current.pathCost + 1, current.cost + 1, current);
-                }*/
-                if (Math.Abs(current.position.X-end.X)<=1&&Math.Abs(current.position.Y-end.Y)<=1 )//with math abs==0 it get null not going into it
-                {
-
-                    return new SearchNode(end, current.pathCost + 1, current.cost + 1, current);//returns with (1,1) not (1,0)or(0,1)
-                }
-
+                /* if (current.position.EqualsSS(new Point2D(1,1)))
+                 {
+                     return new SearchNode(end, current.pathCost + 1, current.cost + 1, current);
+                 }*/
                 
-                for (int i = 0; i < surrounding.Length; i++)
+                if (Math.Abs(current.position.X - end.X) <= 1 && Math.Abs(current.position.Y - end.Y) <= 1)//with math abs==0 it get null not going into it
                 {
-                    Surr surr = surrounding[i];
-                    Point2D tmp = new Point2D(current.position, surr.Point);
-
-                    if (tmp.X < 10 && tmp.Y < 10 && tmp.X >= 0 && tmp.Y >= 0)
-                    {
-                        if (world.PositionIsFree(tmp) && brWorld[tmp.X, tmp.Y] == false)
-                        {
-                            brWorld[tmp.X, tmp.Y] = true;
-                            int pathCost = current.pathCost + surr.Cost;
-                            int cost = pathCost + tmp.GetDistanceSquared(end);
-                            SearchNode node = new SearchNode(tmp, cost, pathCost, current);
-                            openList.Add(node);
-                        }
-                    }
-                    
+                     return new SearchNode(end, current.pathCost + 1, current.cost + 1, current);//returns with (1,1) not (1,0)or(0,1)
                 }
+
+
+               
+
+                Point2D tmp = new Point2D(current.position, new Point2D(0, -1));
+                CheckDirection(world, end, openList, brWorld, current, tmp,new Surr(0,-1));
+                tmp = new Point2D(current.position, new Point2D(-1, 0));
+                CheckDirection(world, end, openList, brWorld, current, tmp, new Surr(-1, 0));
+                tmp = new Point2D(current.position, new Point2D(1, 0));
+                CheckDirection(world, end, openList, brWorld, current, tmp, new Surr(1, 0));
+                tmp = new Point2D(current.position, new Point2D(0, 1));
+                CheckDirection(world, end, openList, brWorld, current, tmp, new Surr(0, 1));
             }
             return null; //no path found
+        }
+
+        private static void CheckDirection(World world, Point2D end, MinHeap openList, bool[,] brWorld, SearchNode current, Point2D tmp,Surr surr)
+        {
+            if (tmp.X < 10 && tmp.Y < 10 && tmp.X >= 0 && tmp.Y >= 0)
+            {
+                if (world.PositionIsFree(tmp) && brWorld[tmp.X, tmp.Y] == false)
+                {
+                    if (tmp.X==1)
+                    {
+                        Console.WriteLine("asd");
+                    }
+                    brWorld[tmp.X, tmp.Y] = true;
+                    int pathCost = current.pathCost + surr.Cost;
+                    int cost = pathCost + tmp.GetDistanceSquared(end);
+                    SearchNode node = new SearchNode(tmp, cost, pathCost, current);
+                    openList.Add(node);
+                }
+            }
         }
 
         class Surr
@@ -91,9 +102,6 @@ namespace PathFinder.Astar
             public int Cost;
         }
 
-        //Neighbour options
-        private static Surr[] surrounding = new Surr[]{
-             new Surr(0,1), new Surr(-1,0), new Surr(1,0), new Surr(0,-1),        
-        };
+       
     }           
 }
