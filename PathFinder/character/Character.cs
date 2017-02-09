@@ -16,7 +16,7 @@ namespace PathFinder.Character
     public class Base
     {
         public drawing drawing = new drawing();
-        public Unit2D unit;
+        public _2DGraphicsElement unit;
         public bool isdead = false;
         private Game igame;
         protected bool ready = false;
@@ -43,7 +43,7 @@ namespace PathFinder.Character
             if (ready)
             {
 
-                unit = new Unit2D();
+                unit = new _2DGraphicsElement();
                management.register(this);
             }
             else
@@ -126,7 +126,7 @@ namespace PathFinder.Character
             if (ready)
             {
                // caracter = new caracter("enemy", game);
-                unit = new Unit2D( );
+                unit = new _2DGraphicsElement( );
             }
           
             

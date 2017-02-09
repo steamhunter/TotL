@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="labyrinthcells\UnitBase.cs" />
     <Compile Include="labyrinthcells\Cell.cs" />
     <Compile Include="labyrinthcells\Connection.cs" />
     <Compile Include="labyrinthcells\CrossCell.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TotL.cs" />
+    <Compile Include="Units\Unit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -109,6 +111,7 @@
     <None Include="Content\OneSideBlockedCell.xcf" />
     <None Include="Content\TunnelCell.xcf" />
     <None Include="Content\TwoSideBlockedCell.xcf" />
+    <None Include="Content\UnitBase.xcf" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +140,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\twoSideBlockedCell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UnitBase.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

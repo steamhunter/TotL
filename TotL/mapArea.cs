@@ -61,9 +61,18 @@ namespace TotL
                 cs++;
                 for (int o = 0; o < 25; o++)
                 {
+                    bool valid = false;
+                    if (s==0&&o==0)
+                    {
+                        Cell unitbase = new UnitBase();
+                        map[s, o] = unitbase;
+                        unitbase.locationX = 20 + ((o) * unitSize);
+                        unitbase.locationY = 20 + ((s) * unitSize);
+                        valid = true;
+                    }
                     co++;
                     cons.groupedMessage(s + " " +o , "TERGEN");
-                    bool valid = false;
+                    
                     while (!valid)
                     {
                         Cell cell;

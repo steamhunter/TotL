@@ -72,7 +72,7 @@ namespace PathFinder.Button
          }
         public virtual void draw()
         {
-            Vars.spriteBatch.Draw(Unit2D.getTexture("grass",game) /*ShaderResourceView.FromFile(device, "accel_world_007.jpg")*/, pos,Color.Beige);
+            Vars.spriteBatch.Draw(_2DGraphicsElement.getTexture("grass",game) /*ShaderResourceView.FromFile(device, "accel_world_007.jpg")*/, pos,Color.Beige);
         }
        
 

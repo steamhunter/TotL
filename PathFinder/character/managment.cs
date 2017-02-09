@@ -13,7 +13,7 @@ namespace PathFinder.Character.Managment
         {
             list.Add( charact);
         }
-        public static void colision(Unit2D player)
+        public static void colision(_2DGraphicsElement player)
         {
             foreach (var item in list)
             {

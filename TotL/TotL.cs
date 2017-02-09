@@ -55,7 +55,7 @@ namespace TotL
         {
 
             spriteBatch.Begin();
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkGray);
             
 
             map.Draw(gameTime);

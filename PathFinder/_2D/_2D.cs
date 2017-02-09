@@ -11,7 +11,7 @@ using PathFinder;
 
 namespace PathFinder._2D
 {
-    public class Unit2D
+    public class _2DGraphicsElement
     {
         protected ShaderResourceView texture;
         public Rectangle rectangle;
@@ -39,7 +39,7 @@ namespace PathFinder._2D
 
         }
 
-        public Unit2D()
+        public _2DGraphicsElement()
         {
            
 
@@ -48,9 +48,16 @@ namespace PathFinder._2D
        
         public virtual void update()
         {
+            throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
+        }
 
-            
-
+        public virtual void Load()
+        {
+            throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
+        }
+        public virtual void Initialize()
+        {
+            throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
         }
         /*public virtual void draw()
         {
