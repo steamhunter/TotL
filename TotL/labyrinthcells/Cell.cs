@@ -23,7 +23,8 @@ namespace TotL.labyrinthcells
         private bool _up, _right, _left, _down;
         protected float LocationXoffset, LocationYoffset;
         private int _closedsides;
-        protected List<RectangleF> _blockedvolumes = new List<RectangleF>(); 
+        protected List<RectangleF> _blockedvolumes = new List<RectangleF>();
+        private bool _ispopulated=false; 
 
         public bool down
         {
@@ -114,6 +115,19 @@ namespace TotL.labyrinthcells
             set
             {
                 _closedsides = value;
+            }
+        }
+
+        public bool isPopulated
+        {
+            get
+            {
+                return _ispopulated;
+            }
+
+            set
+            {
+                _ispopulated = value;
             }
         }
 

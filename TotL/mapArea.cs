@@ -19,12 +19,12 @@ namespace TotL
         Connection[,] connect = new Connection[18,27];
         public override void Initialize()
         {
-            
+
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            int now = DateTime.Now.Millisecond*DateTime.Now.Second;
-           cons.debugMessage(now.ToString());
+            int now = DateTime.Now.Millisecond * DateTime.Now.Second;
+            cons.debugMessage(now.ToString());
             Random random = new Random(now);
-            Vars.seed = random.Next(10000000,99999999);
+            Vars.seed = random.Next(10000000, 99999999);
             cons.debugMessage(Vars.seed.ToString());
             random = new Random(Vars.seed);
             Vars.config = configjson.getConfig();
@@ -35,16 +35,16 @@ namespace TotL
                 {
                     if (s == 0 || o == 0 || o == 26 || s == 16)
                     {
-                        connect[s,o] = new Connection();
-                        connect[s,o].up = false;
-                        connect[s,o].down = false;
-                        connect[s,o].left = false;
-                        connect[s,o].right = false;
+                        connect[s, o] = new Connection();
+                        connect[s, o].up = false;
+                        connect[s, o].down = false;
+                        connect[s, o].left = false;
+                        connect[s, o].right = false;
                         connect[s, o].closedsides = 4;
                     }
                     else
                     {
-                        connect[s,o] = new Connection();
+                        connect[s, o] = new Connection();
                         connect[s, o].closedsides = 0;
                         connect[s, o].up = true; //map[i - 1, j - 1].up;
                         connect[s, o].down = true; //map[i - 1, j - 1].down;
@@ -56,28 +56,45 @@ namespace TotL
             }
             int co = 0;
             int cs = 0;
+
+            int bs = random.Next(1, 13);
+            int bo = random.Next(1, 13);
+
+            Cell unitbase = new UnitBase();
+            unitbase.locationX = 20 + ((bo) * unitSize);
+            unitbase.locationY = 20 + ((bs) * unitSize);
+            unitbase.isPopulated = true;
+            map[bs, bo] = unitbase;
+            connect[bs, bo].up =unitbase.up;
+            connect[bs, bo].left = unitbase.left;
+            connect[bs, bo].down = unitbase.down;
+            connect[bs, bo].right = unitbase.right;
+            connect[bs, bo].isPopulated = true;
+            connect[bs, bo].rotation = unitbase.rotation;
+            connect[bs, bo].closedsides = unitbase.closedsides;
+            bool valid = true;
             for (int s = 0; s < 15; s++)
             {
                 cs++;
                 for (int o = 0; o < 25; o++)
                 {
-                    bool valid = false;
-                    if (s==0&&o==0)
+                    if (o == bo && s == bs)
                     {
-                        Cell unitbase = new UnitBase();
-                        map[s, o] = unitbase;
-                        unitbase.locationX = 20 + ((o) * unitSize);
-                        unitbase.locationY = 20 + ((s) * unitSize);
-                        valid = true;
+                        cons.debugMessage("asd");
                     }
+                    else
+                    {
+                         valid = false;
+                    }
+
                     co++;
-                    cons.groupedMessage(s + " " +o , "TERGEN");
-                    
+                    cons.groupedMessage(s + " " + o, "TERGEN");
+
                     while (!valid)
                     {
                         Cell cell;
 
-                        int fcw, ccw, osb, tsb,tcw, dec = 0;
+                        int fcw, ccw, osb, tsb, tcw, dec = 0;
 
                         fcw = Vars.config.fc_weight;
                         ccw = fcw + Vars.config.cross_weight;
@@ -87,7 +104,7 @@ namespace TotL
                         osb = tcw + Vars.config.oneside_weight;
 
                         int randomcellweight = random.Next(0, 101);
-                        if (randomcellweight<fcw)
+                        if (randomcellweight < fcw)
                         {
                             cell = new FullCell();
 
@@ -102,7 +119,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if (randomcellweight<ccw)
+                        else if (randomcellweight < ccw)
                         {
                             cell = new CrossCell();
 
@@ -117,7 +134,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if (randomcellweight<dec)
+                        else if (randomcellweight < dec)
                         {
                             cell = new DeadEndCell();
 
@@ -132,7 +149,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if (randomcellweight<tsb)
+                        else if (randomcellweight < tsb)
                         {
                             cell = new TwoSideBlocked();
 
@@ -147,7 +164,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if (randomcellweight<tcw)
+                        else if (randomcellweight < tcw)
                         {
                             cell = new TunnelCell();
 
@@ -162,7 +179,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                        else if(randomcellweight<osb)
+                        else if (randomcellweight < osb)
                         {
                             cell = new OneSideBlocked();
 
@@ -177,7 +194,7 @@ namespace TotL
                                 valid = false;
                             }
                         }
-                       
+
                     }
                     map[s, o].SetBlockingVolumes();
 
@@ -187,19 +204,19 @@ namespace TotL
             cs = 0;
             co = 0;
 
-           /* for (int i = 0; i < 15; i++)
-            {
-                for (int j = 0; j < 25; j++)
-                {
-                    map[j, i] = new OneSideBlocked();
-                     map[j,i].locationX = 20 + ((j) * unitSize);
-                     map[j,i].locationY = 20 + ((i) * unitSize);
-                }
-            }*/
-                  
-                   
+            /* for (int i = 0; i < 15; i++)
+             {
+                 for (int j = 0; j < 25; j++)
+                 {
+                     map[j, i] = new OneSideBlocked();
+                      map[j,i].locationX = 20 + ((j) * unitSize);
+                      map[j,i].locationY = 20 + ((i) * unitSize);
+                 }
+             }*/
 
-            
+
+
+
 
         }
         public override void LoadContent()

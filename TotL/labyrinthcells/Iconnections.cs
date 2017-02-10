@@ -9,6 +9,10 @@ namespace TotL.labyrinthcells
 
     interface IConnections
     {
+        bool isPopulated
+        {
+            get;set;
+        }
         int closedsides
         {
             get;

@@ -9,6 +9,15 @@ namespace TotL.labyrinthcells
 {
     class Connection : IConnections
     {
+        private bool _up, _down, _left, _right;
+        private int _closedsides;
+        private float _rotation;
+        private bool _ispopulated;
+        public Connection()
+        {
+            isPopulated = false;
+            _rotation = 0f;
+        }
         public static int getClosedSides(Connection top,Connection right,Connection bottom,Connection left)
         {
             int closedsides = 0;
@@ -48,10 +57,8 @@ namespace TotL.labyrinthcells
             return false;
         }
 
-        public bool isPopulated=false;
-        private bool _up,_down,_left,_right;
-        private int _closedsides;
-        private float _rotation = 0f;
+        
+       
         public bool down
         {
             get
@@ -131,6 +138,19 @@ namespace TotL.labyrinthcells
             set
             {
                 _closedsides = value;
+            }
+        }
+
+        public bool isPopulated
+        {
+            get
+            {
+                return _ispopulated;
+            }
+
+            set
+            {
+                _ispopulated = value;
             }
         }
 
