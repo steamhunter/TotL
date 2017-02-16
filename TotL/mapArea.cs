@@ -60,36 +60,21 @@ namespace TotL
             int bs = random.Next(1, 13);
             int bo = random.Next(1, 13);
 
-            Cell unitbase = new UnitBase();
-            unitbase.locationX = 20 + ((bo) * unitSize);
-            unitbase.locationY = 20 + ((bs) * unitSize);
-            unitbase.isPopulated = true;
-            map[bs, bo] = unitbase;
-            connect[bs, bo].up =unitbase.up;
-            connect[bs, bo].left = unitbase.left;
-            connect[bs, bo].down = unitbase.down;
-            connect[bs, bo].right = unitbase.right;
-            connect[bs, bo].isPopulated = true;
-            connect[bs, bo].rotation = unitbase.rotation;
-            connect[bs, bo].closedsides = unitbase.closedsides;
-            bool valid = true;
+           
             for (int s = 0; s < 15; s++)
             {
                 cs++;
                 for (int o = 0; o < 25; o++)
                 {
-                    if (o == bo && s == bs)
-                    {
-                        cons.debugMessage("asd");
-                    }
-                    else
-                    {
-                         valid = false;
-                    }
+                    
 
                     co++;
                     cons.groupedMessage(s + " " + o, "TERGEN");
-
+                    if (s==bs&&o==bo)
+                    {
+                        Console.WriteLine();
+                    }
+                    bool valid = false;
                     while (!valid)
                     {
                         Cell cell;
@@ -203,7 +188,7 @@ namespace TotL
             }
             cs = 0;
             co = 0;
-
+            map[bs, bo] = new UnitBase(map[bs, bo]);
             /* for (int i = 0; i < 15; i++)
              {
                  for (int j = 0; j < 25; j++)
