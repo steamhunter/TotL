@@ -11,18 +11,20 @@ using System.Threading.Tasks;
 
 namespace TotL.labyrinthcells
 {
-    class UnitBase :Cell
+    class UnitBase : Cell
     {
         private Cell realcell;
         ShaderResourceView baseTexture;
-       
-        public UnitBase(Cell realcell)
+        public string Type { get; set; }
+
+        public UnitBase(Cell realcell, string type)
         {
             baseTexture = TextureFromFile.TextureProcessor.getTexture("UnitBase");
             closedsides = realcell.closedsides;
             this.realcell = realcell;
             locationX = realcell.locationX;
             locationY = realcell.locationY;
+            this.Type = type;
         }
 
 
@@ -34,12 +36,21 @@ namespace TotL.labyrinthcells
 
         public override void draw()
         {
-           
-                realcell.draw();
-                Vars.spriteBatch.Draw(baseTexture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
-           
-           
+
+            realcell.draw();
+            if (Type == "enemy")
+            {
+                Vars.spriteBatch.Draw(baseTexture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.Red, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            }
+            else
+            {
+                Vars.spriteBatch.Draw(baseTexture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.Blue, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            }
+
+
+
         }
+
 
         public override void SetBlockingVolumes()
         {

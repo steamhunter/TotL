@@ -59,6 +59,13 @@ namespace TotL
 
             int bs = random.Next(1, 13);
             int bo = random.Next(1, 13);
+            int es, eo;
+            do
+            {
+                 es = random.Next(1, 13);
+                 eo = random.Next(1, 13);
+            } while (Math.Abs(bs-es)+Math.Abs(bo-eo)<10);
+
 
            
             for (int s = 0; s < 15; s++)
@@ -188,7 +195,8 @@ namespace TotL
             }
             cs = 0;
             co = 0;
-            map[bs, bo] = new UnitBase(map[bs, bo]);
+            map[bs, bo] = new UnitBase(map[bs, bo],"friendly");
+            map[es, eo] = new UnitBase(map[es, eo], "enemy");
             /* for (int i = 0; i < 15; i++)
              {
                  for (int j = 0; j < 25; j++)
