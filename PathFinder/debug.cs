@@ -12,24 +12,7 @@ namespace PathFinder.Debug
         public static bool onDebug = false;
         public static void debugMessage(string msg)
         {
-            if (onDebug)
-            {
-                if (vanconsole == false)
-                {
-                    if (NativeMethods.AllocConsole())
-                    {
-                        Console.WriteLine("[DEBUG] " + msg);
-
-
-                        vanconsole = true;
-                    }
-                }
-                else
-                {
-
-                    Console.WriteLine("[DEBUG] " + msg);
-                }
-            }
+            cons.groupedMessage(msg,"DEBUG");
             
 
         }
@@ -38,6 +21,7 @@ namespace PathFinder.Debug
         {
             if (onDebug)
             {
+               group = group.ToUpper();
                 if (vanconsole == false)
                 {
                     if (NativeMethods.AllocConsole())
@@ -58,24 +42,7 @@ namespace PathFinder.Debug
 
         public static void infoMessage(string msg)
         {
-            if (onDebug)
-            {
-                if (vanconsole == false)
-                {
-                    if (NativeMethods.AllocConsole())
-                    {
-                        Console.WriteLine("[INFO] " + msg);
-
-
-                        vanconsole = true;
-                    }
-                }
-                else
-                {
-
-                    Console.WriteLine("[INFO] " + msg);
-                }
-            }
+            cons.groupedMessage(msg,"INFO");
             
 
         }
