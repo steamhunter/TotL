@@ -182,7 +182,7 @@ namespace TotL.labyrinthcells
             //      [0,<][0,0][0,>]
             //      [ , ][>,0][ , ]
 
-           Connection realContext = inContext as Connection;
+           Connection realContext = inContext as Connection;//Astar nem használja a context ot 
             if (realContext.Y < Y && realContext.X == X)
             {
                 return up && realContext.down;
