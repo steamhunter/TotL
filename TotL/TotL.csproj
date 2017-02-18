@@ -115,6 +115,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PathFinder.Astar\PathFinder.AStar\PathFinder.AStar.csproj">
+      <Project>{f1af3392-22d1-4b03-9c3b-c10da9b1bccd}</Project>
+      <Name>PathFinder.AStar</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PathFinder\PathFinder.csproj">
       <Project>{23d8a555-8474-4c9e-8d1f-15ef0e088cf8}</Project>
       <Name>PathFinder</Name>

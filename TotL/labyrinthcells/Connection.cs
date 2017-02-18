@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PathFinder;
+using PathFinder.AStar.SettlersEngine;
 
 namespace TotL.labyrinthcells
 {
-    class Connection : IConnections
+    class Connection : IConnections,IPathNode<Object>
     {
         private bool _up, _down, _left, _right;
         private int _closedsides;
         private float _rotation;
         private bool _ispopulated;
-        public Connection()
+        public Connection(int y,int x)
         {
             isPopulated = false;
             _rotation = 0f;
@@ -154,9 +155,51 @@ namespace TotL.labyrinthcells
             }
         }
 
+        public int X
+        {
+            get;
+
+            set;
+        }
+
+        public int Y
+        {
+            get;
+
+            set;
+        }
+
         public void setRotation(float rotation)
         {
             throw new InvalidCallException("setRotation nem hívható a connection osztályon");
+        }
+
+
+
+        public bool IsWalkable(object inContext)
+        {
+            //      [ , ][<,0][ , ]
+            //      [0,<][0,0][0,>]
+            //      [ , ][>,0][ , ]
+
+           Connection realContext = inContext as Connection;
+            if (realContext.Y < Y && realContext.X == X)
+            {
+                return up && realContext.down;
+            }
+            if (realContext.Y == Y && realContext.X < X)
+            {
+                return left && realContext.right;
+            }
+            if (realContext.Y == Y && realContext.X > X)
+            {
+                return right && realContext.left;
+            }
+            if (realContext.Y > Y && realContext.X == X)
+            {
+                return down && realContext.up;
+            }
+            throw new Exception("Invalid path is open check at: start " + this.Y + " " + this.X + Environment.NewLine + "with context " + realContext.Y + " " + realContext.X);
         }
     }
 }

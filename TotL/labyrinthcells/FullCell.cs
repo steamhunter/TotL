@@ -12,11 +12,13 @@ namespace TotL.labyrinthcells
 {
     class FullCell:Cell
     {
-        public FullCell()
+        public FullCell(int y,int x):base(y,x)
         {
             texture = TextureFromFile.TextureProcessor.getTexture("FullCell");
             setRotation(0f);
             closedsides = 4;
+            X = x;
+            Y = y;
         }
 
         public override void setRotation(float rotation)

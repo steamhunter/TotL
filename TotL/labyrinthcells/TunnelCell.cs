@@ -13,11 +13,13 @@ namespace TotL.labyrinthcells
     class TunnelCell:Cell
     {
 
-        public TunnelCell()
+        public TunnelCell(int y,int x):base(y,x)
         {
             texture = TextureFromFile.TextureProcessor.getTexture("TunnelCell");
             setRotation(0f);
             closedsides = 2;
+            X = x;
+            Y = y;
         }
 
         public override void setRotation(float rotation)

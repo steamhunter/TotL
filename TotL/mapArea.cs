@@ -10,6 +10,7 @@ using PathFinder._2D;
 using PathFinder;
 using TotL.labyrinthcells;
 using PathFinder.Debug;
+using PathFinder.AStar;
 
 namespace TotL
 {
@@ -35,7 +36,7 @@ namespace TotL
                 {
                     if (s == 0 || o == 0 || o == 26 || s == 16)
                     {
-                        connect[s, o] = new Connection();
+                        connect[s, o] = new Connection(s,o);
                         connect[s, o].up = false;
                         connect[s, o].down = false;
                         connect[s, o].left = false;
@@ -44,7 +45,7 @@ namespace TotL
                     }
                     else
                     {
-                        connect[s, o] = new Connection();
+                        connect[s, o] = new Connection(s,o);
                         connect[s, o].closedsides = 0;
                         connect[s, o].up = true; //map[i - 1, j - 1].up;
                         connect[s, o].down = true; //map[i - 1, j - 1].down;
@@ -98,7 +99,7 @@ namespace TotL
                         int randomcellweight = random.Next(0, 101);
                         if (randomcellweight < fcw)
                         {
-                            cell = new FullCell();
+                            cell = new FullCell(s,o);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
@@ -113,7 +114,7 @@ namespace TotL
                         }
                         else if (randomcellweight < ccw)
                         {
-                            cell = new CrossCell();
+                            cell = new CrossCell(s,o);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
@@ -128,7 +129,7 @@ namespace TotL
                         }
                         else if (randomcellweight < dec)
                         {
-                            cell = new DeadEndCell();
+                            cell = new DeadEndCell(s,o);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
@@ -143,7 +144,7 @@ namespace TotL
                         }
                         else if (randomcellweight < tsb)
                         {
-                            cell = new TwoSideBlocked();
+                            cell = new TwoSideBlocked(s,o);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
@@ -158,7 +159,7 @@ namespace TotL
                         }
                         else if (randomcellweight < tcw)
                         {
-                            cell = new TunnelCell();
+                            cell = new TunnelCell(s,o);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
@@ -173,7 +174,7 @@ namespace TotL
                         }
                         else if (randomcellweight < osb)
                         {
-                            cell = new OneSideBlocked();
+                            cell = new OneSideBlocked(s,o);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
@@ -195,8 +196,16 @@ namespace TotL
             }
             cs = 0;
             co = 0;
-            map[bs, bo] = new UnitBase(map[bs, bo],"friendly");
-            map[es, eo] = new UnitBase(map[es, eo], "enemy");
+            map[bs, bo] = new UnitBase(map[bs, bo],"friendly",bs,bo);
+            map[es, eo] = new UnitBase(map[es, eo], "enemy",es,eo);
+
+            AStar.Solver<Connection, Object> aStar = new AStar.Solver<Connection, Object>(connect);
+           //LinkedList<Connection> test= aStar.Search(new System.Drawing.Point(2,3),new System.Drawing.Point(5,5),null);
+
+            /*foreach (var item in test )
+            {
+                cons.debugMessage(item.Y + " " + item.Y);
+            }*/
             /* for (int i = 0; i < 15; i++)
              {
                  for (int j = 0; j < 25; j++)

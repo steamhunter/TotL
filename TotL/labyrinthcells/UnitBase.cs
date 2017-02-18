@@ -17,13 +17,15 @@ namespace TotL.labyrinthcells
         ShaderResourceView baseTexture;
         public string Type { get; set; }
 
-        public UnitBase(Cell realcell, string type)
+        public UnitBase(Cell realcell, string type,int y,int x):base(y,x)
         {
             baseTexture = TextureFromFile.TextureProcessor.getTexture("UnitBase");
             closedsides = realcell.closedsides;
             this.realcell = realcell;
             locationX = realcell.locationX;
             locationY = realcell.locationY;
+            X = x;
+            Y = y;
             this.Type = type;
         }
 

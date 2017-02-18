@@ -24,8 +24,13 @@ namespace TotL.labyrinthcells
         protected float LocationXoffset, LocationYoffset;
         private int _closedsides;
         protected List<RectangleF> _blockedvolumes = new List<RectangleF>();
-        private bool _ispopulated=false; 
+        private bool _ispopulated=false;
 
+        public Cell(int y,int x)
+        {
+            X = x;
+            Y = y;
+        }
         public bool down
         {
             get
@@ -129,6 +134,21 @@ namespace TotL.labyrinthcells
             {
                 _ispopulated = value;
             }
+        }
+
+        public int X
+        {
+            get;
+
+
+            set;
+        }
+
+        public int Y
+        {
+        get;
+
+        set;
         }
 
         public virtual void setRotation(float rotation)

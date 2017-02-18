@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PathFinder.AStar
 {
-    class AStar
+    public class AStar
     {
         public class PathNode : SettlersEngine.IPathNode<Object>
         {

@@ -12,11 +12,13 @@ namespace TotL.labyrinthcells
 {
     class DeadEndCell:Cell
     {
-        public DeadEndCell()
+        public DeadEndCell(int y,int x):base(y,x)
         {
             texture = TextureFromFile.TextureProcessor.getTexture("DeadEndCell");
             setRotation(0f);
             closedsides = 3;
+            X = x;
+            Y = y;
         }
         public override void setRotation(float rotation)
         {

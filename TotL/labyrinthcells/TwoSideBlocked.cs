@@ -12,11 +12,13 @@ namespace TotL.labyrinthcells
 {
     class TwoSideBlocked : Cell
     {
-        public TwoSideBlocked()
+        public TwoSideBlocked(int y,int x):base(y,x)
         {
             texture = TextureFromFile.TextureProcessor.getTexture("twoSideBlockedCell");
             setRotation(0f);
             closedsides = 2;
+            X = x;
+            Y = y;
         }
 
         public override void setRotation(float rotation)
