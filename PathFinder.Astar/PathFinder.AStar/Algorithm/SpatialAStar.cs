@@ -26,13 +26,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TotL.Labyrinth;
 
 namespace PathFinder.AStar.SettlersEngine
 {
-    public interface IPathNode<TUserContext>
-    {
-        Boolean IsWalkable(TUserContext inContext);
-    }
+    
 
     public interface IIndexedObject
     {
@@ -70,6 +68,11 @@ namespace PathFinder.AStar.SettlersEngine
                 return UserContext.IsWalkable(inContext);
             }
 
+            public bool IsWalkable(TUserContext inContext, IPathNode<TUserContext> centernode)
+            {
+                return UserContext.IsWalkable(inContext, centernode);
+            }
+
             public int X { get; internal set; }
             public int Y { get; internal set; }
 
@@ -82,6 +85,8 @@ namespace PathFinder.AStar.SettlersEngine
 
                 return 0;
             }
+
+
 
             public PathNode(int inX, int inY, TPathNode inUserContext)
             {
@@ -210,9 +215,18 @@ namespace PathFinder.AStar.SettlersEngine
 
                     if (y == null)
                         continue;
+                    if (y is Connection)
+                    {
+                        if (!y.UserContext.IsWalkable(inUserContext,x))
+                            continue;
+                    }
+                    else
+                    {
+                        if (!y.UserContext.IsWalkable(inUserContext))
+                            continue;
+                    }
 
-                    if (!y.UserContext.IsWalkable(inUserContext))
-                        continue;
+                    
 
                     if (m_ClosedSet.Contains(y))
                         continue;

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TotL.labyrinthcells
+namespace TotL.Labyrinth
 {
 
-    interface IConnections
+   public interface IConnections
     {
         int X { get; set; }
         int Y { get; set; }

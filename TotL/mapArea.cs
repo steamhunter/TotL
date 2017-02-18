@@ -8,7 +8,7 @@ using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using PathFinder._2D;
 using PathFinder;
-using TotL.labyrinthcells;
+using TotL.Labyrinth;
 using PathFinder.Debug;
 using PathFinder.AStar;
 
@@ -200,7 +200,7 @@ namespace TotL
             map[es, eo] = new UnitBase(map[es, eo], "enemy",es,eo);
 
             AStar.Solver<Connection, Object> aStar = new AStar.Solver<Connection, Object>(connect);
-           //LinkedList<Connection> test= aStar.Search(new System.Drawing.Point(2,3),new System.Drawing.Point(5,5),null);
+           LinkedList<Connection> test= aStar.Search(new System.Drawing.Point(2,3),new System.Drawing.Point(5,5),null);
 
             /*foreach (var item in test )
             {

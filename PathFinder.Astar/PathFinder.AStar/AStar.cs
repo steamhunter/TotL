@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PathFinder.AStar.SettlersEngine;
+using TotL.Labyrinth;
 
 namespace PathFinder.AStar
 {
     public class AStar
     {
-        public class PathNode : SettlersEngine.IPathNode<Object>
+        public class PathNode : IPathNode<Object>
         {
             public Int32 X { get; set; }
             public Int32 Y { get; set; }
@@ -17,9 +19,14 @@ namespace PathFinder.AStar
             {
                 return !IsWall;
             }
+
+            public bool IsWalkable(object inContext, IPathNode<object> centernode)
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public class Solver<TPathNode, TUserContext> : SettlersEngine.SpatialAStar<TPathNode, TUserContext> where TPathNode : SettlersEngine.IPathNode<TUserContext>
+        public class Solver<TPathNode, TUserContext> : SpatialAStar<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
         {
             protected override Double Heuristic(PathNode inStart, PathNode inEnd)
             {

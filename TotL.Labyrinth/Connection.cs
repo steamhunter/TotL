@@ -4,51 +4,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PathFinder;
-using PathFinder.AStar.SettlersEngine;
 
-namespace TotL.labyrinthcells
+
+namespace TotL.Labyrinth
 {
-    class Connection : IConnections,IPathNode<Object>
+    public class Connection : IConnections, IPathNode<Object>
     {
         private bool _up, _down, _left, _right;
         private int _closedsides;
         private float _rotation;
         private bool _ispopulated;
-        public Connection(int y,int x)
+        public Connection(int y, int x)
         {
             isPopulated = false;
             _rotation = 0f;
         }
-        public static int getClosedSides(Connection top,Connection right,Connection bottom,Connection left)
+        public static int getClosedSides(Connection top, Connection right, Connection bottom, Connection left)
         {
             int closedsides = 0;
-            if (top.isPopulated&& top.down==false)
+            if (top.isPopulated && top.down == false)
             {
                 closedsides++;
             }
-            if (right.isPopulated&& right.left==false)
+            if (right.isPopulated && right.left == false)
             {
                 closedsides++;
             }
-            if (left.isPopulated&&left.right==false)
+            if (left.isPopulated && left.right == false)
             {
                 closedsides++;
             }
-            if (bottom.isPopulated&& bottom.up==false)
+            if (bottom.isPopulated && bottom.up == false)
             {
                 closedsides++;
             }
             return closedsides;
         }
-        public static bool isFiting(Cell cell,Connection top, Connection right, Connection bottom, Connection left)
+        public static bool isFiting(Cell cell, Connection top, Connection right, Connection bottom, Connection left)
         {
-            if (cell.up == top.down||!top.isPopulated)
+            if (cell.up == top.down || !top.isPopulated)
             {
-                if (cell.right == right.left||!right.isPopulated)
+                if (cell.right == right.left || !right.isPopulated)
                 {
-                    if (cell.down == bottom.up||!bottom.isPopulated)
+                    if (cell.down == bottom.up || !bottom.isPopulated)
                     {
-                        if (cell.left == left.right||!left.isPopulated)
+                        if (cell.left == left.right || !left.isPopulated)
                         {
                             return true;
                         }
@@ -58,8 +58,8 @@ namespace TotL.labyrinthcells
             return false;
         }
 
-        
-       
+
+
         public bool down
         {
             get
@@ -182,24 +182,41 @@ namespace TotL.labyrinthcells
             //      [0,<][0,0][0,>]
             //      [ , ][>,0][ , ]
 
-           Connection realContext = inContext as Connection;//Astar nem használja a context ot 
-            if (realContext.Y < Y && realContext.X == X)
+
+            throw new Exception(" hívás a híbás paraméterü változatra");
+        }
+
+        public bool IsWalkable(object inContext, IPathNode<object> centernode)
+        {
+
+            Connection centerConnection = centernode as Connection;
+            if (Y < centerConnection.Y && X == centerConnection.X)
             {
-                return up && realContext.down;
+                return centerConnection.up && down;
             }
-            if (realContext.Y == Y && realContext.X < X)
+            if (Y == centerConnection.Y && X < centerConnection.X)
             {
-                return left && realContext.right;
+                return centerConnection.left && right;
             }
-            if (realContext.Y == Y && realContext.X > X)
+            if (Y == centerConnection.Y && X > centerConnection.X)
             {
-                return right && realContext.left;
+                return centerConnection.right && left;
             }
-            if (realContext.Y > Y && realContext.X == X)
+            if (Y > centerConnection.Y && X == centerConnection.X)
             {
-                return down && realContext.up;
+                return centerConnection.down && up;
             }
-            throw new Exception("Invalid path is open check at: start " + this.Y + " " + this.X + Environment.NewLine + "with context " + realContext.Y + " " + realContext.X);
+
+            throw new Exception("Invalid path is open check at: start " + centerConnection.Y + " " + centerConnection.X + Environment.NewLine + "with context " + Y + " " + X);
         }
     }
+
+
+
 }
+
+
+
+
+
+

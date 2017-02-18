@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TotL.labyrinthcells
+namespace TotL.Labyrinth
 {
-    class UnitBase : Cell
+    public class UnitBase : Cell
     {
         private Cell realcell;
         ShaderResourceView baseTexture;

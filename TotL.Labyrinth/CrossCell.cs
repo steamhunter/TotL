@@ -1,101 +1,56 @@
-﻿using PathFinder;
-using PathFinder._2D;
-using SharpDX;
-using SharpDX.Toolkit.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PathFinder._2D;
+using SharpDX.Toolkit;
+using SharpDX.Toolkit.Graphics;
+using PathFinder;
+using SharpDX;
 
-namespace TotL.labyrinthcells
+namespace TotL.Labyrinth
 {
-    class TunnelCell:Cell
+    public class CrossCell : Cell 
     {
-
-        public TunnelCell(int y,int x):base(y,x)
+        public CrossCell(int y,int x):base(y,x)
         {
-            texture = TextureFromFile.TextureProcessor.getTexture("TunnelCell");
-            setRotation(0f);
-            closedsides = 2;
+            texture = TextureFromFile.TextureProcessor.getTexture("CrossCell");
+            closedsides = 0;
             X = x;
             Y = y;
         }
 
+
         public override void setRotation(float rotation)
         {
-            base.rotation = rotation;
-            if (rotation == Rotaitions.zero)
-            {
-                up = true;
-                left = false;
-                down = true;
-                right = false;
-            }
-            else
-            if (rotation == Rotaitions.minus90)
-            {
-                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-                LocationXoffset = 0;// unitSize;
-                up = false;
-                left = true;
-                down = false;
-                right = true;
-
-            }
-            else
-            if (rotation == Rotaitions.half)
-            {
-                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-                LocationXoffset = unitSize;
-                LocationYoffset = unitSize;
-                up = true;
-                left = false;
-                down = true;
-                right = false;
-
-            }
-            else
-            if (rotation == Rotaitions.plus90)
-            {
-                float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-                LocationXoffset = unitSize;
-                up = false;
-                left = true;
-                down = false;
-                right = true;
-
-            }
-
+            base.rotation = 0;
+           
+            up = true;
+            left = true;
+            down = true;
+            right = true;
+            
         }
 
         public override void draw()
         {
-
+            
             Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
-
-            /*  foreach (var item in _blockedvolumes)
-              {
-                  Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), item, Color.White);
-              }*/
+           /* foreach (var item in _blockedvolumes)
+            {
+                Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), item, Color.White);
+            }*/
 
         }
-
         public override void SetBlockingVolumes()
         {
-            if (rotation == Rotaitions.zero || rotation == Rotaitions.half)
-            {
-                _blockedvolumes.Add(new RectangleF(locationX, locationY, unitSize / 4, unitSize));
-                _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, locationY, unitSize / 4, unitSize));
-            }
-            else if (rotation == Rotaitions.minus90 || rotation == Rotaitions.plus90)
-            {
-                _blockedvolumes.Add(new RectangleF(locationX-unitSize, locationY, unitSize, unitSize / 4));
-                _blockedvolumes.Add(new RectangleF(locationX-unitSize,(locationY+unitSize)-unitSize/4,unitSize,unitSize/4));
-            }
+           
+            _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, locationY, unitSize / 4, unitSize / 4));
+            _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+            _blockedvolumes.Add(new RectangleF(locationX, locationY, unitSize / 4, unitSize / 4));
+            _blockedvolumes.Add(new RectangleF(locationX , (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
         }
-            
-
 
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {

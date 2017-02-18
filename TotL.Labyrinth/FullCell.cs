@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TotL.labyrinthcells
+namespace TotL.Labyrinth
 {
-    class FullCell:Cell
+    public class FullCell:Cell
     {
         public FullCell(int y,int x):base(y,x)
         {

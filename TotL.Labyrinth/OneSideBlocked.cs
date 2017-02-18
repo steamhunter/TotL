@@ -8,9 +8,9 @@ using PathFinder;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
-namespace TotL.labyrinthcells
+namespace TotL.Labyrinth
 {
-    class OneSideBlocked : Cell
+    public class OneSideBlocked : Cell
     {
         public OneSideBlocked(int y,int x):base(y,x) 
         {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TotL.labyrinthcells
+namespace TotL.Labyrinth
 {
     class Rotaitions
     {
@@ -16,7 +16,7 @@ namespace TotL.labyrinthcells
        public static float half = Convert.ToSingle(Math.PI);
        public static float minus90 = -Convert.ToSingle(Math.PI) / 2;
     }
-    class Cell : _2DGraphicsElement, IConnections
+   public class Cell : _2DGraphicsElement, IConnections
     {
         private float _rotation = 0f;
         protected static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
