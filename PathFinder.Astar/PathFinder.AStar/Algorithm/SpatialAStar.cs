@@ -31,7 +31,7 @@ using TotL.Labyrinth;
 namespace PathFinder.AStar.SettlersEngine
 {
     
-
+    
     public interface IIndexedObject
     {
         int Index { get; set; }
@@ -42,6 +42,7 @@ namespace PathFinder.AStar.SettlersEngine
     /// </summary>
     public class SpatialAStar<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
     {
+        
         private OpenCloseMap m_ClosedSet;
         private OpenCloseMap m_OpenSet;
         private PriorityQueue<PathNode> m_OrderedOpenSet;
@@ -53,10 +54,10 @@ namespace PathFinder.AStar.SettlersEngine
         public int Width { get; private set; }
         public int Height { get; private set; }
 
-        protected class PathNode : IPathNode<TUserContext>, IComparer<PathNode>, IIndexedObject
+        public class PathNode : IPathNode<TUserContext>, IComparer<PathNode>, IIndexedObject
         {
             public static readonly PathNode Comparer = new PathNode(0, 0, default(TPathNode));
-
+           
             public TPathNode UserContext { get; internal set; }
             public Double G { get; internal set; }
             public Double H { get; internal set; }
@@ -215,16 +216,16 @@ namespace PathFinder.AStar.SettlersEngine
 
                     if (y == null)
                         continue;
-                    if (y is Connection)
-                    {
+                   /* if (y is Connection)
+                    {*/
                         if (!y.UserContext.IsWalkable(inUserContext,x))
                             continue;
-                    }
+                   /* }
                     else
-                    {
-                        if (!y.UserContext.IsWalkable(inUserContext))
-                            continue;
-                    }
+                    {*/
+                       /* if (!y.UserContext.IsWalkable(inUserContext))
+                            continue;*/
+                   // }
 
                     
 
