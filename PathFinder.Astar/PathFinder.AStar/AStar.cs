@@ -24,6 +24,11 @@ namespace PathFinder.AStar
             {
                 throw new NotImplementedException();
             }
+
+            public object UserContext()
+            {
+                throw new Exception("invalid call");
+            }
         }
 
         public class Solver<TPathNode, TUserContext> : SpatialAStar<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>

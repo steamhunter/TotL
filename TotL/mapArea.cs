@@ -202,10 +202,10 @@ namespace TotL
             AStar.Solver<Connection, Object> aStar = new AStar.Solver<Connection, Object>(connect);
            LinkedList<Connection> test= aStar.Search(new System.Drawing.Point(2,3),new System.Drawing.Point(5,5),null);
 
-            /*foreach (var item in test )
+            foreach (var item in test )
             {
                 cons.debugMessage(item.Y + " " + item.Y);
-            }*/
+            }
             /* for (int i = 0; i < 15; i++)
              {
                  for (int j = 0; j < 25; j++)

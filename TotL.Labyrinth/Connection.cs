@@ -189,10 +189,14 @@ namespace TotL.Labyrinth
         public bool IsWalkable(object inContext, IPathNode<object> centernode)
         {
 
-            
 
-            Connection centerConnection = new Connection(0,0);
-            /*if (Y < centerConnection.Y && X == centerConnection.X)
+
+            Connection centerConnection = centernode.UserContext() as Connection;
+            if (Y==centerConnection.Y&&X==centerConnection.X)
+            {
+                return closedsides != 4;
+            }
+            if (Y < centerConnection.Y && X == centerConnection.X)
             {
                 return centerConnection.up && down;
             }
@@ -208,8 +212,13 @@ namespace TotL.Labyrinth
             {
                 return centerConnection.down && up;
             }
-            */
+            
             throw new Exception("Invalid path is open check at: start " + centerConnection.Y + " " + centerConnection.X + Environment.NewLine + "with context " + Y + " " + X);
+        }
+
+        public object UserContext()
+        {
+            throw new Exception("ivalid call on connection");
         }
     }
 
