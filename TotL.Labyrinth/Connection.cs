@@ -18,6 +18,8 @@ namespace TotL.Labyrinth
         {
             isPopulated = false;
             _rotation = 0f;
+            X = x;
+            Y = y;
         }
         public static int getClosedSides(Connection top, Connection right, Connection bottom, Connection left)
         {
@@ -192,23 +194,23 @@ namespace TotL.Labyrinth
 
 
             Connection centerConnection = centernode.UserContext() as Connection;
-            if (Y==centerConnection.Y&&X==centerConnection.X)
+            if (Y==centernode.Y&&X==centernode.X)
             {
                 return closedsides != 4;
             }
-            if (Y < centerConnection.Y && X == centerConnection.X)
+            if (Y < centernode.Y && X == centernode.X)
             {
                 return centerConnection.up && down;
             }
-            if (Y == centerConnection.Y && X < centerConnection.X)
+            if (Y == centernode.Y && X < centernode.X)
             {
                 return centerConnection.left && right;
             }
-            if (Y == centerConnection.Y && X > centerConnection.X)
+            if (Y == centernode.Y && X > centernode.X)
             {
                 return centerConnection.right && left;
             }
-            if (Y > centerConnection.Y && X == centerConnection.X)
+            if (Y > centernode.Y && X == centernode.X)
             {
                 return centerConnection.down && up;
             }
