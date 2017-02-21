@@ -18,6 +18,8 @@ namespace TotL.Labyrinth
         {
             isPopulated = false;
             _rotation = 0f;
+            y = Y;
+            x = X;
         }
         public static int getClosedSides(Connection top, Connection right, Connection bottom, Connection left)
         {
