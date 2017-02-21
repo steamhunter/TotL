@@ -204,7 +204,7 @@ namespace TotL
 
             foreach (var item in test )
             {
-                cons.debugMessage(item.Y + " " + item.Y);
+                cons.debugMessage(item.GetXasPathFinder() + " " + item.GetYasPathFinder());
             }
             /* for (int i = 0; i < 15; i++)
              {

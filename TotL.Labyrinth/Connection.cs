@@ -10,16 +10,14 @@ namespace TotL.Labyrinth
 {
     public class Connection : IConnections, IPathNode<Object>
     {
-        private bool _up, _down, _left, _right;
-        private int _closedsides;
+        private int x, y;
         private float _rotation;
-        private bool _ispopulated;
         public Connection(int y, int x)
         {
             isPopulated = false;
             _rotation = 0f;
-            X = x;
-            Y = y;
+            this.x = x;
+            this.y = y;
         }
         public static int getClosedSides(Connection top, Connection right, Connection bottom, Connection left)
         {
@@ -64,44 +62,23 @@ namespace TotL.Labyrinth
 
         public bool down
         {
-            get
-            {
-                return _down;
-            }
+            get;
 
-            set
-            {
-                isPopulated = true;
-                _down = value;
-            }
+            set;
         }
 
         public bool left
         {
-            get
-            {
-                return _left;
-            }
+            get;
 
-            set
-            {
-                isPopulated = true;
-                _left = value;
-            }
+            set;
         }
 
         public bool right
         {
-            get
-            {
-                return _right;
-            }
+            get;
 
-            set
-            {
-                isPopulated = true;
-                _right = value;
-            }
+            set;
         }
 
         public float rotation
@@ -119,56 +96,142 @@ namespace TotL.Labyrinth
 
         public bool up
         {
-            get
-            {
-                return _up;
-            }
+            get;
 
-            set
-            {
-                isPopulated = true;
-                _up = value;
-            }
+            set;
         }
 
         public int closedsides
         {
-            get
-            {
-                return _closedsides;
-            }
+            get;
 
-            set
-            {
-                _closedsides = value;
-            }
+            set;
         }
 
         public bool isPopulated
         {
+            get;
+
+            set;
+        }
+
+        int IConnections.X
+        {
             get
             {
-                return _ispopulated;
+                return x;
             }
 
             set
             {
-                _ispopulated = value;
+                x = value;
             }
         }
 
-        public int X
+        int IConnections.Y
+        {
+            get
+            {
+                return y;
+            }
+
+            set
+            {
+                y = value;
+            }
+        }
+
+        bool IConnections.isPopulated
         {
             get;
 
             set;
         }
 
-        public int Y
+        int IConnections.closedsides
         {
             get;
 
             set;
+        }
+
+        bool IConnections.up
+        {
+            get;
+
+            set;
+        }
+
+        bool IConnections.down
+        {
+            get;
+
+            set;
+        }
+
+        bool IConnections.left
+        {
+            get;
+
+            set;
+        }
+
+        bool IConnections.right
+        {
+            get;
+
+            set;
+        }
+
+        float IConnections.rotation
+        {
+            get;
+
+            set;
+        }
+
+        int IPathNode<object>.X
+        {
+            get
+            {
+                return y;
+            }
+
+            set
+            {
+                y = value;
+            }
+        }
+
+        int IPathNode<object>.Y
+        {
+            get
+            {
+                return x;
+            }
+
+            set
+            {
+                x = value;
+            }
+        }
+
+        protected int GetXasPathNode()
+        {
+            return y;
+        }
+        protected int GetYasPathNode()
+        {
+            return x;
+        }
+
+        public int GetXasPathFinder()
+        {
+            return x;
+        }
+        public int GetYasPathFinder()
+        {
+            return y;
         }
 
         public void setRotation(float rotation)
@@ -177,48 +240,44 @@ namespace TotL.Labyrinth
         }
 
 
-
-        public bool IsWalkable(object inContext)
+        void IConnections.setRotation(float rotation)
         {
-            //      [ , ][<,0][ , ]
-            //      [0,<][0,0][0,>]
-            //      [ , ][>,0][ , ]
+            throw new NotImplementedException();
+        }
 
-
+        bool IPathNode<object>.IsWalkable(object inContext)
+        {
             throw new Exception(" hívás a híbás paraméterü változatra");
         }
 
-        public bool IsWalkable(object inContext, IPathNode<object> centernode)
+        bool IPathNode<object>.IsWalkable(object inContext, IPathNode<object> centernode)
         {
-
-
-
             Connection centerConnection = centernode.UserContext() as Connection;
-            if (Y==centernode.Y&&X==centernode.X)
+            if (GetYasPathNode() == centernode.Y && GetXasPathNode() == centernode.X)
             {
                 return closedsides != 4;
             }
-            if (Y < centernode.Y && X == centernode.X)
+            if (GetYasPathNode() < centernode.Y && GetXasPathNode() == centernode.X)
             {
                 return centerConnection.up && down;
             }
-            if (Y == centernode.Y && X < centernode.X)
+            if (GetYasPathNode() == centernode.Y && GetXasPathNode() < centernode.X)
             {
                 return centerConnection.left && right;
             }
-            if (Y == centernode.Y && X > centernode.X)
+            if (GetYasPathNode() == centernode.Y && GetXasPathNode() > centernode.X)
             {
                 return centerConnection.right && left;
             }
-            if (Y > centernode.Y && X == centernode.X)
+            if (GetYasPathNode() > centernode.Y && GetXasPathNode() == centernode.X)
             {
                 return centerConnection.down && up;
             }
-            
-            throw new Exception("Invalid path is open check at: start " + centerConnection.Y + " " + centerConnection.X + Environment.NewLine + "with context " + Y + " " + X);
+
+            throw new Exception("Invalid path is open check at: start " + GetXasPathNode() + " " + GetYasPathNode() + Environment.NewLine + "with context " + GetXasPathNode() + " " + GetYasPathNode());
         }
 
-        public object UserContext()
+        object IPathNode<object>.UserContext()
         {
             throw new Exception("ivalid call on connection");
         }
