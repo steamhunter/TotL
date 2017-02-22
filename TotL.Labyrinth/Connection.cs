@@ -234,15 +234,9 @@ namespace TotL.Labyrinth
             return y;
         }
 
-        public void setRotation(float rotation)
-        {
-            throw new InvalidCallException("setRotation nem hívható a connection osztályon");
-        }
-
-
         void IConnections.setRotation(float rotation)
         {
-            throw new NotImplementedException();
+            throw new InvalidCallException("setRotation nem hívható a connection osztályon");
         }
 
         bool IPathNode<object>.IsWalkable(object inContext)
