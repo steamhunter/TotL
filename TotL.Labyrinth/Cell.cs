@@ -26,7 +26,7 @@ namespace TotL.Labyrinth
         protected List<RectangleF> _blockedvolumes = new List<RectangleF>();
         private bool _ispopulated=false;
 
-        public Cell(int y,int x)
+        public Cell(int x,int y)
         {
             X = x;
             Y = y;

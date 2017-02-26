@@ -12,7 +12,7 @@ namespace TotL.Labyrinth
 {
     public class OneSideBlocked : Cell
     {
-        public OneSideBlocked(int y,int x):base(y,x) 
+        public OneSideBlocked(int x,int y):base(x,y) 
         {
             texture = TextureFromFile.TextureProcessor.getTexture("OneSideBlockedCell");
 
@@ -81,56 +81,56 @@ namespace TotL.Labyrinth
 
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
-            if (closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+            if (closedsides >= Connection.getClosedSides(connect[co, cs-1], connect[co+1, cs], connect[co, cs+1], connect[co-1, cs]))
             {
-                if (Connection.isFiting(this, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                 {
                     locationX = 20 + ((o) * unitSize);
                     locationY = 20 + ((s) * unitSize);
-                    connect[cs, co].up = up;
-                    connect[cs, co].down = down;
-                    connect[cs, co].left = left;
-                    connect[cs, co].right = right;
+                    connect[co, cs].up = up;
+                    connect[co, cs].down = down;
+                    connect[co, cs].left = left;
+                    connect[co, cs].right = right;
                     return true;
 
                 }
                 else
                 {
                     setRotation(Rotaitions.plus90);
-                    if (Connection.isFiting(this, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                    if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                     {
                         locationX = 20 + ((o) * unitSize);
                         locationY = 20 + ((s) * unitSize);
-                        connect[cs, co].up = up;
-                        connect[cs, co].down = down;
-                        connect[cs, co].left = left;
-                        connect[cs, co].right = right;
+                        connect[co, cs].up = up;
+                        connect[co, cs].down = down;
+                        connect[co, cs].left = left;
+                        connect[co, cs].right = right;
                         return true;
                     }
                     else
                     {
                         setRotation(Rotaitions.half);
-                        if (Connection.isFiting(this, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                        if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                         {
                             locationX = 20 + ((o) * unitSize);
                             locationY = 20 + ((s) * unitSize);
-                            connect[cs, co].up = up;
-                            connect[cs, co].down = down;
-                            connect[cs, co].left = left;
-                            connect[cs, co].right = right;
+                            connect[co, cs].up = up;
+                            connect[co, cs].down = down;
+                            connect[co, cs].left = left;
+                            connect[co, cs].right = right;
                             return true;
                         }
                         else
                         {
                             setRotation(Rotaitions.minus90);
-                            if (Connection.isFiting(this, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                            if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                             {
                                 locationX = 20 + ((o) * unitSize);
                                 locationY = 20 + ((s) * unitSize);
-                                connect[cs, co].up = up;
-                                connect[cs, co].down = down;
-                                connect[cs, co].left = left;
-                                connect[cs, co].right = right;
+                                connect[co, cs].up = up;
+                                connect[co, cs].down = down;
+                                connect[co, cs].left = left;
+                                connect[co, cs].right = right;
                                 return true;
                             }
                             else
@@ -138,8 +138,8 @@ namespace TotL.Labyrinth
                                 return false;
                             }
                         }
+                        }
                     }
-                }
             }
             else
             {

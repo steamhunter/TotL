@@ -16,8 +16,8 @@ namespace TotL
 {
     class mapArea: AreaBase
     {
-        Cell[,] map= new Cell[15,25];
-        Connection[,] connect = new Connection[18,27];
+        Cell[,] map= new Cell[25,15];
+        Connection[,] connect = new Connection[27,18];
         public override void Initialize()
         {
 
@@ -36,22 +36,22 @@ namespace TotL
                 {
                     if (s == 0 || o == 0 || o == 26 || s == 16)
                     {
-                        connect[s, o] = new Connection(s,o);
-                        connect[s, o].up = false;
-                        connect[s, o].down = false;
-                        connect[s, o].left = false;
-                        connect[s, o].right = false;
-                        connect[s, o].closedsides = 4;
+                        connect[o,s] = new Connection(o,s);
+                        connect[o,s].up = false;
+                        connect[o,s].down = false;
+                        connect[o,s].left = false;
+                        connect[o,s].right = false;
+                        connect[o,s].closedsides = 4;
                     }
                     else
                     {
-                        connect[s, o] = new Connection(s,o);
-                        connect[s, o].closedsides = 0;
-                        connect[s, o].up = true; //map[i - 1, j - 1].up;
-                        connect[s, o].down = true; //map[i - 1, j - 1].down;
-                        connect[s, o].left = true;// map[i - 1, j - 1].left;
-                        connect[s, o].right = true;//map[i - 1, j - 1].right;
-                        connect[s, o].isPopulated = false;
+                        connect[o,s] = new Connection(o,s);
+                        connect[o,s].closedsides = 0;
+                        connect[o,s].up = true; //map[i - 1, j - 1].up;
+                        connect[o,s].down = true; //map[i - 1, j - 1].down;
+                        connect[o,s].left = true;// map[i - 1, j - 1].left;
+                        connect[o,s].right = true;//map[i - 1, j - 1].right;
+                        connect[o,s].isPopulated = false;
                     }
                 }
             }
@@ -77,7 +77,7 @@ namespace TotL
                     
 
                     co++;
-                    cons.groupedMessage(s + " " + o, "TERGEN");
+                    cons.groupedMessage(o + " " + s, "TERGEN");
                     if (s==bs&&o==bo)
                     {
                         Console.WriteLine();
@@ -99,13 +99,13 @@ namespace TotL
                         int randomcellweight = random.Next(0, 101);
                         if (randomcellweight < fcw)
                         {
-                            cell = new FullCell(s,o);
+                            cell = new FullCell(o,s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("fullcell", "TERGEN");
-                                map[s, o] = cell;
+                                map[o, s] = cell;
                             }
                             else
                             {
@@ -114,13 +114,13 @@ namespace TotL
                         }
                         else if (randomcellweight < ccw)
                         {
-                            cell = new CrossCell(s,o);
+                            cell = new CrossCell(o,s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("cross", "TERGEN");
-                                map[s, o] = cell;
+                                map[o,s] = cell;
                             }
                             else
                             {
@@ -129,13 +129,13 @@ namespace TotL
                         }
                         else if (randomcellweight < dec)
                         {
-                            cell = new DeadEndCell(s,o);
+                            cell = new DeadEndCell(o,s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("deadend", "TERGEN");
-                                map[s, o] = cell;
+                                map[o,s] = cell;
                             }
                             else
                             {
@@ -144,13 +144,13 @@ namespace TotL
                         }
                         else if (randomcellweight < tsb)
                         {
-                            cell = new TwoSideBlocked(s,o);
+                            cell = new TwoSideBlocked(o,s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("twoside", "TERGEN");
-                                map[s, o] = cell;
+                                map[o,s] = cell;
                             }
                             else
                             {
@@ -159,13 +159,13 @@ namespace TotL
                         }
                         else if (randomcellweight < tcw)
                         {
-                            cell = new TunnelCell(s,o);
+                            cell = new TunnelCell(o,s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("tunnel", "TERGEN");
-                                map[s, o] = cell;
+                                map[o,s] = cell;
                             }
                             else
                             {
@@ -174,13 +174,13 @@ namespace TotL
                         }
                         else if (randomcellweight < osb)
                         {
-                            cell = new OneSideBlocked(s,o);
+                            cell = new OneSideBlocked(o,s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("oneside", "TERGEN");
-                                map[s, o] = cell;
+                                map[o,s] = cell;
                             }
                             else
                             {
@@ -189,33 +189,24 @@ namespace TotL
                         }
 
                     }
-                    map[s, o].SetBlockingVolumes();
+                    map[o,s].SetBlockingVolumes();
 
                 }
                 co = 0;
             }
             cs = 0;
             co = 0;
-            map[bs, bo] = new UnitBase(map[bs, bo],"friendly",bs,bo);
-            map[es, eo] = new UnitBase(map[es, eo], "enemy",es,eo);
+            map[bo,bs] = new UnitBase(map[bo,bs],"friendly",bo,bs);
+            map[eo, es] = new UnitBase(map[eo, es], "enemy",eo,es);
 
             AStar.Solver<Connection, Object> aStar = new AStar.Solver<Connection, Object>(connect);
            LinkedList<Connection> test= aStar.Search(new System.Drawing.Point(2,3),new System.Drawing.Point(5,5),null);
 
             foreach (var item in test )
             {
-                cons.debugMessage(item.GetXasPathFinder() + " " + item.GetYasPathFinder());
+                cons.debugMessage(item.X + " " + item.Y);
             }
-            /* for (int i = 0; i < 15; i++)
-             {
-                 for (int j = 0; j < 25; j++)
-                 {
-                     map[j, i] = new OneSideBlocked();
-                      map[j,i].locationX = 20 + ((j) * unitSize);
-                      map[j,i].locationY = 20 + ((i) * unitSize);
-                 }
-             }*/
-
+            
 
 
 
@@ -258,7 +249,7 @@ namespace TotL
                 for (int o = 0; o < 25; o++)
                 {
 
-                    map[s,o].draw();
+                    map[o,s].draw();
                   
                 }
             }

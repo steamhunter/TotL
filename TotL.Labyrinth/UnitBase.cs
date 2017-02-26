@@ -17,7 +17,7 @@ namespace TotL.Labyrinth
         ShaderResourceView baseTexture;
         public string Type { get; set; }
 
-        public UnitBase(Cell realcell, string type,int y,int x):base(y,x)
+        public UnitBase(Cell realcell, string type,int x,int y):base(x,y)
         {
             baseTexture = TextureFromFile.TextureProcessor.getTexture("UnitBase");
             closedsides = realcell.closedsides;
