@@ -13,5 +13,7 @@ namespace TotL.Labyrinth
         Boolean IsWalkable(TUserContext inContext);
         Boolean IsWalkable(TUserContext inContext, IPathNode<TUserContext> centernode);
         object UserContext();
+        int X { get; set; }
+        int Y { get; set; }
     }
 }
