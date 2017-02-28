@@ -16,6 +16,8 @@ namespace TotL
 {
     class mapArea: AreaBase
     {
+        int bs, bo;
+        int es, eo;
         Cell[,] map= new Cell[25,15];
         Connection[,] connect = new Connection[27,18];
         public override void Initialize()
@@ -58,9 +60,8 @@ namespace TotL
             int co = 0;
             int cs = 0;
 
-            int bs = random.Next(1, 13);
-            int bo = random.Next(1, 13);
-            int es, eo;
+             bs = random.Next(1, 13);
+             bo = random.Next(1, 13);
             do
             {
                  es = random.Next(1, 13);
@@ -200,7 +201,7 @@ namespace TotL
             map[eo, es] = new UnitBase(map[eo, es], "enemy",eo,es);
 
             AStar.Solver<Connection, Object> aStar = new AStar.Solver<Connection, Object>(connect);
-           LinkedList<Connection> test= aStar.Search(new System.Drawing.Point(2,3),new System.Drawing.Point(5,5),null);
+           LinkedList<Connection> test= aStar.Search(new System.Drawing.Point(bo,bs),new System.Drawing.Point(eo,es),null);
 
             foreach (var item in test )
             {
@@ -249,6 +250,8 @@ namespace TotL
                 for (int o = 0; o < 25; o++)
                 {
 
+
+                    Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new SharpDX.Vector2(bs,bo), SharpDX.Color.White);
                     map[o,s].draw();
                   
                 }
