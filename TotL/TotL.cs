@@ -9,6 +9,7 @@ using SharpDX.Toolkit.Input;
 using PathFinder.Toolkit.Graphics;
 using PathFinder;
 using SharpDX;
+using PathFinder.Debug;
 
 namespace TotL
 {
@@ -40,6 +41,8 @@ namespace TotL
             deviceManager.PreferredBackBufferHeight = GraphicsDevice.Adapter.DesktopBounds.Height;
             Vars.ScreenWidth =  GraphicsDevice.Adapter.DesktopBounds.Width;
             Vars.ScreenHeight = GraphicsDevice.Adapter.DesktopBounds.Height;
+            Vars.unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
+            cons.debugMessage(Vars.unitSize.ToString());
 #pragma warning restore CS0618 // Type or member is obsolete
             deviceManager.ApplyChanges();
             IsMouseVisible = true;

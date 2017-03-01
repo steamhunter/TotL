@@ -11,6 +11,7 @@ using PathFinder;
 using TotL.Labyrinth;
 using PathFinder.Debug;
 using PathFinder.AStar;
+using SharpDX;
 
 namespace TotL
 {
@@ -201,8 +202,12 @@ namespace TotL
             map[eo, es] = new UnitBase(map[eo, es], "enemy",eo,es);
 
             AStar.Solver<Connection, Object> aStar = new AStar.Solver<Connection, Object>(connect);
-           LinkedList<Connection> test= aStar.Search(new System.Drawing.Point(bo,bs),new System.Drawing.Point(eo,es),null);
+            test= aStar.Search(new System.Drawing.Point(bo,bs),new System.Drawing.Point(eo,es),null);
 
+            if (test==null)
+            {
+                Initialize();
+            }
             foreach (var item in test )
             {
                 cons.debugMessage(item.X + " " + item.Y);
@@ -213,31 +218,10 @@ namespace TotL
 
 
         }
+        LinkedList<Connection> test;
         public override void LoadContent()
         {
-           /* for (int i = 0; i < 15; i++)
-            {
-                for (int j = 0; j < 25; j++)
-                {
-                    if (i == 0 && j != 24)
-                    {
-                        map[j, i].setRotation(Rotaitions.plus90);
-                    }
-                    else if (i == 0 && j == 24)
-                    {
-                        map[j, i].setRotation(Rotaitions.half);
-                    }
-                    else if (i == 14 && j != 0)
-                    {
-                        map[j, i].setRotation(Rotaitions.minus90);
-                    }
-                    else if (j == 24 && i != 0 && i != 14)
-                    {
-                        map[j, i].setRotation(Rotaitions.half);
-                    }
-
-                }
-            }*/
+           
         }
         public override void Update(GameTime gameTime)
         {
@@ -249,9 +233,16 @@ namespace TotL
             {
                 for (int o = 0; o < 25; o++)
                 {
-
-
-                    Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new SharpDX.Vector2(bs,bo), SharpDX.Color.White);
+                    if (test!=null)
+                    {
+                        foreach (var item in test)
+                        {
+                           // Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new SharpDX.Vector2(20 + (0+Vars.unitSize/2), 20 + (0)), Color.White);
+                            Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new RectangleF((20+(item.X*Vars.unitSize+(Vars.unitSize/2)))-5, (20 + (item.Y * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+                        }
+                    }
+                    
+                   
                     map[o,s].draw();
                   
                 }

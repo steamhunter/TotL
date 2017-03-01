@@ -21,9 +21,10 @@ namespace PathFinder
         public static int seed;
         public static Random random;
         public static configjson.configstructure config;
+        public static float unitSize;
 
 
-        
+
     }
     public class configjson
     {
