@@ -17,13 +17,16 @@ namespace TotL
 {
     class mapArea: AreaBase
     {
+        #region Globals
         int bs, bo;
         int es, eo;
         Cell[,] map= new Cell[25,15];
         Connection[,] connect = new Connection[27,18];
+        #endregion
+
         public override void Initialize()
         {
-
+            #region Game system init
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             int now = DateTime.Now.Millisecond * DateTime.Now.Second;
             cons.debugMessage(now.ToString());
@@ -32,7 +35,9 @@ namespace TotL
             cons.debugMessage(Vars.seed.ToString());
             random = new Random(Vars.seed);
             Vars.config = configjson.getConfig();
+            #endregion
 
+            #region Generator Border
             for (int s = 0; s < 18; s++)
             {
                 for (int o = 0; o < 27; o++)
@@ -58,19 +63,20 @@ namespace TotL
                     }
                 }
             }
-            int co = 0;
-            int cs = 0;
+            #endregion
 
-             bs = random.Next(1, 13);
+            #region generate start base 
+            bs = random.Next(1, 13);
              bo = random.Next(1, 13);
             do
             {
                  es = random.Next(1, 13);
                  eo = random.Next(1, 13);
             } while (Math.Abs(bs-es)+Math.Abs(bo-eo)<10);
+            #endregion
 
-
-           
+            int co = 0;
+            int cs = 0;
             for (int s = 0; s < 15; s++)
             {
                 cs++;
@@ -84,20 +90,23 @@ namespace TotL
                     {
                         Console.WriteLine();
                     }
+                    #region valid cell gen
                     bool valid = false;
                     while (!valid)
                     {
                         Cell cell;
 
+                        #region cell weights
                         int fcw, ccw, osb, tsb, tcw, dec = 0;
-
                         fcw = Vars.config.fc_weight;
                         ccw = fcw + Vars.config.cross_weight;
                         dec = ccw + Vars.config.deadend_weight;
                         tsb = dec + Vars.config.twoside_weight;
                         tcw = tsb + Vars.config.tunnel_weight;
                         osb = tcw + Vars.config.oneside_weight;
+                        #endregion
 
+                        #region pick random cell
                         int randomcellweight = random.Next(0, 101);
                         if (randomcellweight < fcw)
                         {
@@ -189,20 +198,23 @@ namespace TotL
                                 valid = false;
                             }
                         }
+                        #endregion
 
                     }
                     map[o,s].SetBlockingVolumes();
 
+                    #endregion
                 }
                 co = 0;
             }
             cs = 0;
             co = 0;
+
             map[bo,bs] = new UnitBase(map[bo,bs],"friendly",bo,bs);
             map[eo, es] = new UnitBase(map[eo, es], "enemy",eo,es);
 
-            AStar.Solver<Connection, Object> aStar = new AStar.Solver<Connection, Object>(connect);
-            test= aStar.Search(new System.Drawing.Point(bo,bs),new System.Drawing.Point(eo,es),null);
+           AStar.AstarSolver = new AStar.Solver<Connection, Object>(connect);
+            test= AStar.AstarSolver.Search(new System.Drawing.Point(bo+1,bs+1),new System.Drawing.Point(eo+1,es+1),null);
 
             if (test==null)
             {
@@ -238,7 +250,8 @@ namespace TotL
                         foreach (var item in test)
                         {
                            // Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new SharpDX.Vector2(20 + (0+Vars.unitSize/2), 20 + (0)), Color.White);
-                            Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new RectangleF((20+(item.X*Vars.unitSize+(Vars.unitSize/2)))-5, (20 + (item.Y * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+                            Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new RectangleF((20+((item.X-1)*Vars.unitSize+(Vars.unitSize/2)))-5, (20 + ((item.Y-1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+
                         }
                     }
                     

@@ -31,6 +31,25 @@ namespace PathFinder.AStar
             }
         }
 
+        #region solver
+        private static Solver<Connection, Object> _astarsolver;
+        public static Solver<Connection, Object> AstarSolver
+        {
+            get
+            {
+                if (_astarsolver!=null)
+                {
+                    return _astarsolver;
+                }
+                throw new Exception("No Solver created");
+            }
+            set
+            {
+                _astarsolver = value;
+            }
+        }
+        #endregion
+
         public class Solver<TPathNode, TUserContext> : SpatialAStar<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
         {
             protected override Double Heuristic(PathNode inStart, PathNode inEnd)

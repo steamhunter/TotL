@@ -16,8 +16,10 @@ namespace TotL.Labyrinth
        public static float half = Convert.ToSingle(Math.PI);
        public static float minus90 = -Convert.ToSingle(Math.PI) / 2;
     }
+
    public class Cell : _2DGraphicsElement, IConnections
     {
+        #region Globals
         private float _rotation = 0f;
         protected static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
         private bool _up, _right, _left, _down;
@@ -25,12 +27,14 @@ namespace TotL.Labyrinth
         private int _closedsides;
         protected List<RectangleF> _blockedvolumes = new List<RectangleF>();
         private bool _ispopulated=false;
+        #endregion
 
         public Cell(int x,int y)
         {
             X = x;
             Y = y;
         }
+        #region Propertys
         public bool down
         {
             get
@@ -150,20 +154,39 @@ namespace TotL.Labyrinth
 
         set;
         }
+        #endregion
 
+        /// <summary>
+        /// beálítja a cella forgatásí irányát
+        /// KÖTELEZŐ FELÜLIRNI
+        /// nincs megvalósítás
+        /// throws InvalidCallException()
+        /// </summary>
+        /// <param name="rotation">forgatás iránya a Totl.Labyrith.Rotations szerint</param>
         public virtual void setRotation(float rotation)
         {
             throw new InvalidCallException("hívás a Cell alap fügvényre" + GetType().ToString());
         }
 
+        /// <summary>
+        /// létrehozza a falat jelentö akadályt
+        /// KÖTELEZÖ FELÜLIRNI
+        /// nincs megvalósítás
+        /// throws InvalidCallException()
+        /// </summary>
         public virtual void SetBlockingVolumes()
         {
             throw new InvalidCallException("hívás a Cell alap fügvényre" + GetType().ToString());
         }
 
+        /// <summary>
+        /// elenörzi hogy a kordináta falban van e?
+        /// </summary>
+        /// <param name="location">az ellenörizendő koordináta</param>
+        /// <returns>ture: benne van false: nincs</returns>
         public virtual bool CheckBlockingState(RectangleF location)
         {
-
+            
             bool colision = false;
             for (int i = 0; i < _blockedvolumes.Count && !colision; i++)
             {
@@ -172,7 +195,15 @@ namespace TotL.Labyrinth
             return colision;
         }
 
-
+        /// <summary>
+        /// elenörzi hogy a cella illeszkedik e a Kapcsolat mátrixba
+        /// </summary>
+        /// <param name="connect"> a kapcsolatokat tartalmazó mátrix</param>
+        /// <param name="co">oszlop koordináta a connect mátrix szerint</param>
+        /// <param name="cs">sor kordináta a connect mátrix szerint</param>
+        /// <param name="o">oszlop a Cell mátrix szerint</param>
+        /// <param name="s">sor a Cell mátrix szerint</param>
+        /// <returns></returns>
         public virtual bool CheckFitting( Connection[,] connect ,int co,int cs,int o,int s)
         {
             throw new PathFinder.InvalidCallException("hívás a Cell alap fügvényre"+this.GetType().ToString());
