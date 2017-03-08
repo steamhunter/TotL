@@ -12,16 +12,18 @@ using TotL.Labyrinth;
 using PathFinder.Debug;
 using PathFinder.AStar;
 using SharpDX;
+using SharpDX.Toolkit.Input;
 
 namespace TotL
 {
-    class mapArea: AreaBase
+    class mapArea : AreaBase
     {
         #region Globals
         int bs, bo;
         int es, eo;
-        Cell[,] map= new Cell[25,15];
-        Connection[,] connect = new Connection[27,18];
+        Cell[,] map = new Cell[25, 15];
+        Connection[,] connect = new Connection[27, 18];
+        List<Units.Unit> unitlist = new List<Units.Unit>();
         #endregion
 
         public override void Initialize()
@@ -44,22 +46,22 @@ namespace TotL
                 {
                     if (s == 0 || o == 0 || o == 26 || s == 16)
                     {
-                        connect[o,s] = new Connection(o,s);
-                        connect[o,s].up = false;
-                        connect[o,s].down = false;
-                        connect[o,s].left = false;
-                        connect[o,s].right = false;
-                        connect[o,s].closedsides = 4;
+                        connect[o, s] = new Connection(o, s);
+                        connect[o, s].up = false;
+                        connect[o, s].down = false;
+                        connect[o, s].left = false;
+                        connect[o, s].right = false;
+                        connect[o, s].closedsides = 4;
                     }
                     else
                     {
-                        connect[o,s] = new Connection(o,s);
-                        connect[o,s].closedsides = 0;
-                        connect[o,s].up = true; //map[i - 1, j - 1].up;
-                        connect[o,s].down = true; //map[i - 1, j - 1].down;
-                        connect[o,s].left = true;// map[i - 1, j - 1].left;
-                        connect[o,s].right = true;//map[i - 1, j - 1].right;
-                        connect[o,s].isPopulated = false;
+                        connect[o, s] = new Connection(o, s);
+                        connect[o, s].closedsides = 0;
+                        connect[o, s].up = true; //map[i - 1, j - 1].up;
+                        connect[o, s].down = true; //map[i - 1, j - 1].down;
+                        connect[o, s].left = true;// map[i - 1, j - 1].left;
+                        connect[o, s].right = true;//map[i - 1, j - 1].right;
+                        connect[o, s].isPopulated = false;
                     }
                 }
             }
@@ -67,12 +69,12 @@ namespace TotL
 
             #region generate start base 
             bs = random.Next(1, 13);
-             bo = random.Next(1, 13);
+            bo = random.Next(1, 13);
             do
             {
-                 es = random.Next(1, 13);
-                 eo = random.Next(1, 13);
-            } while (Math.Abs(bs-es)+Math.Abs(bo-eo)<10);
+                es = random.Next(1, 13);
+                eo = random.Next(1, 13);
+            } while (Math.Abs(bs - es) + Math.Abs(bo - eo) < 10);
             #endregion
 
             int co = 0;
@@ -82,11 +84,11 @@ namespace TotL
                 cs++;
                 for (int o = 0; o < 25; o++)
                 {
-                    
+
 
                     co++;
                     cons.groupedMessage(o + " " + s, "TERGEN");
-                    if (s==bs&&o==bo)
+                    if (s == bs && o == bo)
                     {
                         Console.WriteLine();
                     }
@@ -110,7 +112,7 @@ namespace TotL
                         int randomcellweight = random.Next(0, 101);
                         if (randomcellweight < fcw)
                         {
-                            cell = new FullCell(o,s);
+                            cell = new FullCell(o, s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
@@ -125,13 +127,13 @@ namespace TotL
                         }
                         else if (randomcellweight < ccw)
                         {
-                            cell = new CrossCell(o,s);
+                            cell = new CrossCell(o, s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("cross", "TERGEN");
-                                map[o,s] = cell;
+                                map[o, s] = cell;
                             }
                             else
                             {
@@ -140,13 +142,13 @@ namespace TotL
                         }
                         else if (randomcellweight < dec)
                         {
-                            cell = new DeadEndCell(o,s);
+                            cell = new DeadEndCell(o, s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("deadend", "TERGEN");
-                                map[o,s] = cell;
+                                map[o, s] = cell;
                             }
                             else
                             {
@@ -155,13 +157,13 @@ namespace TotL
                         }
                         else if (randomcellweight < tsb)
                         {
-                            cell = new TwoSideBlocked(o,s);
+                            cell = new TwoSideBlocked(o, s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("twoside", "TERGEN");
-                                map[o,s] = cell;
+                                map[o, s] = cell;
                             }
                             else
                             {
@@ -170,13 +172,13 @@ namespace TotL
                         }
                         else if (randomcellweight < tcw)
                         {
-                            cell = new TunnelCell(o,s);
+                            cell = new TunnelCell(o, s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("tunnel", "TERGEN");
-                                map[o,s] = cell;
+                                map[o, s] = cell;
                             }
                             else
                             {
@@ -185,13 +187,13 @@ namespace TotL
                         }
                         else if (randomcellweight < osb)
                         {
-                            cell = new OneSideBlocked(o,s);
+                            cell = new OneSideBlocked(o, s);
 
                             if (cell.CheckFitting(connect, co, cs, o, s))
                             {
                                 valid = true;
                                 cons.groupedMessage("oneside", "TERGEN");
-                                map[o,s] = cell;
+                                map[o, s] = cell;
                             }
                             else
                             {
@@ -201,7 +203,7 @@ namespace TotL
                         #endregion
 
                     }
-                    map[o,s].SetBlockingVolumes();
+                    map[o, s].SetBlockingVolumes();
 
                     #endregion
                 }
@@ -210,21 +212,23 @@ namespace TotL
             cs = 0;
             co = 0;
 
-            map[bo,bs] = new UnitBase(map[bo,bs],"friendly",bo,bs);
-            map[eo, es] = new UnitBase(map[eo, es], "enemy",eo,es);
+            map[bo, bs] = new UnitBase(map[bo, bs], "friendly", bo, bs);
+            map[eo, es] = new UnitBase(map[eo, es], "enemy", eo, es);
 
-           AStar.AstarSolver = new AStar.Solver<Connection, Object>(connect);
-            test= AStar.AstarSolver.Search(new System.Drawing.Point(bo+1,bs+1),new System.Drawing.Point(eo+1,es+1),null);
+            AStar.AstarSolver = new AStar.Solver<Connection, Object>(connect);
+            test = AStar.AstarSolver.Search(new System.Drawing.Point(bo + 1, bs + 1), new System.Drawing.Point(eo + 1, es + 1), null);
 
-            if (test==null)
+            if (test == null)
             {
                 Initialize();
             }
-            foreach (var item in test )
+            cons.debugMessage("base" + bo + " " + bs);
+            cons.debugMessage("enemy" + eo + " " + es);
+            foreach (var item in test)
             {
                 cons.debugMessage(item.X + " " + item.Y);
             }
-            
+
 
 
 
@@ -233,11 +237,15 @@ namespace TotL
         LinkedList<Connection> test;
         public override void LoadContent()
         {
-           
+
         }
         public override void Update(GameTime gameTime)
         {
-           
+            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.Space))
+            {
+                Units.PlayerUnit newunit = new Units.PlayerUnit(Convert.ToInt32(20+bo*Vars.unitSize),Convert.ToInt32(20+bs*Vars.unitSize));
+                unitlist.Add(newunit);
+            }
         }
         public override void Draw(GameTime gameTime)
         {
@@ -245,20 +253,25 @@ namespace TotL
             {
                 for (int o = 0; o < 25; o++)
                 {
-                    if (test!=null)
+                    if (Vars.path_debug_Draw && test != null)
                     {
                         foreach (var item in test)
                         {
-                           // Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new SharpDX.Vector2(20 + (0+Vars.unitSize/2), 20 + (0)), Color.White);
-                            Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new RectangleF((20+((item.X-1)*Vars.unitSize+(Vars.unitSize/2)))-5, (20 + ((item.Y-1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+                            // Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new SharpDX.Vector2(20 + (0+Vars.unitSize/2), 20 + (0)), Color.White);
+                            Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new RectangleF((20 + ((item.X - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, (20 + ((item.Y - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
 
                         }
                     }
-                    
-                   
-                    map[o,s].draw();
-                  
+
+
+                    map[o, s].draw();
+
                 }
+            }
+
+            foreach (var item in unitlist)
+            {
+                item.draw();
             }
         }
     }

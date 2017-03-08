@@ -36,6 +36,7 @@ namespace TotL
             Vars.device = deviceManager.GraphicsDevice;
             Vars.spriteBatch = spriteBatch;
             Vars.game = this;
+            Vars.mykeyboardmanager = Mykeyboardmanager;
 #pragma warning disable CS0618 // Type or member is obsolete
             deviceManager.PreferredBackBufferWidth = GraphicsDevice.Adapter.DesktopBounds.Width;
             deviceManager.PreferredBackBufferHeight = GraphicsDevice.Adapter.DesktopBounds.Height;

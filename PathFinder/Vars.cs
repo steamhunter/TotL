@@ -1,5 +1,6 @@
 ﻿using PathFinder.Toolkit.Graphics;
 using SharpDX.Toolkit;
+using SharpDX.Toolkit.Input;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,6 +24,8 @@ namespace PathFinder
         public static Random random;
         public static configjson.configstructure config;
         public static float unitSize;
+        public static bool path_debug_Draw;
+        public static KeyboardManager mykeyboardmanager;
 
 
 
