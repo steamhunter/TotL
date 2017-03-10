@@ -243,8 +243,12 @@ namespace TotL
         {
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.Space))
             {
-                Units.PlayerUnit newunit = new Units.PlayerUnit(Convert.ToInt32(20+bo*Vars.unitSize),Convert.ToInt32(20+bs*Vars.unitSize));
+                Units.PlayerUnit newunit = new Units.PlayerUnit(Convert.ToInt32(20 + bo * Vars.unitSize), Convert.ToInt32(20 + bs * Vars.unitSize), new Vector2((20 + bo * Vars.unitSize) + 5, (20 + bs * Vars.unitSize) + 5));
                 unitlist.Add(newunit);
+            }
+            foreach (var item in unitlist)
+            {
+                item.update();
             }
         }
         public override void Draw(GameTime gameTime)

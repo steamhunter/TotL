@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,12 @@ namespace TotL.Units
         public int locationX { get; set; }
         public int locationY { get; set; }
         public Unit(int locationX,int locationY)
+        {
+            this.locationX = locationX;
+            this.locationY = locationY;
+        }
+
+        public Unit(int locationX, int locationY, Vector2 targetlocation)
         {
             this.locationX = locationX;
             this.locationY = locationY;
