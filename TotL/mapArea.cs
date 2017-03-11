@@ -26,6 +26,12 @@ namespace TotL
         List<Units.Unit> unitlist = new List<Units.Unit>();
         #endregion
 
+        private int GetCoordinateFromLocation(int location)
+        {
+            int unitsize = Convert.ToInt32(Vars.unitSize);
+            return (20+(location*unitsize))+(unitsize/2);
+        }
+
         public override void Initialize()
         {
             #region Game system init
@@ -241,9 +247,9 @@ namespace TotL
         }
         public override void Update(GameTime gameTime)
         {
-            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.Space))
+            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.A))
             {
-                Units.PlayerUnit newunit = new Units.PlayerUnit(Convert.ToInt32(20 + bo * Vars.unitSize), Convert.ToInt32(20 + bs * Vars.unitSize), new Vector2((20 + bo * Vars.unitSize) + 5, (20 + bs * Vars.unitSize) + 5));
+                Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs), new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5));
                 unitlist.Add(newunit);
             }
             foreach (var item in unitlist)
