@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.AStar;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 using System;
@@ -13,7 +14,7 @@ namespace TotL.Units
 {
     class PlayerUnit:Unit
     {
-        Vector2 targetlocation;
+        
         public PlayerUnit(int locationX,int locationY):base(locationX,locationY)
         {
 
@@ -22,15 +23,20 @@ namespace TotL.Units
             texture = TextureFromFile.TextureProcessor.getTexture("transparent");
         }
 
-        public PlayerUnit(int locationX, int locationY, Vector2 targetlocation):base(locationX,locationY,targetlocation)
+        public PlayerUnit(int locationX, int locationY, Vector2 navcoordinate):base(locationX,locationY,navcoordinate)
         {
 
             this.locationX = locationX;
             this.locationY = locationY;
-            this.targetlocation=targetlocation;
+            this.navcoordinate=navcoordinate;
             texture = TextureFromFile.TextureProcessor.getTexture("transparent");
         }
 
+        public override void SetTarget(Vector2 target)
+        {
+            this.target = target;
+            
+        }
         public override void Initialize()
         {
         }
@@ -40,20 +46,34 @@ namespace TotL.Units
         }
         public override void update(Cell[,] map)
         {
-            if (targetlocation!=null)
+            int X = (locationX - 20) / (int)Vars.unitSize;
+            int Y = (locationY - 20) / (int)Vars.unitSize;
+            if (target!=null)
             {
-                if ((int)targetlocation.X!=locationX||targetlocation.Y!=locationY)
+               
+               path =AStar.AstarSolver.Search(new System.Drawing.Point(X, Y), new System.Drawing.Point((int)target.X, (int)target.Y), map);
+            }
+            if (target.X==X&&target.Y==Y)
+            {
+                path = null;
+                navcoordinate =null;
+                target = null;
+            }
+            if (navcoordinate!=null)
+            {
+                if ((int)navcoordinate.X!=locationX||navcoordinate.Y!=locationY)
                 {
-                    int X = (locationX - 20) / (int)Vars.unitSize;
-                    int Y = (locationY - 20) / (int)Vars.unitSize;
-                    map[X, Y].CheckBlockingState(new RectangleF(X, Y, 16, 16));
-                    if ((int)targetlocation.X!=locationX)
+                    
+                    if (!map[X, Y].CheckBlockingState(new RectangleF(locationX + 1, locationY + 1, 16, 16)))
                     {
-                        locationX += 1;
-                    }
-                    if ((int)targetlocation.Y!=locationY)
-                    {
-                        locationY += 1;
+                        if ((int)navcoordinate.X != locationX)
+                        {
+                            locationX += 1;
+                        }
+                        if ((int)navcoordinate.Y != locationY)
+                        {
+                            locationY += 1;
+                        }
                     }
                 }
             }

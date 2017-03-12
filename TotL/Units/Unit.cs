@@ -14,6 +14,10 @@ namespace TotL.Units
     {
         public int locationX { get; set; }
         public int locationY { get; set; }
+        protected Vector2 navcoordinate;
+        protected Vector2 target;
+        protected LinkedList<Connection> path;
+
         public Unit(int locationX,int locationY)
         {
             this.locationX = locationX;
@@ -26,6 +30,10 @@ namespace TotL.Units
             this.locationY = locationY;
         }
 
+        public virtual void SetTarget(Vector2 target)
+        {
+            throw new InvalidCallException("hívás a unit alap fügvényre");
+        }
         public override void draw()
         {
              throw new InvalidCallException("hívás a unit alap fügvényre");
@@ -44,7 +52,7 @@ namespace TotL.Units
         {
             throw new InvalidCallException("Unit nem fogható meg mint 2DGraphicsElement");
         }
-        public virtual void update(Cell [,] map)
+        public virtual void update(Cell[,] connect)
         {
             throw new InvalidCallException("hívás a unit alap fügvényre");
         }
