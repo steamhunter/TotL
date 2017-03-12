@@ -254,7 +254,7 @@ namespace TotL
             }
             foreach (var item in unitlist)
             {
-                item.update();
+                item.update(map);
             }
         }
         public override void Draw(GameTime gameTime)

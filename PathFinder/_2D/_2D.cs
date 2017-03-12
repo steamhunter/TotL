@@ -51,6 +51,7 @@ namespace PathFinder._2D
             throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
         }
 
+
         public virtual void Load()
         {
             throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TotL.Labyrinth;
 
 namespace TotL.Units
 {
@@ -38,7 +39,12 @@ namespace TotL.Units
         {
             throw new InvalidCallException("hívás a unit alap fügvényre");
         }
+
         public override void update()
+        {
+            throw new InvalidCallException("Unit nem fogható meg mint 2DGraphicsElement");
+        }
+        public virtual void update(Cell [,] map)
         {
             throw new InvalidCallException("hívás a unit alap fügvényre");
         }

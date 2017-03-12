@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TotL.Labyrinth;
 
 namespace TotL.Units
 {
@@ -37,12 +38,15 @@ namespace TotL.Units
         public override void Load()
         {
         }
-        public override void update()
+        public override void update(Cell[,] map)
         {
             if (targetlocation!=null)
             {
                 if ((int)targetlocation.X!=locationX||targetlocation.Y!=locationY)
                 {
+                    int X = (locationX - 20) / (int)Vars.unitSize;
+                    int Y = (locationY - 20) / (int)Vars.unitSize;
+                    map[X, Y].CheckBlockingState(new RectangleF(X, Y, 16, 16));
                     if ((int)targetlocation.X!=locationX)
                     {
                         locationX += 1;
