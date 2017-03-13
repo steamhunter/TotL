@@ -14,7 +14,11 @@ namespace TotL.Units
 {
     class PlayerUnit:Unit
     {
-        
+        private int GetCoordinateFromLocation(int location)
+        {
+            int unitsize = Convert.ToInt32(Vars.unitSize);
+            return (20 + (location * unitsize)) + (unitsize / 2);
+        }
         public PlayerUnit(int locationX,int locationY):base(locationX,locationY)
         {
 
@@ -32,11 +36,6 @@ namespace TotL.Units
             texture = TextureFromFile.TextureProcessor.getTexture("transparent");
         }
 
-        public override void SetTarget(Vector2 target)
-        {
-            this.target = target;
-            
-        }
         public override void Initialize()
         {
         }
@@ -48,22 +47,28 @@ namespace TotL.Units
         {
             int X = (locationX - 20) / (int)Vars.unitSize;
             int Y = (locationY - 20) / (int)Vars.unitSize;
-            if (target!=null)
+            if (hasTarget)
             {
-               
-               path =AStar.AstarSolver.Search(new System.Drawing.Point(X, Y), new System.Drawing.Point((int)target.X, (int)target.Y), map);
+
+                path = AStar.AstarSolver.Search(new System.Drawing.Point(X, Y), new System.Drawing.Point((int)target.X, (int)target.Y), map);
+                path.RemoveFirst();
             }
-            if (target.X==X&&target.Y==Y)
+            if (target.X == X && target.Y == Y)
             {
                 path = null;
-                navcoordinate =null;
-                target = null;
+                hasnavcoordinate = false;
+                hasTarget = false;
             }
-            if (navcoordinate!=null)
+            else if(!hasnavcoordinate&&hasTarget)
             {
-                if ((int)navcoordinate.X!=locationX||navcoordinate.Y!=locationY)
+                navcoordinate = new Vector2(GetCoordinateFromLocation(path.First.Value.X),GetCoordinateFromLocation(path.First.Value.Y));
+                hasnavcoordinate = true;
+            }
+            if (hasnavcoordinate)
+            {
+                if ((int)navcoordinate.X != locationX || navcoordinate.Y != locationY)
                 {
-                    
+
                     if (!map[X, Y].CheckBlockingState(new RectangleF(locationX + 1, locationY + 1, 16, 16)))
                     {
                         if ((int)navcoordinate.X != locationX)
@@ -74,6 +79,14 @@ namespace TotL.Units
                         {
                             locationY += 1;
                         }
+                    }
+                }
+                else
+                {
+                    hasnavcoordinate = false;
+                    if (path != null)
+                    {
+                        path.RemoveFirst();
                     }
                 }
             }

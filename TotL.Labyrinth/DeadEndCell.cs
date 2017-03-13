@@ -70,7 +70,7 @@ namespace TotL.Labyrinth
         public override void draw()
         {
 
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
 
             /*foreach (var item in _blockedvolumes)

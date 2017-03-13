@@ -10,15 +10,41 @@ using TotL.Labyrinth;
 
 namespace TotL.Units
 {
-    class Unit:_2DGraphicsElement
+    class Unit : _2DGraphicsElement
     {
         public int locationX { get; set; }
         public int locationY { get; set; }
-        protected Vector2 navcoordinate;
-        protected Vector2 target;
+        public bool hasnavcoordinate { get; set; }
+        private Vector2 _navcoordinate;
+        public Vector2 navcoordinate
+        {
+            get
+            {
+                return _navcoordinate;
+            }
+            set
+            {
+                hasnavcoordinate = true;
+                _navcoordinate = value;
+            }
+        }
+        private Vector2 _target;
+        public bool hasTarget { get; set; }
+        public Vector2 target
+        {
+            get
+            {
+                return _target;
+            }
+            set
+            {
+                hasTarget = true;
+                _target = value;
+            }
+        }
         protected LinkedList<Connection> path;
 
-        public Unit(int locationX,int locationY)
+        public Unit(int locationX, int locationY)
         {
             this.locationX = locationX;
             this.locationY = locationY;
@@ -30,13 +56,10 @@ namespace TotL.Units
             this.locationY = locationY;
         }
 
-        public virtual void SetTarget(Vector2 target)
-        {
-            throw new InvalidCallException("hívás a unit alap fügvényre");
-        }
+
         public override void draw()
         {
-             throw new InvalidCallException("hívás a unit alap fügvényre");
+            throw new InvalidCallException("hívás a unit alap fügvényre");
         }
 
         public override void Initialize()

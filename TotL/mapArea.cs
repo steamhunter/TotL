@@ -249,14 +249,18 @@ namespace TotL
         {
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.A))
             {
-                Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs), new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5));
+                Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
+                newunit.navcoordinate=new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
                 unitlist.Add(newunit);
             }
             if (Vars.mykeyboardmanager.GetState().IsKeyDown(Keys.X))
             {
                 foreach (var item in unitlist)
                 {
-                    
+                    if (!item.hasnavcoordinate)
+                    {
+                        item.target = new Vector2(eo,es);
+                    }
                 }
             }
             foreach (var item in unitlist)

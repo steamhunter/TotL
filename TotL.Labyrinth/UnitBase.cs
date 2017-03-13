@@ -22,8 +22,8 @@ namespace TotL.Labyrinth
             baseTexture = TextureFromFile.TextureProcessor.getTexture("UnitBase");
             closedsides = realcell.closedsides;
             this.realcell = realcell;
-            locationX = realcell.locationX;
-            locationY = realcell.locationY;
+            locationX = realcell.locationX/*+realcell.LocationXoffset*/;
+            locationY = realcell.locationY/*+realcell.LocationYoffset*/;
             X = x;
             Y = y;
             this.Type = type;

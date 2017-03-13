@@ -21,13 +21,10 @@ namespace TotL.Labyrinth
    public class Cell : _2DGraphicsElement, IConnections
     {
         #region Globals
-        private float _rotation = 0f;
         protected static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-        private bool _up, _right, _left, _down;
-        protected float LocationXoffset, LocationYoffset;
-        private int _closedsides;
         protected List<RectangleF> _blockedvolumes = new List<RectangleF>();
-        private bool _ispopulated=false;
+        public float LocationXoffset;
+        public float LocationYoffset;
         #endregion
 
         public Cell(int x,int y)
@@ -38,107 +35,53 @@ namespace TotL.Labyrinth
         #region Propertys
         public bool down
         {
-            get
-            {
-                return _down;
-            }
-            set
-            {
-                _down = value;
-            }
+            get;
+            set;
         }
         public bool left
         {
-            get
-            {
-                return _left;
-            }
-            set
-            {
-                _left = value;
-            }
+            get;
+            set;
         }
         public bool right
         {
-            get
-            {
-                return _right;
-            }
-            set
-            {
-                _right = value;
-            }
+            get;
+            set;
         }
         public bool up
         {
-            get
-            {
-                return _up;
-            }
-            set
-            {
-                _up = value;
-            }
+            get;
+            set;
         }
       
          public float rotation
         {
-            get
-            {
-                return _rotation;
-            }
+            get;
 
-            set
-            {
-                _rotation = value;
-            }
+            set;
         }
 
         public float locationX {
-            get
-            {
-                return _locationX;
-            }
-            set
-            {
-                _locationX = LocationXoffset + value;
-            }
+            get;
+            set;
         }
         public float locationY
         {
-            get
-            {
-                return _locationY;
-            }
-            set
-            {
-                _locationY = LocationYoffset + value;
-            }
+            get;
+            set;
         }
         public int closedsides
         {
-            get
-            {
-                return _closedsides;
-            }
+            get;
 
-            set
-            {
-                _closedsides = value;
-            }
+            set;
         }
 
         public bool isPopulated
         {
-            get
-            {
-                return _ispopulated;
-            }
+            get;
 
-            set
-            {
-                _ispopulated = value;
-            }
+            set;
         }
 
         public int X
