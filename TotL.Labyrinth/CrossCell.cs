@@ -45,11 +45,12 @@ namespace TotL.Labyrinth
         }
         public override void SetBlockingVolumes()
         {
-           
-            _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, locationY, unitSize / 4, unitSize / 4));
-            _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
-            _blockedvolumes.Add(new RectangleF(locationX, locationY, unitSize / 4, unitSize / 4));
-            _blockedvolumes.Add(new RectangleF(locationX , (locationY + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+            float locationx = locationX + LocationXoffset;
+            float locationy = locationY + LocationYoffset;
+            _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, locationy, unitSize / 4, unitSize / 4));
+            _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+            _blockedvolumes.Add(new RectangleF(locationx, locationy, unitSize / 4, unitSize / 4));
+            _blockedvolumes.Add(new RectangleF(locationx , (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
         }
 
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)

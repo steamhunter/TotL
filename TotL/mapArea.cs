@@ -24,6 +24,8 @@ namespace TotL
         Cell[,] map = new Cell[25, 15];
         Connection[,] connect = new Connection[27, 18];
         List<Units.Unit> unitlist = new List<Units.Unit>();
+        bool spawnswarm=false;
+        short swarmsize = 0;
         #endregion
 
         private int GetCoordinateFromLocation(int location)
@@ -245,26 +247,42 @@ namespace TotL
         {
 
         }
+        short updatetick = 0;
         public override void Update(GameTime gameTime)
         {
+            updatetick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.A))
             {
-                Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
-                newunit.navcoordinate=new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
-                unitlist.Add(newunit);
+                spawnswarm = true;
+                
             }
-            if (Vars.mykeyboardmanager.GetState().IsKeyDown(Keys.X))
+
+            if (spawnswarm)
             {
-                foreach (var item in unitlist)
+                if (swarmsize != 30)
                 {
-                    if (!item.hasnavcoordinate)
+                    if (updatetick>=50)
                     {
-                        item.target = new Vector2(eo,es);
+                        Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
+                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
+                        unitlist.Add(newunit);
+                        swarmsize++;
+                        updatetick = 0;
                     }
+                    
+                }
+                else
+                {
+                    spawnswarm = false;
                 }
             }
+            
             foreach (var item in unitlist)
             {
+                if (!item.hasnavcoordinate)
+                {
+                    item.target = new Vector2(eo, es);
+                }
                 item.update(map);
             }
         }
@@ -274,7 +292,7 @@ namespace TotL
             {
                 for (int o = 0; o < 25; o++)
                 {
-                    if (Vars.path_debug_Draw && test != null)
+                   /* if (Vars.path_debug_Draw && test != null)
                     {
                         foreach (var item in test)
                         {
@@ -282,7 +300,7 @@ namespace TotL
                             Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new RectangleF((20 + ((item.X - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, (20 + ((item.Y - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
 
                         }
-                    }
+                    }*/
 
 
                     map[o, s].draw();

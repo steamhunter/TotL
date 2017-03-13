@@ -74,24 +74,26 @@ namespace TotL.Labyrinth
 
             Vars.spriteBatch.Draw(texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
-            /*  foreach (var item in _blockedvolumes)
+              foreach (var item in _blockedvolumes)
               {
                   Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), item, Color.White);
-              }*/
+              }
 
         }
 
         public override void SetBlockingVolumes()
         {
+            float locationx = locationX + LocationXoffset;
+            float locationy = locationY + LocationYoffset;
             if (rotation == Rotaitions.zero || rotation == Rotaitions.half)
             {
-                _blockedvolumes.Add(new RectangleF(locationX, locationY, unitSize / 4, unitSize));
-                _blockedvolumes.Add(new RectangleF((locationX + unitSize) - unitSize / 4, locationY, unitSize / 4, unitSize));
+                _blockedvolumes.Add(new RectangleF(locationx, locationy, unitSize / 4, unitSize));
+                _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, locationy, unitSize / 4, unitSize));
             }
             else if (rotation == Rotaitions.minus90 || rotation == Rotaitions.plus90)
             {
-                _blockedvolumes.Add(new RectangleF(locationX-unitSize, locationY, unitSize, unitSize / 4));
-                _blockedvolumes.Add(new RectangleF(locationX-unitSize,(locationY+unitSize)-unitSize/4,unitSize,unitSize/4));
+                _blockedvolumes.Add(new RectangleF(locationx-unitSize, locationy, unitSize, unitSize / 4));
+                _blockedvolumes.Add(new RectangleF(locationx-unitSize,(locationy+unitSize)-unitSize/4,unitSize,unitSize/4));
             }
         }
             
