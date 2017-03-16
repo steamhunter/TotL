@@ -26,6 +26,7 @@ namespace PathFinder
         public static float unitSize;
         public static bool path_debug_Draw;
         public static KeyboardManager mykeyboardmanager;
+        public static MouseManager mymousemanager;
 
 
 

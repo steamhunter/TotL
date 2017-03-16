@@ -32,11 +32,12 @@ namespace TotL
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            deviceManager.IsFullScreen =true;
+            deviceManager.IsFullScreen =false;
             Vars.device = deviceManager.GraphicsDevice;
             Vars.spriteBatch = spriteBatch;
             Vars.game = this;
             Vars.mykeyboardmanager = Mykeyboardmanager;
+            Vars.mymousemanager = Mymousemanager;
 #pragma warning disable CS0618 // Type or member is obsolete
             deviceManager.PreferredBackBufferWidth = GraphicsDevice.Adapter.DesktopBounds.Width;
             deviceManager.PreferredBackBufferHeight = GraphicsDevice.Adapter.DesktopBounds.Height;

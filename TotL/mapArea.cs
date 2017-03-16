@@ -33,6 +33,10 @@ namespace TotL
             int unitsize = Convert.ToInt32(Vars.unitSize);
             return (20+(location*unitsize))+(unitsize/2);
         }
+        private int GetLocationFromCoordinate(int Coordinate)
+        {
+            return (Coordinate - 20) / (int)Vars.unitSize;
+        }
 
         public override void Initialize()
         {
@@ -276,15 +280,24 @@ namespace TotL
                     spawnswarm = false;
                 }
             }
-            
+            if (Vars.mymousemanager.GetState().LeftButton.Pressed)
+            {
+                float X = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
+                float Y = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
+
+                foreach (var item in unitlist)
+                {
+                   item.target = new Vector2(GetLocationFromCoordinate((int)X),GetLocationFromCoordinate((int)Y));
+                }
+                
+
+            }
             foreach (var item in unitlist)
             {
-                if (!item.hasnavcoordinate)
-                {
-                    item.target = new Vector2(eo, es);
-                }
+
                 item.update(map);
             }
+
         }
         public override void Draw(GameTime gameTime)
         {

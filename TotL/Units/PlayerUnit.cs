@@ -48,19 +48,21 @@ namespace TotL.Units
         {
             int X = (locationX - 20) / (int)Vars.unitSize;
             int Y = (locationY - 20) / (int)Vars.unitSize;
-            if (hasTarget&&path==null)
-            {
-
-                path = AStar.AstarSolver.Search(new System.Drawing.Point(X+1, Y+1), new System.Drawing.Point((int)target.X+1, (int)target.Y+1), map);
-               // path.RemoveFirst();
-            }
+            
             if (Math.Abs(GetCoordinateFromLocation((int)target.X)-locationX) ==0 &&Math.Abs(GetCoordinateFromLocation((int)target.Y)-locationY)==0)
             {
                 path = null;
                 hasnavcoordinate = false;
                 hasTarget = false;
+                haspath = false;
             }
-            else if(!hasnavcoordinate&&hasTarget)
+            if (hasTarget && !haspath)
+            {
+
+                path = AStar.AstarSolver.Search(new System.Drawing.Point(X + 1, Y + 1), new System.Drawing.Point((int)target.X + 1, (int)target.Y + 1), map);
+                // path.RemoveFirst();
+            }
+            else if(!hasnavcoordinate&&hasTarget&&haspath)
             {
                 navcoordinate = new Vector2(GetCoordinateFromLocation(path.First.Value.X-1),GetCoordinateFromLocation(path.First.Value.Y-1));
                 hasnavcoordinate = true;

@@ -28,7 +28,7 @@ using System.Drawing.Imaging;
 
 namespace PathFinder.AStar.SettlersEngine
 {
-    public unsafe class ImagePixelLock : System.Runtime.ConstrainedExecution.CriticalFinalizerObject, IDisposable
+   /* public unsafe class ImagePixelLock : System.Runtime.ConstrainedExecution.CriticalFinalizerObject, IDisposable
     {
         private static byte[] buffer = new byte[1024];
         private static byte[] tmpBuffer = new byte[1024];
@@ -124,6 +124,6 @@ namespace PathFinder.AStar.SettlersEngine
             bitmap = null;
             Pixels = (int*)0;
         }
-    }
+    }*/
 
 }

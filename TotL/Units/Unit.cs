@@ -30,6 +30,7 @@ namespace TotL.Units
         }
         private Vector2 _target;
         public bool hasTarget { get; set; }
+        public bool haspath { get; set; }
         public Vector2 target
         {
             get
@@ -39,10 +40,22 @@ namespace TotL.Units
             set
             {
                 hasTarget = true;
+                haspath = false;
                 _target = value;
             }
         }
-        protected LinkedList<Connection> path;
+        private LinkedList<Connection> _path;
+        protected LinkedList<Connection> path
+        {
+            get {
+                return _path;
+            }
+            set
+            {
+                _path = value;
+                haspath = true;
+            }
+        }
 
         public Unit(int locationX, int locationY)
         {
