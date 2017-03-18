@@ -48,7 +48,8 @@ namespace TotL.Units
         {
             int X = (locationX - 20) / (int)Vars.unitSize;
             int Y = (locationY - 20) / (int)Vars.unitSize;
-            
+
+            #region pathing
             if (Math.Abs(GetCoordinateFromLocation((int)target.X)-locationX) ==0 &&Math.Abs(GetCoordinateFromLocation((int)target.Y)-locationY)==0)
             {
                 path = null;
@@ -58,9 +59,23 @@ namespace TotL.Units
             }
             if (hasTarget && !haspath)
             {
+                try
+                {
+                    path = AStar.AstarSolver.Search(new System.Drawing.Point(X + 1, Y + 1), new System.Drawing.Point((int)target.X + 1, (int)target.Y + 1), map);
+                    if (path == null)
+                    {
+                        hasTarget = false;
+                        haspath = false;
+                    }
+                    
+                }
+                catch (Exception)
+                {
 
-                path = AStar.AstarSolver.Search(new System.Drawing.Point(X + 1, Y + 1), new System.Drawing.Point((int)target.X + 1, (int)target.Y + 1), map);
-                // path.RemoveFirst();
+                    hasTarget = false;
+                    haspath = false;
+                }
+                
             }
             else if(!hasnavcoordinate&&hasTarget&&haspath)
             {
@@ -72,7 +87,7 @@ namespace TotL.Units
                 if ((int)navcoordinate.X != locationX || navcoordinate.Y != locationY)
                 {
 
-                    if (!map[X, Y].CheckBlockingState(new RectangleF(locationX + 1, locationY + 1, 16, 16)))
+                    if (!map[X, Y].CheckBlockingState(new RectangleF(locationX + 1, locationY + 1, 16, 16))||relocation)
                     {
                         if ((int)navcoordinate.X > locationX)
                         {
@@ -94,21 +109,44 @@ namespace TotL.Units
                     else
                     {
                         cons.debugMessage(map[X, Y].ToString());
+                        navcoordinate2 = navcoordinate;
+                        navcoordinate = new Vector2(GetCoordinateFromLocation(X),GetCoordinateFromLocation(Y));
+                        relocation = true;
                     }
                 }
                 else
                 {
-                    hasnavcoordinate = false;
+                    if (relocation)
+                    {
+                        navcoordinate = navcoordinate2;
+                        relocation = false;
+                        
+                    }
+                    else
+                    {
+                        hasnavcoordinate = false;
+                    }
+
                     if (path != null)
                     {
                         path.RemoveFirst();
                     }
                 }
             }
+            #endregion
+
+            if (map[X,Y] is UnitBase)
+            {
+                if (!(map[X,Y] as UnitBase).isdestroyed)
+                {
+                    (map[X, Y] as UnitBase).Damagebuilding(5, "friendly");
+                }
+               
+            }
         }
         public override void draw()
         {
-                 Vars.spriteBatch.Draw(texture,new RectangleF(locationX,locationY,16,16),null,Color.White,0f,new Vector2(0,0),SpriteEffects.None,0f);
+                 Vars.spriteBatch.Draw(texture,new RectangleF(locationX,locationY,Vars.unitSize/4,Vars.unitSize/4),null,Color.White,0f,new Vector2(0,0),SpriteEffects.None,0f);
                 
             if (Vars.path_debug_Draw && path != null)
             {

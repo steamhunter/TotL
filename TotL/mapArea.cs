@@ -23,9 +23,12 @@ namespace TotL
         int es, eo;
         Cell[,] map = new Cell[25, 15];
         Connection[,] connect = new Connection[27, 18];
-        List<Units.Unit> unitlist = new List<Units.Unit>();
-        bool spawnswarm=false;
-        short swarmsize = 0;
+        List<Units.Unit> clusterA = new List<Units.Unit>();
+        List<Units.Unit> clusterB = new List<Units.Unit>();
+        bool spawnclusterA=false;
+        short clusterAsize = 0;
+        bool spawnclusterB = false;
+        short clusterBsize = 0;
         #endregion
 
         private int GetCoordinateFromLocation(int location)
@@ -251,53 +254,172 @@ namespace TotL
         {
 
         }
-        short updatetick = 0;
+        short clusterAtick = 0;
+        float ClusterAX;
+        float ClusterAY;
+        short selectedCluster = 0;
+        bool ClusterAhastarget = false;
+        short ClusterAtargetIndex = 0;
+        short ClusterAtargettick = 0;
+
+        short clusterBtick = 0;
+        float ClusterBX;
+        float ClusterBY;
+        bool clusterBhastarget = false;
+        short clusterBtargetIndex = 0;
+        short clusterBtargettick = 0;
         public override void Update(GameTime gameTime)
         {
-            updatetick++;
-            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.A))
+            clusterAtick++;
+            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.X))
             {
-                spawnswarm = true;
+                if (spawnclusterA==false)
+                {
+                    spawnclusterA = true;
+                    selectedCluster = 1;
+                }
+                else
+                {
+                    selectedCluster = 1;
+                }
+                
                 
             }
-
-            if (spawnswarm)
+            #region clusterA
+            if (spawnclusterA)
             {
-                if (swarmsize != 30)
+                if (clusterAsize != 10)
                 {
-                    if (updatetick>=50)
+                    if (clusterAtick>=30)
                     {
                         Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
-                        unitlist.Add(newunit);
-                        swarmsize++;
-                        updatetick = 0;
+                        clusterA.Add(newunit);
+                        clusterAsize++;
+                        clusterAtick = 0;
                     }
                     
                 }
                 else
                 {
-                    spawnswarm = false;
+                    spawnclusterA = false;
                 }
             }
             if (Vars.mymousemanager.GetState().LeftButton.Pressed)
             {
-                float X = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
-                float Y = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
-
-                foreach (var item in unitlist)
+                if (selectedCluster==1)
                 {
-                   item.target = new Vector2(GetLocationFromCoordinate((int)X),GetLocationFromCoordinate((int)Y));
+                    ClusterAX = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
+                    ClusterAY = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
+                    ClusterAhastarget = true;
+                    ClusterAtargetIndex = 0;
+
                 }
-                
+
+
+
 
             }
-            foreach (var item in unitlist)
+            if (ClusterAhastarget)
+            {
+                ClusterAtargettick++;
+                if (ClusterAtargettick>=30)
+                {
+                    clusterA[ClusterAtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterAX), GetLocationFromCoordinate((int)ClusterAY));
+                    if (ClusterAtargetIndex < clusterA.Count - 1)
+                    {
+                        ClusterAtargetIndex++;
+                    }
+                    else if (clusterA.Count == 30)
+                    {
+                        ClusterAhastarget = false;
+                        ClusterAtargetIndex = 0;
+                    }
+                    ClusterAtargettick = 0;
+                }
+                
+                
+            }
+            foreach (var item in clusterA)
             {
 
                 item.update(map);
             }
+            #endregion
+            clusterBtick++;
+            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.C))
+            {
+                if (spawnclusterB==false)
+                {
+                    spawnclusterB = true;
+                    selectedCluster = 2;
+                }
+                else
+                {
+                    selectedCluster = 2;
+                }
+                
+            }
 
+            if (spawnclusterB)
+            {
+                if (clusterBsize != 10)
+                {
+                    if (clusterBtick >= 30)
+                    {
+                        Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
+                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
+                        clusterB.Add(newunit);
+                        clusterBsize++;
+                        clusterBtick = 0;
+                    }
+
+                }
+                else
+                {
+                    spawnclusterB = false;
+                }
+            }
+            if (Vars.mymousemanager.GetState().LeftButton.Pressed)
+            {
+                if (selectedCluster==2)
+                {
+                    ClusterBX = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
+                    ClusterBY = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
+                    clusterBhastarget = true;
+                    clusterBtargetIndex = 0;
+                }
+              
+
+                
+
+
+            }
+            if (clusterBhastarget)
+            {
+                clusterBtargettick++;
+                if (clusterBtargettick >= 30)
+                {
+                    clusterB[clusterBtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterBX), GetLocationFromCoordinate((int)ClusterBY));
+                    if (clusterBtargetIndex < clusterB.Count - 1)
+                    {
+                        clusterBtargetIndex++;
+                    }
+                    else if (clusterB.Count == 30)
+                    {
+                        clusterBhastarget = false;
+                        clusterBtargetIndex = 0;
+                    }
+                    clusterBtargettick = 0;
+                }
+
+
+            }
+            foreach (var item in clusterB)
+            {
+
+                item.update(map);
+            }
         }
         public override void Draw(GameTime gameTime)
         {
@@ -321,7 +443,11 @@ namespace TotL
                 }
             }
 
-            foreach (var item in unitlist)
+            foreach (var item in clusterA)
+            {
+                item.draw();
+            }
+            foreach (var item in clusterB)
             {
                 item.draw();
             }

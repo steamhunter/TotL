@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Debug;
 using SharpDX;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
@@ -14,7 +15,9 @@ namespace TotL.Labyrinth
     public class UnitBase : Cell
     {
         private Cell realcell;
+        private int hp = 10000;
         ShaderResourceView baseTexture;
+       public bool isdestroyed = false;
         public string Type { get; set; }
 
         public UnitBase(Cell realcell, string type,int x,int y):base(x,y)
@@ -40,19 +43,36 @@ namespace TotL.Labyrinth
         {
 
             realcell.draw();
-            if (Type == "enemy")
+            if (!isdestroyed)
             {
-                Vars.spriteBatch.Draw(baseTexture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.Red, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+                if (Type == "enemy")
+                {
+                    Vars.spriteBatch.Draw(baseTexture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.Red, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+                }
+                else
+                {
+                    Vars.spriteBatch.Draw(baseTexture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.Blue, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+                }
             }
-            else
-            {
-                Vars.spriteBatch.Draw(baseTexture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.Blue, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
-            }
+           
 
 
 
         }
+        public void Damagebuilding(int enemydmg,string attackertype)
+        {
+            if (attackertype!=Type&&!isdestroyed)
+            {
+                cons.debugMessage("dmg "+hp);
+                hp -= enemydmg ;
 
+                if (hp <= 0)
+                {
+                    isdestroyed = true;
+                }
+            }
+            
+        }
 
         public override void SetBlockingVolumes()
         {

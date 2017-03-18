@@ -29,6 +29,8 @@ namespace TotL.Units
             }
         }
         private Vector2 _target;
+        protected Vector2 navcoordinate2;
+        protected bool relocation;
         public bool hasTarget { get; set; }
         public bool haspath { get; set; }
         public Vector2 target
