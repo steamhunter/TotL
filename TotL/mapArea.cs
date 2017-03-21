@@ -25,16 +25,19 @@ namespace TotL
         Connection[,] connect = new Connection[27, 18];
         List<Units.Unit> clusterA = new List<Units.Unit>();
         List<Units.Unit> clusterB = new List<Units.Unit>();
-        bool spawnclusterA=false;
+        List<Units.Unit> EnemyCluster = new List<Units.Unit>();
+        bool spawnclusterA = false;
         short clusterAsize = 0;
         bool spawnclusterB = false;
         short clusterBsize = 0;
+        bool spawnEnemy = false;
+        short EnemySize = 0;
         #endregion
 
         private int GetCoordinateFromLocation(int location)
         {
             int unitsize = Convert.ToInt32(Vars.unitSize);
-            return (20+(location*unitsize))+(unitsize/2);
+            return (20 + (location * unitsize)) + (unitsize / 2);
         }
         private int GetLocationFromCoordinate(int Coordinate)
         {
@@ -267,12 +270,31 @@ namespace TotL
         bool clusterBhastarget = false;
         short clusterBtargetIndex = 0;
         short clusterBtargettick = 0;
+
+        short EnemyClustertick = 0;
+        float EnemyClusterX;
+        float EnemyClusterY;
+        bool EnemyClusterhastarget = false;
+        short EnemyClustertargetIndex = 0;
+        short EnemyClustertargettick = 0;
+
         public override void Update(GameTime gameTime)
         {
+            EnemyClustertick++;
+            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.T))
+            {
+
+                spawnEnemy = true;
+
+
+
+
+            }
+
             clusterAtick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.X))
             {
-                if (spawnclusterA==false)
+                if (spawnclusterA == false)
                 {
                     spawnclusterA = true;
                     selectedCluster = 1;
@@ -281,15 +303,15 @@ namespace TotL
                 {
                     selectedCluster = 1;
                 }
-                
-                
+
+
             }
             #region clusterA
             if (spawnclusterA)
             {
                 if (clusterAsize != 10)
                 {
-                    if (clusterAtick>=30)
+                    if (clusterAtick >= 30)
                     {
                         Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
@@ -297,7 +319,7 @@ namespace TotL
                         clusterAsize++;
                         clusterAtick = 0;
                     }
-                    
+
                 }
                 else
                 {
@@ -306,7 +328,7 @@ namespace TotL
             }
             if (Vars.mymousemanager.GetState().LeftButton.Pressed)
             {
-                if (selectedCluster==1)
+                if (selectedCluster == 1)
                 {
                     ClusterAX = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
                     ClusterAY = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
@@ -322,7 +344,7 @@ namespace TotL
             if (ClusterAhastarget)
             {
                 ClusterAtargettick++;
-                if (ClusterAtargettick>=30)
+                if (ClusterAtargettick >= 30)
                 {
                     clusterA[ClusterAtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterAX), GetLocationFromCoordinate((int)ClusterAY));
                     if (ClusterAtargetIndex < clusterA.Count - 1)
@@ -336,8 +358,8 @@ namespace TotL
                     }
                     ClusterAtargettick = 0;
                 }
-                
-                
+
+
             }
             foreach (var item in clusterA)
             {
@@ -345,10 +367,12 @@ namespace TotL
                 item.update(map);
             }
             #endregion
+
+            #region ClusterB
             clusterBtick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.C))
             {
-                if (spawnclusterB==false)
+                if (spawnclusterB == false)
                 {
                     spawnclusterB = true;
                     selectedCluster = 2;
@@ -357,7 +381,7 @@ namespace TotL
                 {
                     selectedCluster = 2;
                 }
-                
+
             }
 
             if (spawnclusterB)
@@ -381,16 +405,16 @@ namespace TotL
             }
             if (Vars.mymousemanager.GetState().LeftButton.Pressed)
             {
-                if (selectedCluster==2)
+                if (selectedCluster == 2)
                 {
                     ClusterBX = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
                     ClusterBY = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
                     clusterBhastarget = true;
                     clusterBtargetIndex = 0;
                 }
-              
 
-                
+
+
 
 
             }
@@ -419,6 +443,66 @@ namespace TotL
 
                 item.update(map);
             }
+            #endregion
+
+
+            if (spawnEnemy)
+            {
+                if (EnemySize != 30)
+                {
+                    if (EnemyClustertick >= 30)
+                    {
+                        Units.EnemyUnit newunit = new Units.EnemyUnit(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es));
+                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es) + 5);
+                        EnemyCluster.Add(newunit);
+                        EnemySize++;
+                        EnemyClustertick = 0;
+                    }
+
+                }
+                else
+                {
+                    spawnEnemy = false;
+                }
+            }
+
+            if (EnemyCluster.Count==30)
+            {
+                EnemyClusterX =GetCoordinateFromLocation(bo);
+                EnemyClusterY =GetCoordinateFromLocation(bs);
+                EnemyClusterhastarget = true;
+                EnemyClustertargetIndex = 0;
+            }
+         
+
+            if (EnemyClusterhastarget&&EnemyCluster.Count==30)
+            {
+               EnemyClustertargettick++;
+                if (EnemyClustertargettick >= 30)
+                {
+                   EnemyCluster[EnemyClustertargetIndex].target = new Vector2(GetLocationFromCoordinate((int)EnemyClusterX), GetLocationFromCoordinate((int)EnemyClusterY));
+                    if (EnemyClustertargetIndex < EnemyCluster.Count - 1)
+                    {
+                        EnemyClustertargetIndex++;
+                    }
+                    else if (EnemyCluster.Count == 30)
+                    {
+                      EnemyClusterhastarget = false;
+                        EnemyClustertargetIndex = 0;
+                    }
+                   EnemyClustertargettick = 0;
+                }
+
+
+            }
+
+            for (int i = 0; i < EnemyCluster.Count; i++)
+            {
+                EnemyCluster[i].update(map);
+            }
+
+               
+            
         }
         public override void Draw(GameTime gameTime)
         {
@@ -427,10 +511,11 @@ namespace TotL
 
             if ((map[eo, es] as UnitBase).isdestroyed)
             {
-                Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2-100, Vars.ScreenHeight / 2), Color.Black);
-            } else if ((map[bo,bs] as UnitBase).isdestroyed)
+                Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+            }
+            else if ((map[bo, bs] as UnitBase).isdestroyed)
             {
-                Vars.spriteBatch.DrawString(Vars.font, "VESZTETTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2-100, Vars.ScreenHeight / 2), Color.Black);
+                Vars.spriteBatch.DrawString(Vars.font, "VESZTETTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
             }
             else
             {
@@ -448,6 +533,10 @@ namespace TotL
                     item.draw();
                 }
                 foreach (var item in clusterB)
+                {
+                    item.draw();
+                }
+                foreach (var item in EnemyCluster)
                 {
                     item.draw();
                 }
