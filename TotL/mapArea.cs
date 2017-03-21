@@ -422,39 +422,35 @@ namespace TotL
         }
         public override void Draw(GameTime gameTime)
         {
-            for (int s = 0; s < 15; s++)
+
+
+
+            if ((map[eo, es] as UnitBase).isdestroyed)
             {
-                for (int o = 0; o < 25; o++)
+                Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2-100, Vars.ScreenHeight / 2), Color.Black);
+            } else if ((map[bo,bs] as UnitBase).isdestroyed)
+            {
+                Vars.spriteBatch.DrawString(Vars.font, "VESZTETTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2-100, Vars.ScreenHeight / 2), Color.Black);
+            }
+            else
+            {
+                for (int s = 0; s < 15; s++)
                 {
-                   /* if (Vars.path_debug_Draw && test != null)
+                    for (int o = 0; o < 25; o++)
                     {
-                        foreach (var item in test)
-                        {
-                            // Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new SharpDX.Vector2(20 + (0+Vars.unitSize/2), 20 + (0)), Color.White);
-                            Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new RectangleF((20 + ((item.X - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, (20 + ((item.Y - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+                        map[o, s].draw();
 
-                        }
-                    }*/
-
-
-                    map[o, s].draw();
-
+                    }
                 }
-            }
 
-            foreach (var item in clusterA)
-            {
-                item.draw();
-            }
-            foreach (var item in clusterB)
-            {
-                item.draw();
-            }
-
-
-            if ((map[eo,es] as UnitBase).isdestroyed)
-            {
-                Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 50, Vars.ScreenHeight / 2), Color.Black);
+                foreach (var item in clusterA)
+                {
+                    item.draw();
+                }
+                foreach (var item in clusterB)
+                {
+                    item.draw();
+                }
             }
         }
     }

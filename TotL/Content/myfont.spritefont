@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <TkFont>
   <FontName>Arial</FontName>
-  <Size>13</Size>
+  <Size>10</Size>
   <Spacing>0</Spacing>
   <LineSpacing>0</LineSpacing>
   <UseKerning>false</UseKerning>
@@ -9,7 +9,7 @@
   <CharacterRegions>
     <CharacterRegion>
       <Start>32</Start>
-      <End>127</End>
+      <End>512</End>
     </CharacterRegion>
   </CharacterRegions>
   <DefaultCharacter>32</DefaultCharacter>

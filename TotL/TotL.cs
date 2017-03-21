@@ -32,7 +32,7 @@ namespace TotL
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            deviceManager.IsFullScreen =false;
+            deviceManager.IsFullScreen =true;
             Vars.device = deviceManager.GraphicsDevice;
             Vars.spriteBatch = spriteBatch;
             Vars.game = this;
@@ -54,7 +54,7 @@ namespace TotL
        
         protected override void Load()
         {
-            
+            Vars.font = Content.Load<SharpDX.Toolkit.Graphics.SpriteFont>("myfont");
             map.LoadContent();
         }
         protected override void TickDraw(GameTime gameTime)

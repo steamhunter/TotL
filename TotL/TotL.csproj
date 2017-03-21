@@ -99,6 +99,9 @@
     <None Include="Content\CrossCell.xcf" />
     <None Include="Content\DeadEndCell.xcf" />
     <None Include="Content\FullCell.xcf" />
+    <ToolkitFont Include="Content\myfont.spritefont">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ToolkitFont>
     <None Include="Content\OneSideBlockedCell.xcf" />
     <None Include="Content\TunnelCell.xcf" />
     <None Include="Content\TwoSideBlockedCell.xcf" />
@@ -120,9 +123,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ToolkitFont Include="Content\Arial.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </ToolkitFont>
     <Content Include="Content\CrossCell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
