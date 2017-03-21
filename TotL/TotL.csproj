@@ -120,6 +120,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ToolkitFont Include="Content\Arial.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ToolkitFont>
     <Content Include="Content\CrossCell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

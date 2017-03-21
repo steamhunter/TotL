@@ -54,6 +54,7 @@ namespace TotL
        
         protected override void Load()
         {
+            
             map.LoadContent();
         }
         protected override void TickDraw(GameTime gameTime)

@@ -27,6 +27,7 @@ namespace PathFinder
         public static bool path_debug_Draw;
         public static KeyboardManager mykeyboardmanager;
         public static MouseManager mymousemanager;
+        public static SharpDX.Toolkit.Graphics.SpriteFont font; 
 
 
 

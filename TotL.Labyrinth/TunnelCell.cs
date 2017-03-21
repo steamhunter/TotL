@@ -74,10 +74,10 @@ namespace TotL.Labyrinth
 
             Vars.spriteBatch.Draw(texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
-              foreach (var item in _blockedvolumes)
+             /* foreach (var item in _blockedvolumes)
               {
                   Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), item, Color.White);
-              }
+              }*/
 
         }
 

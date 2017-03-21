@@ -252,7 +252,6 @@ namespace TotL
         LinkedList<Connection> test;
         public override void LoadContent()
         {
-
         }
         short clusterAtick = 0;
         float ClusterAX;
@@ -450,6 +449,12 @@ namespace TotL
             foreach (var item in clusterB)
             {
                 item.draw();
+            }
+
+
+            if ((map[eo,es] as UnitBase).isdestroyed)
+            {
+                Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 50, Vars.ScreenHeight / 2), Color.Black);
             }
         }
     }
