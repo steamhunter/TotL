@@ -32,6 +32,7 @@ namespace TotL
         short clusterBsize = 0;
         bool spawnEnemy = false;
         short EnemySize = 0;
+        bool wasmovement = false;
         #endregion
 
         private int GetCoordinateFromLocation(int location)
@@ -54,6 +55,7 @@ namespace TotL
             Vars.seed = random.Next(10000000, 99999999);
             cons.debugMessage(Vars.seed.ToString());
             random = new Random(Vars.seed);
+            Vars.random = random;
             Vars.config = configjson.getConfig();
             #endregion
 
@@ -280,20 +282,12 @@ namespace TotL
 
         public override void Update(GameTime gameTime)
         {
-            EnemyClustertick++;
-            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.T))
-            {
 
-                spawnEnemy = true;
-
-
-
-
-            }
-
+            #region clusterA
             clusterAtick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.X))
             {
+                wasmovement = true;
                 if (spawnclusterA == false)
                 {
                     spawnclusterA = true;
@@ -306,7 +300,7 @@ namespace TotL
 
 
             }
-            #region clusterA
+
             if (spawnclusterA)
             {
                 if (clusterAsize != 10)
@@ -346,17 +340,26 @@ namespace TotL
                 ClusterAtargettick++;
                 if (ClusterAtargettick >= 30)
                 {
-                    clusterA[ClusterAtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterAX), GetLocationFromCoordinate((int)ClusterAY));
                     if (ClusterAtargetIndex < clusterA.Count - 1)
                     {
-                        ClusterAtargetIndex++;
+
+
+                        clusterA[ClusterAtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterAX), GetLocationFromCoordinate((int)ClusterAY));
+                        if (ClusterAtargetIndex < clusterA.Count - 1)
+                        {
+                            ClusterAtargetIndex++;
+                        }
+                        else if (clusterA.Count == 30)
+                        {
+                            ClusterAhastarget = false;
+                            ClusterAtargetIndex = 0;
+                        }
+                        ClusterAtargettick = 0;
                     }
-                    else if (clusterA.Count == 30)
+                    else
                     {
-                        ClusterAhastarget = false;
                         ClusterAtargetIndex = 0;
                     }
-                    ClusterAtargettick = 0;
                 }
 
 
@@ -372,6 +375,7 @@ namespace TotL
             clusterBtick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.C))
             {
+                wasmovement = true;
                 if (spawnclusterB == false)
                 {
                     spawnclusterB = true;
@@ -420,22 +424,30 @@ namespace TotL
             }
             if (clusterBhastarget)
             {
-                clusterBtargettick++;
-                if (clusterBtargettick >= 30)
+                if (clusterBtargetIndex < clusterB.Count - 1)
                 {
-                    clusterB[clusterBtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterBX), GetLocationFromCoordinate((int)ClusterBY));
-                    if (clusterBtargetIndex < clusterB.Count - 1)
-                    {
-                        clusterBtargetIndex++;
-                    }
-                    else if (clusterB.Count == 30)
-                    {
-                        clusterBhastarget = false;
-                        clusterBtargetIndex = 0;
-                    }
-                    clusterBtargettick = 0;
-                }
 
+
+                    clusterBtargettick++;
+                    if (clusterBtargettick >= 30)
+                    {
+                        clusterB[clusterBtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterBX), GetLocationFromCoordinate((int)ClusterBY));
+                        if (clusterBtargetIndex < clusterB.Count - 1)
+                        {
+                            clusterBtargetIndex++;
+                        }
+                        else if (clusterB.Count == 30)
+                        {
+                            clusterBhastarget = false;
+                            clusterBtargetIndex = 0;
+                        }
+                        clusterBtargettick = 0;
+                    }
+                }
+                else
+                {
+                    clusterBtargetIndex = 0;
+                }
 
             }
             foreach (var item in clusterB)
@@ -445,7 +457,18 @@ namespace TotL
             }
             #endregion
 
+            #region enemyCluster
 
+            EnemyClustertick++;
+            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.T))
+            {
+
+                spawnEnemy = true;
+
+
+
+
+            }
             if (spawnEnemy)
             {
                 if (EnemySize != 20)
@@ -466,31 +489,31 @@ namespace TotL
                 }
             }
 
-            if (EnemyCluster.Count==20)
+            if (EnemyCluster.Count == 20)
             {
-                EnemyClusterX =GetCoordinateFromLocation(bo);
-                EnemyClusterY =GetCoordinateFromLocation(bs);
+                EnemyClusterX = GetCoordinateFromLocation(bo);
+                EnemyClusterY = GetCoordinateFromLocation(bs);
                 EnemyClusterhastarget = true;
 
             }
-         
 
-            if (EnemyClusterhastarget&&EnemyCluster.Count==20)
+
+            if (EnemyClusterhastarget && EnemyCluster.Count == 20)
             {
-               EnemyClustertargettick++;
+                EnemyClustertargettick++;
                 if (EnemyClustertargettick >= 30)
                 {
-                   EnemyCluster[EnemyClustertargetIndex].target = new Vector2(GetLocationFromCoordinate((int)EnemyClusterX), GetLocationFromCoordinate((int)EnemyClusterY));
+                    EnemyCluster[EnemyClustertargetIndex].target = new Vector2(GetLocationFromCoordinate((int)EnemyClusterX), GetLocationFromCoordinate((int)EnemyClusterY));
                     if (EnemyClustertargetIndex < EnemyCluster.Count - 1)
                     {
                         EnemyClustertargetIndex++;
                     }
                     else if (EnemyCluster.Count == 30)
                     {
-                      EnemyClusterhastarget = false;
+                        EnemyClusterhastarget = false;
                         EnemyClustertargetIndex = 0;
                     }
-                   EnemyClustertargettick = 0;
+                    EnemyClustertargettick = 0;
                 }
 
 
@@ -501,21 +524,75 @@ namespace TotL
                 EnemyCluster[i].update(map);
             }
 
-               
-            
+            #endregion
+
+
+            for(int ec=0;ec<EnemyCluster.Count;ec++)
+            {
+                short eLocationX = (short)GetLocationFromCoordinate(EnemyCluster[ec].CoordinateX);
+                short eLocationY = (short)GetLocationFromCoordinate(EnemyCluster[ec].CoordinateY);
+
+                for(int ca=0;ca<clusterA.Count;ca++)
+                {
+                    short fLocationX=(short)GetLocationFromCoordinate(clusterA[ca].CoordinateX);
+                    short fLocationY=(short)GetLocationFromCoordinate(clusterA[ca].CoordinateY);
+
+                    if (eLocationX==fLocationX&&eLocationY==fLocationY)
+                    {
+                        EnemyCluster[ec].damageUnit(1);
+                        clusterA[ca].damageUnit(1);
+                        if (EnemyCluster[ec].HP <= 0)
+                        {
+                            EnemyCluster.Remove(EnemyCluster[ec]);
+                        }
+
+                        if (clusterA[ca].HP <= 0)
+                        {
+                            clusterA.RemoveAt(ca);
+                        }
+                    }
+                }
+
+                for(int cb=0;cb<clusterB.Count;cb++)
+                {
+                    short fLocationX = (short)GetLocationFromCoordinate(clusterB[cb].CoordinateX);
+                    short fLocationY = (short)GetLocationFromCoordinate(clusterB[cb].CoordinateY);
+
+                    if (eLocationX == fLocationX && eLocationY == fLocationY)
+                    {
+                        EnemyCluster[ec].damageUnit(1);
+                        clusterB[cb].damageUnit(1);
+
+
+                        if (EnemyCluster[ec].HP<=0)
+                        {
+                            EnemyCluster.Remove(EnemyCluster[ec]);
+                        }
+
+                        if (clusterB[cb].HP<=0)
+                        {
+                            clusterB.RemoveAt(cb);
+                        }
+                    }
+                }
+
+            }
         }
         public override void Draw(GameTime gameTime)
         {
 
 
-
-            if ((map[eo, es] as UnitBase).isdestroyed)
+            if (clusterA.Count==0&&clusterB.Count==0&&EnemyCluster.Count==0&&wasmovement)
             {
-              //  Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+                Vars.spriteBatch.DrawString(Vars.font, $"DÖNTETLEN {Environment.NewLine} minkét csapat egységei megsemisültek (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+            }
+            else if ((map[eo, es] as UnitBase).isdestroyed)
+            {
+                Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
             }
             else if ((map[bo, bs] as UnitBase).isdestroyed)
             {
-              //  Vars.spriteBatch.DrawString(Vars.font, "VESZTETTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+                Vars.spriteBatch.DrawString(Vars.font, "VESZTETTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
             }
             else
             {

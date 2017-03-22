@@ -23,16 +23,16 @@ namespace TotL.Units
         public PlayerUnit(int locationX,int locationY):base(locationX,locationY)
         {
 
-            this.locationX = locationX;
-            this.locationY = locationY;
+            this.CoordinateX = locationX;
+            this.CoordinateY = locationY;
             texture = TextureFromFile.TextureProcessor.getTexture("transparent");
         }
 
         public PlayerUnit(int locationX, int locationY, Vector2 navcoordinate):base(locationX,locationY,navcoordinate)
         {
 
-            this.locationX = locationX;
-            this.locationY = locationY;
+            this.CoordinateX = locationX;
+            this.CoordinateY = locationY;
             this.navcoordinate=navcoordinate;
             texture = TextureFromFile.TextureProcessor.getTexture("transparent");
         }
@@ -44,15 +44,24 @@ namespace TotL.Units
         public override void Load()
         {
         }
+        public override void damageUnit(short dmg)
+        {
+            if (Vars.random.Next(0, 4) > 3)
+            {
+                HP -= dmg;
+            }
+
+
+        }
 
         private short attackskiptick = 0;
         public override void update(Cell[,] map)
         {
-            int X = (locationX - 20) / (int)Vars.unitSize;
-            int Y = (locationY - 20) / (int)Vars.unitSize;
+            int X = (CoordinateX - 20) / (int)Vars.unitSize;
+            int Y = (CoordinateY - 20) / (int)Vars.unitSize;
 
             #region pathing
-            if (Math.Abs(GetCoordinateFromLocation((int)target.X)-locationX) ==0 &&Math.Abs(GetCoordinateFromLocation((int)target.Y)-locationY)==0)
+            if (Math.Abs(GetCoordinateFromLocation((int)target.X)-CoordinateX) ==0 &&Math.Abs(GetCoordinateFromLocation((int)target.Y)-CoordinateY)==0)
             {
                 path = null;
                 hasnavcoordinate = false;
@@ -86,26 +95,26 @@ namespace TotL.Units
             }
             if (hasnavcoordinate)
             {
-                if ((int)navcoordinate.X != locationX || navcoordinate.Y != locationY)
+                if ((int)navcoordinate.X != CoordinateX || navcoordinate.Y != CoordinateY)
                 {
 
-                    if (!map[X, Y].CheckBlockingState(new RectangleF(locationX + 1, locationY + 1, 16, 16))||relocation)
+                    if (!map[X, Y].CheckBlockingState(new RectangleF(CoordinateX + 1, CoordinateY + 1, 16, 16))||relocation)
                     {
-                        if ((int)navcoordinate.X > locationX)
+                        if ((int)navcoordinate.X > CoordinateX)
                         {
-                            locationX += 1;
+                            CoordinateX += 1;
                         }
-                        if ((int)navcoordinate.X < locationX)
+                        if ((int)navcoordinate.X < CoordinateX)
                         {
-                            locationX -= 1;
+                            CoordinateX -= 1;
                         }
-                        if ((int)navcoordinate.Y > locationY)
+                        if ((int)navcoordinate.Y > CoordinateY)
                         {
-                            locationY += 1;
+                            CoordinateY += 1;
                         }
-                        if ((int)navcoordinate.Y < locationY)
+                        if ((int)navcoordinate.Y < CoordinateY)
                         {
-                            locationY -= 1;
+                            CoordinateY -= 1;
                         }
                     }
                     else
@@ -153,7 +162,7 @@ namespace TotL.Units
         }
         public override void draw()
         {
-                 Vars.spriteBatch.Draw(texture,new RectangleF(locationX,locationY,Vars.unitSize/4,Vars.unitSize/4),null,Color.White,0f,new Vector2(0,0),SpriteEffects.None,0f);
+                 Vars.spriteBatch.Draw(texture,new RectangleF(CoordinateX,CoordinateY,Vars.unitSize/4,Vars.unitSize/4),null,Color.White,0f,new Vector2(0,0),SpriteEffects.None,0f);
                 
             if (Vars.path_debug_Draw && path != null)
             {

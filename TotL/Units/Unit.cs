@@ -12,8 +12,8 @@ namespace TotL.Units
 {
     class Unit : _2DGraphicsElement
     {
-        public int locationX { get; set; }
-        public int locationY { get; set; }
+        public int CoordinateX { get; set; }
+        public int CoordinateY { get; set; }
         public bool hasnavcoordinate { get; set; }
         private Vector2 _navcoordinate;
         public Vector2 navcoordinate
@@ -58,20 +58,24 @@ namespace TotL.Units
                 haspath = true;
             }
         }
+        public short HP;
 
-        public Unit(int locationX, int locationY)
+        public Unit(int coordinateX, int coordinateY)
         {
-            this.locationX = locationX;
-            this.locationY = locationY;
+            this.CoordinateX = coordinateX;
+            this.CoordinateY = coordinateY;
         }
 
-        public Unit(int locationX, int locationY, Vector2 targetlocation)
+        public Unit(int coordinateX, int coordinateY, Vector2 targetcoordinate)
         {
-            this.locationX = locationX;
-            this.locationY = locationY;
+            this.CoordinateX = coordinateX;
+            this.CoordinateY = coordinateY;
         }
 
-
+        public virtual void damageUnit(short dmg)
+        {
+            throw new InvalidCallException("hívás a unit alap fügvényre");
+        }
         public override void draw()
         {
             throw new InvalidCallException("hívás a unit alap fügvényre");

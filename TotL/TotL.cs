@@ -54,7 +54,7 @@ namespace TotL
        
         protected override void Load()
         {
-            //Vars.font = Content.Load<SharpDX.Toolkit.Graphics.SpriteFont>("myfont");
+            Vars.font = Content.Load<SharpDX.Toolkit.Graphics.SpriteFont>("myfont");
             map.LoadContent();
         }
         protected override void TickDraw(GameTime gameTime)
