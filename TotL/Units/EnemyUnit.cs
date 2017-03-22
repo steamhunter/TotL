@@ -44,6 +44,7 @@ namespace TotL.Units
         public override void Load()
         {
         }
+        private short attackskiptick = 0;
         public override void update(Cell[,] map)
         {
             int X = (locationX - 20) / (int)Vars.unitSize;
@@ -139,7 +140,12 @@ namespace TotL.Units
             {
                 if (!(map[X, Y] as UnitBase).isdestroyed)
                 {
-                    (map[X, Y] as UnitBase).Damagebuilding(5000, "enemy");
+                    attackskiptick++;
+                    if (attackskiptick>=30)
+                    {
+                        (map[X, Y] as UnitBase).Damagebuilding(1, "enemy");
+                    }
+                   
                 }
 
             }

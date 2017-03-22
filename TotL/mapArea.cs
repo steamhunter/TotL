@@ -448,9 +448,9 @@ namespace TotL
 
             if (spawnEnemy)
             {
-                if (EnemySize != 30)
+                if (EnemySize != 20)
                 {
-                    if (EnemyClustertick >= 30)
+                    if (EnemyClustertick >= 20)
                     {
                         Units.EnemyUnit newunit = new Units.EnemyUnit(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es) + 5);
@@ -466,16 +466,16 @@ namespace TotL
                 }
             }
 
-            if (EnemyCluster.Count==30)
+            if (EnemyCluster.Count==20)
             {
                 EnemyClusterX =GetCoordinateFromLocation(bo);
                 EnemyClusterY =GetCoordinateFromLocation(bs);
                 EnemyClusterhastarget = true;
-                EnemyClustertargetIndex = 0;
+
             }
          
 
-            if (EnemyClusterhastarget&&EnemyCluster.Count==30)
+            if (EnemyClusterhastarget&&EnemyCluster.Count==20)
             {
                EnemyClustertargettick++;
                 if (EnemyClustertargettick >= 30)
@@ -511,11 +511,11 @@ namespace TotL
 
             if ((map[eo, es] as UnitBase).isdestroyed)
             {
-                Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+              //  Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
             }
             else if ((map[bo, bs] as UnitBase).isdestroyed)
             {
-                Vars.spriteBatch.DrawString(Vars.font, "VESZTETTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+              //  Vars.spriteBatch.DrawString(Vars.font, "VESZTETTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
             }
             else
             {
