@@ -47,6 +47,7 @@ namespace TotL
 
         public override void Initialize()
         {
+            Vars.mapstate = internalstates.map_initializing;
             #region Game system init
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             int now = DateTime.Now.Millisecond * DateTime.Now.Second;
@@ -244,20 +245,15 @@ namespace TotL
             }
             cons.debugMessage("base" + bo + " " + bs);
             cons.debugMessage("enemy" + eo + " " + es);
-            foreach (var item in test)
-            {
-                cons.debugMessage(item.X + " " + item.Y);
-            }
 
-
-
-
-
+            Vars.mapstate = internalstates.map_ready;
         }
         LinkedList<Connection> test;
         public override void LoadContent()
         {
         }
+
+        #region unit managment globals
         short clusterAtick = 0;
         float ClusterAX;
         float ClusterAY;
@@ -280,9 +276,11 @@ namespace TotL
         short EnemyClustertargetIndex = 0;
         short EnemyClustertargettick = 0;
 
+#endregion
+
         public override void Update(GameTime gameTime)
         {
-
+            
             #region clusterA
             clusterAtick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.X))
@@ -578,9 +576,10 @@ namespace TotL
 
             }
         }
+
         public override void Draw(GameTime gameTime)
         {
-
+            Vars.mapstate = internalstates.on_map;
 
             if (clusterA.Count==0&&clusterB.Count==0&&EnemyCluster.Count==0&&wasmovement)
             {

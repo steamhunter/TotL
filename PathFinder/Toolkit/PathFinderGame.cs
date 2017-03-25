@@ -25,11 +25,11 @@ namespace PathFinder.Toolkit
         /// </summary>
         protected override void Initialize()
         {
-            Vars.state = gamestates.initializing;
+            Vars.gamestate = gamestates.initializing;
            
                 LoopInitialize();
           
-            Vars.state = gamestates.initialized_notLoaded;
+            Vars.gamestate = gamestates.initialized_notLoaded;
             base.Initialize();
         }
 
@@ -49,11 +49,11 @@ namespace PathFinder.Toolkit
         protected override void LoadContent()
         {
 
-            if (Vars.state==gamestates.initialized_notLoaded)
+            if (Vars.gamestate==gamestates.initialized_notLoaded)
             {
                 
                     Load();
-                Vars.state = gamestates.intitalized_loaded;
+                Vars.gamestate = gamestates.intitalized_loaded;
             }
 
             base.LoadContent();
@@ -75,7 +75,7 @@ namespace PathFinder.Toolkit
         /// <param name="gameTime">Sharpdx.toolkit.GameTime</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (Vars.state==gamestates.intitalized_loaded)
+            if (Vars.gamestate==gamestates.intitalized_loaded)
             {
               
                     TickDraw(gameTime);
@@ -104,7 +104,7 @@ namespace PathFinder.Toolkit
         protected override void Update(GameTime gameTime)
         {
 
-            if (Vars.state==gamestates.intitalized_loaded)
+            if (Vars.gamestate==gamestates.intitalized_loaded)
             {
 
                 /*Task.Run(() =>

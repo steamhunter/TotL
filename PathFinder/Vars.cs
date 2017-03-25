@@ -14,7 +14,8 @@ namespace PathFinder
 {
     public class Vars
     {
-        public static gamestates state = gamestates.world;
+        public static gamestates gamestate = gamestates.world;
+        public static internalstates mapstate = internalstates.map_not_initialized;
         public static SpriteBatch spriteBatch;
         public static SharpDX.Direct3D11.Device device;
         public static int ScreenWidth;
@@ -61,5 +62,13 @@ namespace PathFinder
         world
 
 
+    }
+
+    public enum internalstates
+    {
+        map_not_initialized,
+        map_initializing,
+        map_ready,
+        on_map
     }
 }

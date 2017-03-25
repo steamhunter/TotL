@@ -32,7 +32,7 @@ namespace TotL
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            deviceManager.IsFullScreen =false;
+            deviceManager.IsFullScreen =true;
             Vars.device = deviceManager.GraphicsDevice;
             Vars.spriteBatch = spriteBatch;
             Vars.game = this;
@@ -48,32 +48,55 @@ namespace TotL
 #pragma warning restore CS0618 // Type or member is obsolete
             deviceManager.ApplyChanges();
             IsMouseVisible = true;
-            map.Initialize();
+            
 
         }
        
         protected override void Load()
         {
             Vars.font = Content.Load<SharpDX.Toolkit.Graphics.SpriteFont>("myfont");
-            map.LoadContent();
+            
         }
+        int loadwaitcounter = 0;
         protected override void TickDraw(GameTime gameTime)
         {
 
             spriteBatch.Begin();
             GraphicsDevice.Clear(Color.DarkGray);
-            
 
-            map.Draw(gameTime);
+            if (Vars.mapstate == internalstates.map_ready || Vars.mapstate == internalstates.on_map)
+            {
+               
+                map.Draw(gameTime);
+            }
+            else
+            {
+                spriteBatch.DrawString(Vars.font, "betöltés", new Vector2(Vars.ScreenWidth/2-50,Vars.ScreenHeight/2-50), Color.Black);
+            }
+           
             spriteBatch.End();
         }
         protected override void TickUpdate(GameTime gameTime)
         {
+            
             if (Mykeyboardmanager.GetState().IsKeyDown(Keys.E))
             {
                 Exit();
             }
-            map.Update(gameTime);
+            if (Vars.mapstate==internalstates.map_initializing||loadwaitcounter<=300)
+            {
+                loadwaitcounter++;
+            }
+            if (Vars.mapstate==internalstates.map_not_initialized)
+            {
+                map.Initialize();
+            }
+            if ((Vars.mapstate==internalstates.map_ready||Vars.mapstate==internalstates.on_map)&&loadwaitcounter>300)
+            {
+                map.Update(gameTime);
+            }
+            
+            
         }
     }
 }

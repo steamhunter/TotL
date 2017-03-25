@@ -26,7 +26,7 @@ namespace PathFinder
                 enemyList[i].isdead = true;
             }
             enemyList = new List<CharacterEnemyBase>();
-            Vars.state = gamestates.world;
+            Vars.gamestate = gamestates.world;
 
         }
         public static int lenght() 
