@@ -26,6 +26,8 @@ namespace TotL
         List<Units.Unit> clusterA = new List<Units.Unit>();
         List<Units.Unit> clusterB = new List<Units.Unit>();
         List<Units.Unit> EnemyCluster = new List<Units.Unit>();
+        UI.ClusterStatus AClusterStatus;
+        UI.ClusterStatus BClusterStatus;
         bool spawnclusterA = false;
         short clusterAsize = 0;
         bool spawnclusterB = false;
@@ -58,6 +60,8 @@ namespace TotL
             random = new Random(Vars.seed);
             Vars.random = random;
             Vars.config = configjson.getConfig();
+            AClusterStatus = new UI.ClusterStatus("A_cluster");
+            BClusterStatus = new UI.ClusterStatus("B_cluster");
             #endregion
 
             #region Generator Border
@@ -290,6 +294,9 @@ namespace TotL
                 {
                     spawnclusterA = true;
                     selectedCluster = 1;
+                    AClusterStatus.select();
+                    BClusterStatus.deSelect();
+                     
                 }
                 else
                 {
@@ -378,6 +385,8 @@ namespace TotL
                 {
                     spawnclusterB = true;
                     selectedCluster = 2;
+                    BClusterStatus.select();
+                    AClusterStatus.deSelect();
                 }
                 else
                 {
@@ -413,6 +422,8 @@ namespace TotL
                     ClusterBY = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
                     clusterBhastarget = true;
                     clusterBtargetIndex = 0;
+                    BClusterStatus.select();
+                    AClusterStatus.deSelect();
                 }
 
 
@@ -616,6 +627,15 @@ namespace TotL
                 {
                     item.draw();
                 }
+                if (AClusterStatus!=null)
+                {
+                    AClusterStatus.draw(Vars.ScreenWidth - 200, 50);
+                }
+                if (BClusterStatus!=null)
+                {
+                    BClusterStatus.draw(Vars.ScreenWidth - 200, 50 + 128 + 30);
+                }
+               
             }
         }
     }
