@@ -26,6 +26,7 @@ namespace TotL.Units
             this.CoordinateX = locationX;
             this.CoordinateY = locationY;
             texture = TextureFromFile.TextureProcessor.getTexture("transparent");
+            HP = 100;
         }
 
         public EnemyUnit(int locationX, int locationY, Vector2 navcoordinate):base(locationX,locationY,navcoordinate)
@@ -35,6 +36,7 @@ namespace TotL.Units
             this.CoordinateY = locationY;
             this.navcoordinate = navcoordinate;
             texture = TextureFromFile.TextureProcessor.getTexture("transparent");
+            HP = 100;
         }
 
         public override void Initialize()
@@ -47,7 +49,7 @@ namespace TotL.Units
 
         public override void damageUnit(short dmg)
         {
-            if (Vars.random.Next(0, 100) <90)
+            if (Vars.random.Next(0, 100) <5)
             {
                 HP -= dmg;
             }

@@ -26,6 +26,7 @@ namespace TotL.Units
             this.CoordinateX = locationX;
             this.CoordinateY = locationY;
             texture = TextureFromFile.TextureProcessor.getTexture("transparent");
+            HP = 100;
         }
 
         public PlayerUnit(int locationX, int locationY, Vector2 navcoordinate):base(locationX,locationY,navcoordinate)
@@ -35,6 +36,7 @@ namespace TotL.Units
             this.CoordinateY = locationY;
             this.navcoordinate=navcoordinate;
             texture = TextureFromFile.TextureProcessor.getTexture("transparent");
+            HP = 100;
         }
 
         public override void Initialize()

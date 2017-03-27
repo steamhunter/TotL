@@ -280,11 +280,11 @@ namespace TotL
         short EnemyClustertargetIndex = 0;
         short EnemyClustertargettick = 0;
 
-#endregion
+        #endregion
 
         public override void Update(GameTime gameTime)
         {
-            
+
             #region clusterA
             clusterAtick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.X))
@@ -296,7 +296,7 @@ namespace TotL
                     selectedCluster = 1;
                     AClusterStatus.select();
                     BClusterStatus.deSelect();
-                     
+
                 }
                 else
                 {
@@ -469,7 +469,7 @@ namespace TotL
             #region enemyCluster
 
             EnemyClustertick++;
-            if (gameTime.TotalGameTime.Seconds>15||Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.T))
+            if (gameTime.TotalGameTime.Seconds > 15 || Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.T))
             {
 
                 spawnEnemy = true;
@@ -536,51 +536,98 @@ namespace TotL
             #endregion
 
 
-            for(int ec=0;ec<EnemyCluster.Count;ec++)
+            for (int ec = 0; ec < EnemyCluster.Count; ec++)
             {
-                short eLocationX = (short)GetLocationFromCoordinate(EnemyCluster[ec].CoordinateX);
-                short eLocationY = (short)GetLocationFromCoordinate(EnemyCluster[ec].CoordinateY);
-
-                for(int ca=0;ca<clusterA.Count;ca++)
+                int eLocationX;
+                int eLocationY;
+                if (EnemyCluster.Count>0)
                 {
-                    short fLocationX=(short)GetLocationFromCoordinate(clusterA[ca].CoordinateX);
-                    short fLocationY=(short)GetLocationFromCoordinate(clusterA[ca].CoordinateY);
+                    eLocationX = GetLocationFromCoordinate(EnemyCluster[ec].CoordinateX);
+                    eLocationY = GetLocationFromCoordinate(EnemyCluster[ec].CoordinateY);
+                }
+                else
+                {
+                    break;
+                }
+                
 
-                    if (eLocationX==fLocationX&&eLocationY==fLocationY)
+                for (int ca = 0; ca < clusterA.Count; ca++)
+                {
+                    if (clusterA.Count > 0&&EnemyCluster.Count>0)
                     {
-                        EnemyCluster[ec].damageUnit(1);
-                        clusterA[ca].damageUnit(1);
-                        if (EnemyCluster[ec].HP <= 0)
+                        int fLocationX;
+                        int fLocationY;
+                        if (clusterA.Count > 0&&EnemyCluster.Count>0)
                         {
-                            EnemyCluster.Remove(EnemyCluster[ec]);
-                        }
 
-                        if (clusterA[ca].HP <= 0)
-                        {
-                            clusterA.RemoveAt(ca);
+
+                            fLocationX = GetLocationFromCoordinate(clusterA[ca].CoordinateX);
+                            fLocationY = GetLocationFromCoordinate(clusterA[ca].CoordinateY);
+
+                            if (eLocationX == fLocationX && eLocationY == fLocationY)
+                            {
+                                EnemyCluster[ec].damageUnit(1);
+                                clusterA[ca].damageUnit(1);
+                                if (EnemyCluster[ec].HP <= 0)
+                                {
+                                    EnemyCluster.Remove(EnemyCluster[ec]);
+                                }
+
+                                if (clusterA[ca].HP <= 0)
+                                {
+                                    clusterA.RemoveAt(ca);
+                                }
+                            }
                         }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
 
-                for(int cb=0;cb<clusterB.Count;cb++)
+                for (int cb = 0; cb < clusterB.Count; cb++)
                 {
-                    short fLocationX = (short)GetLocationFromCoordinate(clusterB[cb].CoordinateX);
-                    short fLocationY = (short)GetLocationFromCoordinate(clusterB[cb].CoordinateY);
+                    int fLocationX = -1;
+                    int fLocationY = -1;
+                    if (clusterB.Count > 0&&EnemyCluster.Count>0)
+                    {
+                        fLocationX = GetLocationFromCoordinate(clusterB[cb].CoordinateX);
+                        fLocationY = GetLocationFromCoordinate(clusterB[cb].CoordinateY);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
 
                     if (eLocationX == fLocationX && eLocationY == fLocationY)
                     {
-                        EnemyCluster[ec].damageUnit(1);
-                        clusterB[cb].damageUnit(1);
-
-
-                        if (EnemyCluster[ec].HP<=0)
+                        if (EnemyCluster.Count > 0&&EnemyCluster.Count>0)
                         {
-                            EnemyCluster.Remove(EnemyCluster[ec]);
+
+
+                            EnemyCluster[ec].damageUnit(1);
+                            clusterB[cb].damageUnit(1);
+
+
+                            if (EnemyCluster[ec].HP <= 0)
+                            {
+                                EnemyCluster.Remove(EnemyCluster[ec]);
+                            }
+
+                            if (clusterB[cb].HP <= 0)
+                            {
+                                clusterB.RemoveAt(cb);
+                            }
                         }
-
-                        if (clusterB[cb].HP<=0)
+                        else
                         {
-                            clusterB.RemoveAt(cb);
+                            break;
                         }
                     }
                 }
@@ -592,7 +639,7 @@ namespace TotL
         {
             Vars.mapstate = internalstates.on_map;
 
-            if (clusterA.Count==0&&clusterB.Count==0&&EnemyCluster.Count==0&&wasmovement)
+            if (clusterA.Count == 0 && clusterB.Count == 0 && EnemyCluster.Count == 0 && wasmovement)
             {
                 Vars.spriteBatch.DrawString(Vars.font, $"DÖNTETLEN {Environment.NewLine} minkét csapat egységei megsemisültek (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
             }
@@ -627,15 +674,15 @@ namespace TotL
                 {
                     item.draw();
                 }
-                if (AClusterStatus!=null)
+                if (AClusterStatus != null)
                 {
                     AClusterStatus.draw(Vars.ScreenWidth - 200, 50);
                 }
-                if (BClusterStatus!=null)
+                if (BClusterStatus != null)
                 {
                     BClusterStatus.draw(Vars.ScreenWidth - 200, 50 + 128 + 30);
                 }
-               
+
             }
         }
     }
