@@ -105,6 +105,7 @@
     <None Include="Content\CrossCell.xcf" />
     <None Include="Content\DeadEndCell.xcf" />
     <None Include="Content\FullCell.xcf" />
+    <None Include="totl_v0.3 pre_promo.zip" />
     <ToolkitFont Include="Content\myfont.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ToolkitFont>
