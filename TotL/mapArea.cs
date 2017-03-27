@@ -345,12 +345,12 @@ namespace TotL
                 ClusterAtargettick++;
                 if (ClusterAtargettick >= 30)
                 {
-                    if (ClusterAtargetIndex < clusterA.Count - 1)
+                    if (ClusterAtargetIndex < clusterA.Count)
                     {
 
 
                         clusterA[ClusterAtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterAX), GetLocationFromCoordinate((int)ClusterAY));
-                        if (ClusterAtargetIndex < clusterA.Count - 1)
+                        if (ClusterAtargetIndex < clusterA.Count)
                         {
                             ClusterAtargetIndex++;
                         }
@@ -433,7 +433,7 @@ namespace TotL
             }
             if (clusterBhastarget)
             {
-                if (clusterBtargetIndex < clusterB.Count - 1)
+                if (clusterBtargetIndex < clusterB.Count)
                 {
 
 
@@ -441,7 +441,7 @@ namespace TotL
                     if (clusterBtargettick >= 30)
                     {
                         clusterB[clusterBtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterBX), GetLocationFromCoordinate((int)ClusterBY));
-                        if (clusterBtargetIndex < clusterB.Count - 1)
+                        if (clusterBtargetIndex < clusterB.Count)
                         {
                             clusterBtargetIndex++;
                         }
@@ -469,7 +469,7 @@ namespace TotL
             #region enemyCluster
 
             EnemyClustertick++;
-            if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.T))
+            if (gameTime.TotalGameTime.Seconds>15||Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.T))
             {
 
                 spawnEnemy = true;

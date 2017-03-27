@@ -32,7 +32,7 @@ namespace TotL
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            deviceManager.IsFullScreen =true;
+            deviceManager.IsFullScreen =false;
             Vars.device = deviceManager.GraphicsDevice;
             Vars.spriteBatch = spriteBatch;
             Vars.game = this;
@@ -78,23 +78,27 @@ namespace TotL
         }
         protected override void TickUpdate(GameTime gameTime)
         {
+
+
             
-            if (Mykeyboardmanager.GetState().IsKeyDown(Keys.E))
-            {
-                Exit();
-            }
-            if (Vars.mapstate==internalstates.map_initializing||loadwaitcounter<=300)
-            {
-                loadwaitcounter++;
-            }
-            if (Vars.mapstate==internalstates.map_not_initialized)
-            {
-                map.Initialize();
-            }
-            if ((Vars.mapstate==internalstates.map_ready||Vars.mapstate==internalstates.on_map)&&loadwaitcounter>300)
-            {
-                map.Update(gameTime);
-            }
+                if (Mykeyboardmanager.GetState().IsKeyDown(Keys.E))
+                {
+                    Exit();
+                }
+                if (Vars.mapstate == internalstates.map_initializing || loadwaitcounter <= 300)
+                {
+                    loadwaitcounter++;
+                }
+                if (Vars.mapstate == internalstates.map_not_initialized)
+                {
+                    map.Initialize();
+                }
+                if ((Vars.mapstate == internalstates.map_ready || Vars.mapstate == internalstates.on_map) && loadwaitcounter > 300)
+                {
+                    map.Update(gameTime);
+                }
+           
+            
             
             
         }

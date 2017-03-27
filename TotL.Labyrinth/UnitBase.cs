@@ -63,7 +63,7 @@ namespace TotL.Labyrinth
         {
             if (attackertype!=Type&&!isdestroyed)
             {
-                cons.debugMessage("dmg "+hp);
+                
                 hp -= enemydmg ;
 
                 if (hp <= 0)

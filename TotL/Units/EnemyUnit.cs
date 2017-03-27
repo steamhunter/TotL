@@ -47,7 +47,7 @@ namespace TotL.Units
 
         public override void damageUnit(short dmg)
         {
-            if (Vars.random.Next(0, 4) > 0)
+            if (Vars.random.Next(0, 100) <90)
             {
                 HP -= dmg;
             }
