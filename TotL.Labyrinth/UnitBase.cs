@@ -15,7 +15,7 @@ namespace TotL.Labyrinth
     public class UnitBase : Cell
     {
         private Cell realcell;
-        private int hp = 10000;
+        public int hp = 10000;
         ShaderResourceView baseTexture;
        public bool isdestroyed = false;
         public string Type { get; set; }

@@ -653,6 +653,8 @@ namespace TotL
             }
             else
             {
+                Vars.spriteBatch.DrawString(Vars.font,"Saját bázis élete :"+"10000/"+(map[bo,bs] as UnitBase).hp,new Vector2 (20, Vars.ScreenHeight-50),Color.Black);
+                Vars.spriteBatch.DrawString(Vars.font, "ellenséges bázis élete :" + "10000/" + (map[eo, es] as UnitBase).hp, new Vector2(Vars.ScreenHeight - 50,Vars.ScreenHeight -50), Color.Black);
                 for (int s = 0; s < 15; s++)
                 {
                     for (int o = 0; o < 25; o++)
