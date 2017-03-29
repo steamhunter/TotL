@@ -289,7 +289,7 @@ namespace TotL
             clusterAtick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.X))
             {
-                wasmovement = true;
+                
                 if (spawnclusterA == false)
                 {
                     spawnclusterA = true;
@@ -312,6 +312,7 @@ namespace TotL
                 {
                     if (clusterAtick >= 30)
                     {
+                        
                         Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
                         clusterA.Add(newunit);
@@ -380,7 +381,6 @@ namespace TotL
             clusterBtick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.C))
             {
-                wasmovement = true;
                 if (spawnclusterB == false)
                 {
                     spawnclusterB = true;
@@ -401,6 +401,7 @@ namespace TotL
                 {
                     if (clusterBtick >= 30)
                     {
+                        
                         Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
                         clusterB.Add(newunit);
@@ -535,6 +536,10 @@ namespace TotL
 
             #endregion
 
+            if ((clusterA.Count>0||clusterB.Count>0)&&EnemyCluster.Count>0&&!wasmovement)
+            {
+                wasmovement = true;
+            }
 
             for (int ec = 0; ec < EnemyCluster.Count; ec++)
             {
@@ -641,20 +646,34 @@ namespace TotL
 
             if (clusterA.Count == 0 && clusterB.Count == 0 && EnemyCluster.Count == 0 && wasmovement)
             {
-                Vars.spriteBatch.DrawString(Vars.font, $"DÖNTETLEN {Environment.NewLine} minkét csapat egységei megsemisültek (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+                if (!Vars.noTextMode)
+                {
+                    Vars.spriteBatch.DrawString(Vars.font, $"DÖNTETLEN {Environment.NewLine} minkét csapat egységei megsemisültek (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+
+                }
             }
-            else if ((map[eo, es] as UnitBase).isdestroyed)
+            else if ((map[eo, es] as UnitBase).isdestroyed||EnemyCluster.Count==0&&wasmovement)
             {
-                Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+                if (!Vars.noTextMode)
+                {
+                    Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+                }
             }
-            else if ((map[bo, bs] as UnitBase).isdestroyed)
+            else if ((map[bo, bs] as UnitBase).isdestroyed|| clusterA.Count == 0 && clusterB.Count == 0&&wasmovement)
             {
-                Vars.spriteBatch.DrawString(Vars.font, "VESZTETTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+                if (!Vars.noTextMode)
+                {
+                    Vars.spriteBatch.DrawString(Vars.font, "VESZTETTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
+
+                }
             }
             else
             {
-                Vars.spriteBatch.DrawString(Vars.font,"Saját bázis élete :"+"10000/"+(map[bo,bs] as UnitBase).hp,new Vector2 (20, Vars.ScreenHeight-50),Color.Black);
-                Vars.spriteBatch.DrawString(Vars.font, "ellenséges bázis élete :" + "10000/" + (map[eo, es] as UnitBase).hp, new Vector2(Vars.ScreenHeight - 50,Vars.ScreenHeight -50), Color.Black);
+                if (!Vars.noTextMode)
+                {
+                    Vars.spriteBatch.DrawString(Vars.font, "Saját bázis élete :" + "10000/" + (map[bo, bs] as UnitBase).hp, new Vector2(20, Vars.ScreenHeight - 50), Color.Black);
+                    Vars.spriteBatch.DrawString(Vars.font, "ellenséges bázis élete :" + "10000/" + (map[eo, es] as UnitBase).hp, new Vector2(Vars.ScreenHeight - 50, Vars.ScreenHeight - 50), Color.Black);
+                }
                 for (int s = 0; s < 15; s++)
                 {
                     for (int o = 0; o < 25; o++)

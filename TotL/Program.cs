@@ -25,6 +25,10 @@ namespace TotL
                 {
                     Vars.path_debug_Draw = true;
                 }
+                if (ar=="-no-text")
+                {
+                    Vars.noTextMode = true;
+                }
             }
             using (TotL game = new TotL())
             {
