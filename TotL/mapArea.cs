@@ -314,7 +314,7 @@ namespace TotL
                     {
                         
                         Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
-                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
+                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
                         clusterA.Add(newunit);
                         clusterAsize++;
                         clusterAtick = 0;
@@ -403,7 +403,7 @@ namespace TotL
                     {
                         
                         Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
-                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs) + 5);
+                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
                         clusterB.Add(newunit);
                         clusterBsize++;
                         clusterBtick = 0;
@@ -486,7 +486,7 @@ namespace TotL
                     if (EnemyClustertick >= 20)
                     {
                         Units.EnemyUnit newunit = new Units.EnemyUnit(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es));
-                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es) + 5);
+                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es));
                         EnemyCluster.Add(newunit);
                         EnemySize++;
                         EnemyClustertick = 0;
