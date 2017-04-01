@@ -89,9 +89,9 @@
     <Folder Include="_3D\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="config.json">
+    <Content Include="config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

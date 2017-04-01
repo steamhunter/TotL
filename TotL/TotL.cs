@@ -26,13 +26,14 @@ namespace TotL
             PathFinder.Error.error.game = this;
         }
         protected mapArea map = new mapArea();
-        protected override void LoopInitialize()
+        protected override void Init()
         {
            
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
+            Vars.config = configjson.getConfig();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            deviceManager.IsFullScreen =false;
+            deviceManager.IsFullScreen =Vars.config.isFullScreen;
             Vars.device = deviceManager.GraphicsDevice;
             Vars.spriteBatch = spriteBatch;
             Vars.game = this;

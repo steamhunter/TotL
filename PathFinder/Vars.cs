@@ -14,7 +14,7 @@ namespace PathFinder
 {
     public class Vars
     {
-        public static gamestates gamestate = gamestates.world;
+        public static gamestates gamestate = gamestates.notinitialized;
         public static internalstates mapstate = internalstates.map_not_initialized;
         public static SpriteBatch spriteBatch;
         public static SharpDX.Direct3D11.Device device;
@@ -43,6 +43,7 @@ namespace PathFinder
             public int oneside_weight { get; set; }
             public int twoside_weight { get; set; }
             public int tunnel_weight { get; set; }
+            public bool isFullScreen { get; set; }
         }
 
         public static configstructure getConfig()
@@ -59,7 +60,7 @@ namespace PathFinder
         initializing,
         initialized_notLoaded,
         intitalized_loaded,
-        world
+        notinitialized
 
 
     }

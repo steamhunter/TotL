@@ -59,7 +59,6 @@ namespace TotL
             cons.debugMessage(Vars.seed.ToString());
             random = new Random(Vars.seed);
             Vars.random = random;
-            Vars.config = configjson.getConfig();
             AClusterStatus = new UI.ClusterStatus("A_cluster");
             BClusterStatus = new UI.ClusterStatus("B_cluster");
             #endregion

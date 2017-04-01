@@ -21,13 +21,13 @@ namespace PathFinder.Toolkit
 
         /// <summary>
         /// intialize a SharpDX irányából megvalósítja az állapot elenőrzést.
-        /// gyermek osztályból override old a LoopInitialize t.
+        /// gyermek osztályból override old a Init et.
         /// </summary>
         protected override void Initialize()
         {
             Vars.gamestate = gamestates.initializing;
            
-                LoopInitialize();
+                Init();
           
             Vars.gamestate = gamestates.initialized_notLoaded;
             base.Initialize();
@@ -37,7 +37,7 @@ namespace PathFinder.Toolkit
         /// initialize a PathFinder motor irányából.
         /// gyermek osztályból ezt override old.
         /// </summary>
-        protected virtual void LoopInitialize()
+        protected virtual void Init()
         {
 
         }
