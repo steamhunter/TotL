@@ -26,14 +26,13 @@ namespace TotL
             PathFinder.Error.error.game = this;
         }
         protected mapArea map = new mapArea();
-        protected override void Init()
+        protected override void LoopInitialize()
         {
            
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
-            Vars.config = configjson.getConfig();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            deviceManager.IsFullScreen =Vars.config.isFullScreen;
+            deviceManager.IsFullScreen =true;
             Vars.device = deviceManager.GraphicsDevice;
             Vars.spriteBatch = spriteBatch;
             Vars.game = this;
@@ -55,7 +54,11 @@ namespace TotL
        
         protected override void Load()
         {
-            Vars.font = Content.Load<SharpDX.Toolkit.Graphics.SpriteFont>("myfont");
+            if (!Vars.noTextMode)
+            {
+                Vars.font = Content.Load<SharpDX.Toolkit.Graphics.SpriteFont>("myfont");
+            }
+            
             
         }
         int loadwaitcounter = 0;
