@@ -56,18 +56,12 @@ namespace PathFinder._2D
         {
             throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
         }
+
         public virtual void Initialize()
         {
             throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
         }
-        /*public virtual void draw()
-        {
-            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-
-            //spritebatch.Draw(texture, new Vector2(locationX, locationY), null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
-           Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize),Color.White);
-        
-        }*/
+       
         public virtual void draw()
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
