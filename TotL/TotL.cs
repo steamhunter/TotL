@@ -28,7 +28,7 @@ namespace TotL
         protected mapArea map = new mapArea();
         protected override void Init()
         {
-           
+            Vars.config = configjson.getConfig();
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
