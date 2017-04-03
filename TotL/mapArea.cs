@@ -63,7 +63,7 @@ namespace TotL
             BClusterStatus = new UI.ClusterStatus("B_cluster");
             #endregion
 
-            #region Generator Border
+            #region Border generator
             for (int s = 0; s < 18; s++)
             {
                 for (int o = 0; o < 27; o++)
