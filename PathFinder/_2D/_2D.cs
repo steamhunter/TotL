@@ -11,7 +11,7 @@ using PathFinder;
 
 namespace PathFinder._2D
 {
-    public class Unit2D
+    public class _2DGraphicsElement
     {
         protected ShaderResourceView texture;
         public Rectangle rectangle;
@@ -39,7 +39,7 @@ namespace PathFinder._2D
 
         }
 
-        public Unit2D()
+        public _2DGraphicsElement()
         {
            
 
@@ -48,18 +48,20 @@ namespace PathFinder._2D
        
         public virtual void update()
         {
-
-            
-
+            throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
         }
-        /*public virtual void draw()
-        {
-            float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
 
-            //spritebatch.Draw(texture, new Vector2(locationX, locationY), null, Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
-           Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize),Color.White);
-        
-        }*/
+
+        public virtual void Load()
+        {
+            throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
+        }
+
+        public virtual void Initialize()
+        {
+            throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
+        }
+       
         public virtual void draw()
         {
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;

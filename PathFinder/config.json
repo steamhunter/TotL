@@ -1,10 +1,11 @@
 {
 
-"fc_weight":0,
-"cross_weight":10,
+"fc_weight":1,
+"cross_weight":9,
 "deadend_weight":10,
 "oneside_weight":25,
 "twoside_weight":25,
-"tunnel_weight":30
+"tunnel_weight":30,
+"isFullScreen": true
 
 }

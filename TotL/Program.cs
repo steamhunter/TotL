@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PathFinder.Toolkit;
 using PathFinder.Debug;
+using PathFinder;
 
 namespace TotL
 {
@@ -20,9 +21,13 @@ namespace TotL
                     cons.debugMessage("debug enabled");
 
                 }
-                else
+                if (ar=="-path-debug-draw")
                 {
-                    
+                    Vars.path_debug_Draw = true;
+                }
+                if (ar=="-no-text")
+                {
+                    Vars.noTextMode = true;
                 }
             }
             using (TotL game = new TotL())

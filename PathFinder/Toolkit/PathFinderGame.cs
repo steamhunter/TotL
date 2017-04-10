@@ -18,38 +18,64 @@ namespace PathFinder.Toolkit
         protected KeyboardManager Mykeyboardmanager;
         protected MouseManager Mymousemanager;
         protected Graphics.SpriteBatch spriteBatch;
+
+        /// <summary>
+        /// intialize a SharpDX irányából megvalósítja az állapot elenőrzést.
+        /// gyermek osztályból override old a Init et.
+        /// </summary>
         protected override void Initialize()
         {
-            Vars.state = gamestates.initializing;
+            Vars.gamestate = gamestates.initializing;
            
-                LoopInitialize();
+                Init();
           
-            Vars.state = gamestates.initialized_notLoaded;
+            Vars.gamestate = gamestates.initialized_notLoaded;
             base.Initialize();
         }
-        protected virtual void LoopInitialize()
+
+        /// <summary>
+        /// initialize a PathFinder motor irányából.
+        /// gyermek osztályból ezt override old.
+        /// </summary>
+        protected virtual void Init()
         {
 
         }
+
+        /// <summary>
+        /// Load a SharpDX irányából megvalósítja az állapot elenőrzést.
+        /// gyermek osztályból override old a a Load ot.
+        /// </summary>
         protected override void LoadContent()
         {
 
-            if (Vars.state==gamestates.initialized_notLoaded)
+            if (Vars.gamestate==gamestates.initialized_notLoaded)
             {
                 
                     Load();
-                Vars.state = gamestates.intitalized_loaded;
+                Vars.gamestate = gamestates.intitalized_loaded;
             }
 
             base.LoadContent();
         }
+
+        /// <summary>
+        /// load a PathFinder motor irányából
+        /// gyermek osztályból ezt override old.
+        /// </summary>
         protected virtual void Load()
         {
 
         }
+
+        /// <summary>
+        /// draw a SharpDX irányából megvalósítja az állapot elenőrzést.
+        /// gyermek osztályból a TickDraw t override old.
+        /// </summary>
+        /// <param name="gameTime">Sharpdx.toolkit.GameTime</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (Vars.state==gamestates.intitalized_loaded)
+            if (Vars.gamestate==gamestates.intitalized_loaded)
             {
               
                     TickDraw(gameTime);
@@ -59,24 +85,42 @@ namespace PathFinder.Toolkit
             
            
         }
+
+        /// <summary>
+        /// Draw a PathFinder motor irányából
+        /// gyermek osztályból ezt override old.
+        /// </summary>
+        /// <param name="gameTime">Sharpdx.toolkit.GameTime</param>
         protected virtual void TickDraw(GameTime gameTime)
         {
 
         }
+
+        /// <summary>
+        /// Update SharpDX irányából  megvalósítja az állapot elenőrzést.
+        /// gyermek osztályból a TickUpdate ot override old.
+        /// </summary>
+        /// <param name="gameTime">Sharpdx.toolkit.GameTime</param>
         protected override void Update(GameTime gameTime)
         {
 
-            if (Vars.state==gamestates.intitalized_loaded)
+            if (Vars.gamestate==gamestates.intitalized_loaded)
             {
 
-                Task.Run(() =>
-                {
+                /*Task.Run(() =>
+                {*/
                     TickUpdate(gameTime);
                    
-                });
+                //});
             }
             base.Update(gameTime);
         }
+
+        /// <summary>
+        /// Update a PathFinder motor irányából 
+        /// gyermek osztályból ezt override old.
+        /// </summary>
+        /// <param name="gameTime">Sharpdx.toolkit.GameTime</param>
         protected virtual void TickUpdate(GameTime gameTime)
         {
         }

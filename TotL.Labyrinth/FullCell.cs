@@ -8,15 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TotL.labyrinthcells
+namespace TotL.Labyrinth
 {
-    class FullCell:Cell
+    public class FullCell:Cell
     {
-        public FullCell()
+        public FullCell(int x,int y):base(x,y)
         {
             texture = TextureFromFile.TextureProcessor.getTexture("FullCell");
             setRotation(0f);
             closedsides = 4;
+            X = x;
+            Y = y;
         }
 
         public override void setRotation(float rotation)
@@ -39,22 +41,26 @@ namespace TotL.labyrinthcells
         {
 
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+              Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
         }
-
+        public override void SetBlockingVolumes()
+        {
+            _blockedvolumes.Add(rectangle);
+            //base.SetBlockingVolumes();
+        }
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
-            if (closedsides >= Connection.getClosedSides(connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+            if (closedsides >= Connection.getClosedSides(connect[co, cs-1], connect[co+1, cs], connect[co, cs+1], connect[co-1, cs]))
             {
-                if (Connection.isFiting(this, connect[cs - 1, co], connect[cs, co + 1], connect[cs + 1, co], connect[cs, co - 1]))
+                if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                 {
                     locationX = 20 + ((o) * unitSize);
                     locationY = 20 + ((s) * unitSize);
-                    connect[cs, co].up = up;
-                    connect[cs, co].down = down;
-                    connect[cs, co].left = left;
-                    connect[cs, co].right = right;
+                    connect[co,cs].up = up;
+                    connect[co,cs].down = down;
+                    connect[co,cs].left = left;
+                    connect[co,cs].right = right;
                     return true;
 
                 }
