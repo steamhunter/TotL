@@ -59,7 +59,6 @@ namespace TotL
             {
                 Vars.font = Content.Load<SharpDX.Toolkit.Graphics.SpriteFont>("myfont");
             }
-;
             
         }
         int loadwaitcounter = 0;
