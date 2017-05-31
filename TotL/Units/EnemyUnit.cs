@@ -25,7 +25,7 @@ namespace TotL.Units
 
             this.CoordinateX = locationX;
             this.CoordinateY = locationY;
-            texture = TextureFromFile.TextureProcessor.getTexture("transparent");
+            texture = TextureLoader.getTexture("transparent");
             HP = 100;
         }
 
@@ -35,7 +35,7 @@ namespace TotL.Units
             this.CoordinateX = locationX;
             this.CoordinateY = locationY;
             this.navcoordinate = navcoordinate;
-            texture = TextureFromFile.TextureProcessor.getTexture("transparent");
+            texture = TextureLoader.getTexture("transparent");
             HP = 100;
         }
 
@@ -169,7 +169,7 @@ namespace TotL.Units
                 foreach (var item in path)
                 {
 
-                    Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), new RectangleF((20 + ((item.X - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, (20 + ((item.Y - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+                    Vars.spriteBatch.Draw(TextureLoader.getTexture("transparent"), new RectangleF((20 + ((item.X - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, (20 + ((item.Y - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
 
                 }
             }

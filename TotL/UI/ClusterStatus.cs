@@ -15,7 +15,7 @@ namespace TotL.UI
         string texturename;
         public ClusterStatus(String texutreName)
         {
-            texture = TextureFromFile.TextureProcessor.getTexture(texutreName+"_status");
+            texture = TextureLoader.getTexture(texutreName+"_status");
             texturename = texutreName;
         }
 
@@ -26,11 +26,11 @@ namespace TotL.UI
         }
         public void select()
         {
-            texture = TextureFromFile.TextureProcessor.getTexture(texturename + "_status_selected");
+            texture = TextureLoader.getTexture(texturename + "_status_selected");
         }
         public void deSelect()
         {
-            texture = TextureFromFile.TextureProcessor.getTexture(texturename + "_status");
+            texture = TextureLoader.getTexture(texturename + "_status");
         }
     }
 }

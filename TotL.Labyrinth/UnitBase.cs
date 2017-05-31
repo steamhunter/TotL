@@ -22,7 +22,7 @@ namespace TotL.Labyrinth
 
         public UnitBase(Cell realcell, string type,int x,int y):base(x,y)
         {
-            baseTexture = TextureFromFile.TextureProcessor.getTexture("UnitBase");
+            baseTexture =TextureLoader.getTexture("UnitBase");
             closedsides = realcell.closedsides;
             this.realcell = realcell;
             locationX = realcell.locationX/*+realcell.LocationXoffset*/;

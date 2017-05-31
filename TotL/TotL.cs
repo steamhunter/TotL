@@ -10,6 +10,7 @@ using PathFinder.Toolkit.Graphics;
 using PathFinder;
 using SharpDX;
 using PathFinder.Debug;
+using PathFinder._2D;
 
 namespace TotL
 {
@@ -58,7 +59,7 @@ namespace TotL
             {
                 Vars.font = Content.Load<SharpDX.Toolkit.Graphics.SpriteFont>("myfont");
             }
-            
+;
             
         }
         int loadwaitcounter = 0;

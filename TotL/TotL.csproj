@@ -130,42 +130,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\A_cluster_status.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\A_cluster_status_selected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\B_cluster_status.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\B_cluster_status_selected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\CrossCell.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\DeadEndCell.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\FullCell.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\oneSideBlockedCell.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\transparent.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TunnelCell.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\twoSideBlockedCell.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\UnitBase.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <ToolkitTexture Include="Content\A_cluster_status.png" />
+    <ToolkitTexture Include="Content\A_cluster_status_selected.png" />
+    <ToolkitTexture Include="Content\B_cluster_status.png" />
+    <ToolkitTexture Include="Content\B_cluster_status_selected.png" />
+    <ToolkitTexture Include="Content\CrossCell.png" />
+    <ToolkitTexture Include="Content\DeadEndCell.png" />
+    <ToolkitTexture Include="Content\FullCell.png" />
+    <ToolkitTexture Include="Content\loadtester.png" />
+    <ToolkitTexture Include="Content\oneSideBlockedCell.png" />
+    <ToolkitTexture Include="Content\transparent.png" />
+    <ToolkitTexture Include="Content\TunnelCell.png" />
+    <ToolkitTexture Include="Content\twoSideBlockedCell.png" />
+    <ToolkitTexture Include="Content\UnitBase.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

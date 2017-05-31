@@ -14,7 +14,7 @@ namespace TotL.Labyrinth
     {
         public TwoSideBlocked(int x, int y) : base(x, y)
         {
-            texture = TextureFromFile.TextureProcessor.getTexture("twoSideBlockedCell");
+            texture = TextureLoader.getTexture("twoSideBlockedCell");
             setRotation(0f);
             closedsides = 2;
             X = x;
@@ -72,6 +72,7 @@ namespace TotL.Labyrinth
         {
 
         }
+
         public override void draw()
         {
 
@@ -185,6 +186,11 @@ namespace TotL.Labyrinth
             }
 
 
+        }
+
+        public override string ToString()
+        {
+            return "TwoSideBlocked";
         }
     }
 

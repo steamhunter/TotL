@@ -14,7 +14,7 @@ namespace TotL.Labyrinth
     {
         public DeadEndCell(int x, int y) : base(x, y)
         {
-            texture = TextureFromFile.TextureProcessor.getTexture("DeadEndCell");
+            texture = TextureLoader.getTexture("DeadEndCell");
             setRotation(0f);
             closedsides = 3;
             X = x;
@@ -180,6 +180,11 @@ namespace TotL.Labyrinth
             }
 
 
+        }
+
+        public override string ToString()
+        {
+            return "DeadEndCell";
         }
     }
 }

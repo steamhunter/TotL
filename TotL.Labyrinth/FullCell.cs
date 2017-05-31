@@ -14,7 +14,7 @@ namespace TotL.Labyrinth
     {
         public FullCell(int x,int y):base(x,y)
         {
-            texture = TextureFromFile.TextureProcessor.getTexture("FullCell");
+            texture =TextureLoader.getTexture("FullCell");
             setRotation(0f);
             closedsides = 4;
             X = x;
@@ -77,6 +77,10 @@ namespace TotL.Labyrinth
             }
 
 
+        }
+        public override string ToString()
+        {
+            return "FullCell";
         }
     }
 }

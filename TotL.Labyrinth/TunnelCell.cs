@@ -15,7 +15,7 @@ namespace TotL.Labyrinth
 
         public TunnelCell(int x,int y):base(x,y)
         {
-            texture = TextureFromFile.TextureProcessor.getTexture("TunnelCell");
+            texture = TextureLoader.getTexture("TunnelCell");
             setRotation(0f);
             closedsides = 2;
             X = x;
@@ -95,9 +95,7 @@ namespace TotL.Labyrinth
                 _blockedvolumes.Add(new RectangleF(locationx-unitSize, locationy, unitSize, unitSize / 4));
                 _blockedvolumes.Add(new RectangleF(locationx-unitSize,(locationy+unitSize)-unitSize/4,unitSize,unitSize/4));
             }
-        }
-            
-
+        }         
 
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
@@ -170,6 +168,11 @@ namespace TotL.Labyrinth
             }
 
 
+        }
+
+        public override string ToString()
+        {
+            return "TunnelCell";
         }
     }
 }

@@ -15,12 +15,11 @@ namespace TotL.Labyrinth
     {
         public CrossCell(int x,int y):base(x,y)
         {
-            texture = TextureFromFile.TextureProcessor.getTexture("CrossCell");
+            texture = TextureLoader.getTexture("CrossCell");
             closedsides = 0;
             X = x;
             Y = y;
         }
-
 
         public override void setRotation(float rotation)
         {
@@ -35,7 +34,6 @@ namespace TotL.Labyrinth
 
         public override void draw()
         {
-            
             Vars.spriteBatch.Draw(texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
            /* foreach (var item in _blockedvolumes)
             {
@@ -43,6 +41,7 @@ namespace TotL.Labyrinth
             }*/
 
         }
+
         public override void SetBlockingVolumes()
         {
             float locationx = locationX + LocationXoffset;
@@ -121,6 +120,11 @@ namespace TotL.Labyrinth
             }
 
 
+        }
+
+        public override string ToString()
+        {
+            return "CrossCell";
         }
     }
 }

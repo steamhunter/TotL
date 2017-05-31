@@ -82,7 +82,7 @@
     <Compile Include="Toolkit\PathFinderGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vars.cs" />
-    <Compile Include="_2D\TextureFromFile.cs" />
+    <Compile Include="_2D\TextureProcessor.cs" />
     <Compile Include="_2D\_2D.cs" />
   </ItemGroup>
   <ItemGroup>
