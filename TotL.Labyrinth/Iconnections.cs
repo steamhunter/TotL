@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 namespace TotL.Labyrinth
 {
 
-   public interface IConnections
+   public interface IConnections: ICoordinate
     {
-        int X { get; set; }
-        int Y { get; set; }
-        bool isPopulated
-        {
-            get;set;
-        }
+        
+       
         int closedsides
         {
             get;
@@ -43,11 +39,7 @@ namespace TotL.Labyrinth
             get;
             set;
         }
-        float rotation
-        {
-            get;set;
-        }
-        void setRotation(float rotation);
+        
         
         
     }

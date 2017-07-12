@@ -19,8 +19,6 @@ namespace TotL
         public TotL()
         {
             deviceManager = new GraphicsDeviceManager(this);
-          //  deviceManager.PreferredBackBufferWidth = 800;
-           // deviceManager.PreferredBackBufferHeight = 600;
             Mykeyboardmanager = new KeyboardManager(this);
             Mymousemanager = new MouseManager(this);
             Content.RootDirectory = "Content";
@@ -30,6 +28,7 @@ namespace TotL
         protected override void Init()
         {
             Vars.config = configjson.getConfig();
+            
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);

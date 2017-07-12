@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace TotL.Labyrinth
 {
-    public interface IPathNode<TUserContext>
+    public interface IPathNode<TUserContext>:ICoordinate
     {
-        int X { get; set; }
-        int Y { get; set; }
+      
         Boolean IsWalkable(TUserContext inContext);
         Boolean IsWalkable(TUserContext inContext, IPathNode<TUserContext> centernode);
         object UserContext();

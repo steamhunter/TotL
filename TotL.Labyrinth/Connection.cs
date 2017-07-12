@@ -8,7 +8,7 @@ using PathFinder;
 
 namespace TotL.Labyrinth
 {
-    public class Connection : IConnections, IPathNode<Object>
+    public class Connection : IConnections, IPathNode<Object>,ICell
     {
         private bool _up, _down, _left, _right;
         private int _closedsides;

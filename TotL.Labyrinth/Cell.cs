@@ -18,7 +18,7 @@ namespace TotL.Labyrinth
        public static float minus90 = -Convert.ToSingle(Math.PI) / 2;
     }
 
-   public class Cell : _2DGraphicsElement, IConnections
+   public class Cell : _2DGraphicsElement, IConnections,ICell
     {
         #region Globals
         protected static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;

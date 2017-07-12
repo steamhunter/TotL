@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotL", "TotL\TotL.csproj", "{B37F7FD4-7C87-4AAC-BC96-15AAEE97FB33}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathFinder.AStar", "PathFinder.Astar\PathFinder.AStar\PathFinder.AStar.csproj", "{F1AF3392-22D1-4B03-9C3B-C10DA9B1BCCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotL.Labyrinth", "TotL.Labyrinth\TotL.Labyrinth.csproj", "{2E89AC9D-D468-4D35-A7FA-29C8FAC33956}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{C159E159-A31D-4C9E-BE04-00E57119DE50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +50,6 @@ Global
 		{2E89AC9D-D468-4D35-A7FA-29C8FAC33956}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2E89AC9D-D468-4D35-A7FA-29C8FAC33956}.Release|x86.ActiveCfg = Release|Any CPU
 		{2E89AC9D-D468-4D35-A7FA-29C8FAC33956}.Release|x86.Build.0 = Release|Any CPU
-		{C159E159-A31D-4C9E-BE04-00E57119DE50}.Debug|Any CPU.ActiveCfg = Debug
-		{C159E159-A31D-4C9E-BE04-00E57119DE50}.Debug|x86.ActiveCfg = Debug
-		{C159E159-A31D-4C9E-BE04-00E57119DE50}.Release|Any CPU.ActiveCfg = Release
-		{C159E159-A31D-4C9E-BE04-00E57119DE50}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

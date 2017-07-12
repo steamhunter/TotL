@@ -70,7 +70,9 @@
     <Compile Include="CrossCell.cs" />
     <Compile Include="DeadEndCell.cs" />
     <Compile Include="FullCell.cs" />
+    <Compile Include="ICell.cs" />
     <Compile Include="Iconnections.cs" />
+    <Compile Include="ICoordinate.cs" />
     <Compile Include="IPathNode.cs" />
     <Compile Include="Map\MapBuilder.cs" />
     <Compile Include="OneSideBlocked.cs" />

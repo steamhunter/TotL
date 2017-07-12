@@ -100,7 +100,7 @@ namespace TotL.Units
                 if ((int)navcoordinate.X != CoordinateX || navcoordinate.Y != CoordinateY)
                 {
 
-                    if (!map[X, Y].CheckBlockingState(new RectangleF(CoordinateX + 1, CoordinateY + 1, 16, 16))||relocation)
+                    if (!map[X, Y].CheckBlockingState(new RectangleF(CoordinateX + 1, CoordinateY + 1, Vars.unitSize/4, Vars.unitSize/4))||relocation)
                     {
                         if ((int)navcoordinate.X > CoordinateX)
                         {
