@@ -7,7 +7,8 @@ using System.Text;
 
 namespace PathFinder.Map
 {
-    public abstract class AreaBase
+    [PathFinder.Attributes.GameSystem(GameSystemType.map)]
+    public abstract class MapBase:IGameSystem
     {
         private Game igame;
         protected bool ready = false;

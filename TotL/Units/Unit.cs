@@ -12,8 +12,9 @@ namespace TotL.Units
 {
     class Unit : _2DGraphicsElement
     {
-        public int CoordinateX { get; set; }
-        public int CoordinateY { get; set; }
+        //public int CoordinateX { get; set; }
+        //public int CoordinateY { get; set; }
+        public Vector2 Coordinate {get;set; }
         public bool hasnavcoordinate { get; set; }
         private Vector2 _navcoordinate;
         public Vector2 navcoordinate
@@ -59,17 +60,16 @@ namespace TotL.Units
             }
         }
         public short HP;
+        protected float unitsize = Vars.cellSize/8;
 
-        public Unit(int coordinateX, int coordinateY)
+        public Unit(Vector2 coordinate)
         {
-            this.CoordinateX = coordinateX;
-            this.CoordinateY = coordinateY;
+            Coordinate = coordinate;
         }
 
-        public Unit(int coordinateX, int coordinateY, Vector2 targetcoordinate)
+        public Unit(Vector2 coordinate, Vector2 targetcoordinate)
         {
-            this.CoordinateX = coordinateX;
-            this.CoordinateY = coordinateY;
+            Coordinate = coordinate;
         }
 
         public virtual void damageUnit(short dmg)
@@ -94,7 +94,7 @@ namespace TotL.Units
         {
             throw new InvalidCallException("Unit nem fogható meg mint 2DGraphicsElement");
         }
-        public virtual void update(Cell[,] connect)
+        public virtual void update(Cell[,] connect,List<Unit> units)
         {
             throw new InvalidCallException("hívás a unit alap fügvényre");
         }

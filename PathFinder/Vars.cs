@@ -24,7 +24,7 @@ namespace PathFinder
         public static int seed;
         public static Random random;
         public static configjson.configstructure config;
-        public static float unitSize;
+        public static float cellSize;
         public static bool path_debug_Draw;
         public static KeyboardManager mykeyboardmanager;
         public static MouseManager mymousemanager;

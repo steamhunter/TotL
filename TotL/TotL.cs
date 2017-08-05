@@ -24,11 +24,11 @@ namespace TotL
             Content.RootDirectory = "Content";
             PathFinder.Error.error.game = this;
         }
-        protected mapArea map = new mapArea();
+        protected MapArea map = new MapArea();
         protected override void Init()
         {
             Vars.config = configjson.getConfig();
-            
+            PathFinder.GameSystems.Initialize();
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -43,8 +43,8 @@ namespace TotL
             deviceManager.PreferredBackBufferHeight = GraphicsDevice.Adapter.DesktopBounds.Height;
             Vars.ScreenWidth =  GraphicsDevice.Adapter.DesktopBounds.Width;
             Vars.ScreenHeight = GraphicsDevice.Adapter.DesktopBounds.Height;
-            Vars.unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            cons.debugMessage(Vars.unitSize.ToString());
+            Vars.cellSize = (Vars.ScreenWidth * 0.83f) / 25f;
+            cons.debugMessage(Vars.cellSize.ToString());
 #pragma warning restore CS0618 // Type or member is obsolete
             deviceManager.ApplyChanges();
             IsMouseVisible = true;
@@ -60,50 +60,30 @@ namespace TotL
             }
             
         }
-        int loadwaitcounter = 0;
         protected override void TickDraw(GameTime gameTime)
         {
 
             spriteBatch.Begin();
-            GraphicsDevice.Clear(Color.DarkGray);
 
-            if (Vars.mapstate == internalstates.map_ready || Vars.mapstate == internalstates.on_map)
-            {
-               
-                map.Draw(gameTime);
-            }
-            else
-            {
-                spriteBatch.DrawString(Vars.font, "betöltés", new Vector2(Vars.ScreenWidth/2-50,Vars.ScreenHeight/2-50), Color.Black);
-            }
-           
+            GraphicsDevice.Clear(Color.DarkGray);     
+            map.Draw(gameTime);
+
             spriteBatch.End();
         }
         protected override void TickUpdate(GameTime gameTime)
         {
-
-
-            
                 if (Mykeyboardmanager.GetState().IsKeyDown(Keys.E))
                 {
                     Exit();
-                }
-                if (Vars.mapstate == internalstates.map_initializing || loadwaitcounter <= 300)
-                {
-                    loadwaitcounter++;
                 }
                 if (Vars.mapstate == internalstates.map_not_initialized)
                 {
                     map.Initialize();
                 }
-                if ((Vars.mapstate == internalstates.map_ready || Vars.mapstate == internalstates.on_map) && loadwaitcounter > 300)
+                if (Vars.mapstate == internalstates.map_ready || Vars.mapstate == internalstates.on_map)
                 {
                     map.Update(gameTime);
-                }
-           
-            
-            
-            
+                } 
         }
     }
 }

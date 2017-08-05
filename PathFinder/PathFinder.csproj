@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\GameSystem.cs" />
     <Compile Include="button\frame.cs" />
     <Compile Include="character\Character.cs" />
     <Compile Include="character\managment.cs" />
@@ -76,8 +77,9 @@
     <Compile Include="error.cs" />
     <Compile Include="Exeptions.cs" />
     <Compile Include="fightHandler.cs" />
+    <Compile Include="GameSystems.cs" />
     <Compile Include="GUI\GUI.cs" />
-    <Compile Include="Map\AreaBase.cs" />
+    <Compile Include="Map\MapBase.cs" />
     <Compile Include="Toolkit\Graphics\SpriteBatch.cs" />
     <Compile Include="Toolkit\PathFinderGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

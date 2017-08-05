@@ -17,7 +17,8 @@ using TotL.Labyrinth.Map;
 
 namespace TotL
 {
-    class mapArea : AreaBase
+    [PathFinder.Attributes.GameSystem(GameSystemType.map)]
+    class MapArea : MapBase,PathFinder.IGameSystem
     {
         #region Globals
         int bs, bo;
@@ -40,12 +41,12 @@ namespace TotL
 
         private int GetCoordinateFromLocation(int location)
         {
-            int unitsize = Convert.ToInt32(Vars.unitSize);
+            int unitsize = Convert.ToInt32(Vars.cellSize);
             return (20 + (location * unitsize)) + (unitsize / 2);
         }
         private int GetLocationFromCoordinate(int Coordinate)
         {
-            return (Coordinate - 20) / (int)Vars.unitSize;
+            return (Coordinate - 20) / (int)Vars.cellSize;
         }
 
         public override void Initialize()
@@ -144,7 +145,7 @@ namespace TotL
                     if (clusterAtick >= 30)
                     {
                         
-                        Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
+                        Units.PlayerUnit newunit = new Units.PlayerUnit(new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs)));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
                         clusterA.Add(newunit);
                         clusterAsize++;
@@ -204,7 +205,7 @@ namespace TotL
             foreach (var item in clusterA)
             {
 
-                item.update(map);
+                item.update(map,clusterA);
             }
             #endregion
 
@@ -233,7 +234,7 @@ namespace TotL
                     if (clusterBtick >= 30)
                     {
                         
-                        Units.PlayerUnit newunit = new Units.PlayerUnit(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
+                        Units.PlayerUnit newunit = new Units.PlayerUnit(new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs)));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
                         clusterB.Add(newunit);
                         clusterBsize++;
@@ -294,7 +295,7 @@ namespace TotL
             foreach (var item in clusterB)
             {
 
-                item.update(map);
+                item.update(map,clusterB);
             }
             #endregion
 
@@ -316,7 +317,7 @@ namespace TotL
                 {
                     if (EnemyClustertick >= 20)
                     {
-                        Units.EnemyUnit newunit = new Units.EnemyUnit(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es));
+                        Units.EnemyUnit newunit = new Units.EnemyUnit(new Vector2(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es)));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es));
                         EnemyCluster.Add(newunit);
                         EnemySize++;
@@ -362,7 +363,7 @@ namespace TotL
 
             for (int i = 0; i < EnemyCluster.Count; i++)
             {
-                EnemyCluster[i].update(map);
+                EnemyCluster[i].update(map,EnemyCluster);
             }
 
             #endregion
@@ -378,8 +379,8 @@ namespace TotL
                 int eLocationY;
                 if (EnemyCluster.Count>0)
                 {
-                    eLocationX = GetLocationFromCoordinate(EnemyCluster[ec].CoordinateX);
-                    eLocationY = GetLocationFromCoordinate(EnemyCluster[ec].CoordinateY);
+                    eLocationX = GetLocationFromCoordinate((int)EnemyCluster[ec].Coordinate.X);
+                    eLocationY = GetLocationFromCoordinate((int)EnemyCluster[ec].Coordinate.Y);
                 }
                 else
                 {
@@ -397,8 +398,8 @@ namespace TotL
                         {
 
 
-                            fLocationX = GetLocationFromCoordinate(clusterA[ca].CoordinateX);
-                            fLocationY = GetLocationFromCoordinate(clusterA[ca].CoordinateY);
+                            fLocationX = GetLocationFromCoordinate((int)clusterA[ca].Coordinate.X);
+                            fLocationY = GetLocationFromCoordinate((int)clusterA[ca].Coordinate.Y);
 
                             if (eLocationX == fLocationX && eLocationY == fLocationY)
                             {
@@ -432,8 +433,8 @@ namespace TotL
                     int fLocationY = -1;
                     if (clusterB.Count > 0&&EnemyCluster.Count>0)
                     {
-                        fLocationX = GetLocationFromCoordinate(clusterB[cb].CoordinateX);
-                        fLocationY = GetLocationFromCoordinate(clusterB[cb].CoordinateY);
+                        fLocationX = GetLocationFromCoordinate((int)clusterB[cb].Coordinate.X);
+                        fLocationY = GetLocationFromCoordinate((int)clusterB[cb].Coordinate.Y);
                     }
                     else
                     {
@@ -446,19 +447,21 @@ namespace TotL
                         if (EnemyCluster.Count > 0&&EnemyCluster.Count>0)
                         {
 
-
-                            EnemyCluster[ec].damageUnit(1);
-                            clusterB[cb].damageUnit(1);
-
-
-                            if (EnemyCluster[ec].HP <= 0)
+                            if (ec > EnemyCluster.Count)
                             {
-                                EnemyCluster.Remove(EnemyCluster[ec]);
-                            }
+                                EnemyCluster[ec].damageUnit(1);
+                                clusterB[cb].damageUnit(1);
 
-                            if (clusterB[cb].HP <= 0)
-                            {
-                                clusterB.RemoveAt(cb);
+
+                                if (EnemyCluster[ec].HP <= 0)
+                                {
+                                    EnemyCluster.Remove(EnemyCluster[ec]);
+                                }
+
+                                if (clusterB[cb].HP <= 0)
+                                {
+                                    clusterB.RemoveAt(cb);
+                                }
                             }
                         }
                         else

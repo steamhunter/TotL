@@ -17,23 +17,20 @@ namespace TotL.Units
     {
         private int GetCoordinateFromLocation(int location)
         {
-            int unitsize = Convert.ToInt32(Vars.unitSize);
+            int unitsize = Convert.ToInt32(Vars.cellSize);
             return (20 + (location * unitsize)) + (unitsize / 2) - 8;
         }
-        public EnemyUnit(int locationX, int locationY):base(locationX,locationY)
+        public EnemyUnit(Vector2 coordinate):base(coordinate)
         {
-
-            this.CoordinateX = locationX;
-            this.CoordinateY = locationY;
+            Coordinate = coordinate;
             texture = TextureLoader.getTexture("transparent");
             HP = 100;
         }
 
-        public EnemyUnit(int locationX, int locationY, Vector2 navcoordinate):base(locationX,locationY,navcoordinate)
+        public EnemyUnit(Vector2 coordinate, Vector2 navcoordinate):base(coordinate,navcoordinate)
         {
 
-            this.CoordinateX = locationX;
-            this.CoordinateY = locationY;
+            Coordinate = coordinate;
             this.navcoordinate = navcoordinate;
             texture = TextureLoader.getTexture("transparent");
             HP = 100;
@@ -55,13 +52,13 @@ namespace TotL.Units
             }
         }
         private short attackskiptick = 0;
-        public override void update(Cell[,] map)
+        public override void update(Cell[,] map,List<Unit> units)
         {
-            int X = (CoordinateX - 20) / (int)Vars.unitSize;
-            int Y = (CoordinateY - 20) / (int)Vars.unitSize;
+            int X = ((int)Coordinate.X - 20) / (int)Vars.cellSize;
+            int Y = ((int)Coordinate.Y - 20) / (int)Vars.cellSize;
 
             #region pathing
-            if (Math.Abs(GetCoordinateFromLocation((int)target.X) - CoordinateX) == 0 && Math.Abs(GetCoordinateFromLocation((int)target.Y) - CoordinateY) == 0)
+            if (Math.Abs(GetCoordinateFromLocation((int)target.X) - Coordinate.X) == 0 && Math.Abs(GetCoordinateFromLocation((int)target.Y) - Coordinate.Y) == 0)
             {
                 path = null;
                 hasnavcoordinate = false;
@@ -95,26 +92,30 @@ namespace TotL.Units
             }
             if (hasnavcoordinate)
             {
-                if ((int)navcoordinate.X != CoordinateX || navcoordinate.Y != CoordinateY)
+                if ((int)navcoordinate.X != Coordinate.X || navcoordinate.Y != Coordinate.Y)
                 {
 
-                    if (!map[X, Y].CheckBlockingState(new RectangleF(CoordinateX + 1, CoordinateY + 1, Vars.unitSize/4, Vars.unitSize/4)) || relocation)
+                    if (!map[X, Y].CheckBlockingState(new RectangleF(Coordinate.X + 1, Coordinate.Y + 1, unitsize, unitsize)) || relocation)
                     {
-                        if ((int)navcoordinate.X > CoordinateX)
+                        if ((int)navcoordinate.X > Coordinate.X)
                         {
-                            CoordinateX += 1;
+
+                            Coordinate += new Vector2(1, 0);
                         }
-                        if ((int)navcoordinate.X < CoordinateX)
+                        if ((int)navcoordinate.X < Coordinate.X)
                         {
-                            CoordinateX -= 1;
+
+                            Coordinate += new Vector2(-1, 0);
                         }
-                        if ((int)navcoordinate.Y > CoordinateY)
+                        if ((int)navcoordinate.Y > Coordinate.Y)
                         {
-                            CoordinateY += 1;
+
+                            Coordinate += new Vector2(0, 1);
                         }
-                        if ((int)navcoordinate.Y < CoordinateY)
+                        if ((int)navcoordinate.Y < Coordinate.Y)
                         {
-                            CoordinateY -= 1;
+
+                            Coordinate += new Vector2(0, -1);
                         }
                     }
                     else
@@ -162,14 +163,14 @@ namespace TotL.Units
         }
         public override void draw()
         {
-            Vars.spriteBatch.Draw(texture, new RectangleF(CoordinateX, CoordinateY, Vars.unitSize / 4, Vars.unitSize / 4), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(texture, new RectangleF(Coordinate.X, Coordinate.Y, unitsize, unitsize), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
 
             if (Vars.path_debug_Draw && path != null)
             {
                 foreach (var item in path)
                 {
 
-                    Vars.spriteBatch.Draw(TextureLoader.getTexture("transparent"), new RectangleF((20 + ((item.X - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, (20 + ((item.Y - 1) * Vars.unitSize + (Vars.unitSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+                    Vars.spriteBatch.Draw(TextureLoader.getTexture("transparent"), new RectangleF((20 + ((item.X - 1) * Vars.cellSize + (Vars.cellSize / 2))) - 5, (20 + ((item.Y - 1) * Vars.cellSize + (Vars.cellSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
 
                 }
             }

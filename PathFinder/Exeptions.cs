@@ -8,6 +8,16 @@ namespace PathFinder
 {
 
     [Serializable]
+    public class MissingInterfaceException : Exception
+    {
+        public MissingInterfaceException() { }
+        public MissingInterfaceException(string message) : base(message) { }
+        public MissingInterfaceException(string message, Exception inner) : base(message, inner) { }
+        protected MissingInterfaceException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
+    [Serializable]
     public class InvalidCallException : Exception
     {
         public InvalidCallException() { }
