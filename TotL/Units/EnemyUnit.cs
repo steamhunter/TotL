@@ -3,6 +3,7 @@ using PathFinder._2D;
 using PathFinder.AStar;
 using PathFinder.Debug;
 using SharpDX;
+using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using System;
 using System.Collections.Generic;
@@ -40,11 +41,11 @@ namespace TotL.Units
         {
         }
 
-        public override void Load()
+        public override void LoadContent()
         {
         }
 
-        public override void damageUnit(short dmg)
+        public override void DamageUnit(short dmg)
         {
             if (Vars.random.Next(0, 100) <90)
             {
@@ -52,7 +53,7 @@ namespace TotL.Units
             }
         }
         private short attackskiptick = 0;
-        public override void update(Cell[,] map,List<Unit> units)
+        public override void Update(Cell[,] map,List<Unit> units)
         {
             int X = ((int)Coordinate.X - 20) / (int)Vars.cellSize;
             int Y = ((int)Coordinate.Y - 20) / (int)Vars.cellSize;
@@ -161,7 +162,7 @@ namespace TotL.Units
 
             }
         }
-        public override void draw()
+        public override void Draw(GameTime gameTime)
         {
             Vars.spriteBatch.Draw(texture, new RectangleF(Coordinate.X, Coordinate.Y, unitsize, unitsize), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
 
@@ -174,6 +175,11 @@ namespace TotL.Units
 
                 }
             }
+        }
+
+        public override void UnloadContent()
+        {
+           
         }
     }
 }

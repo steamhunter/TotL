@@ -15,10 +15,10 @@ using SharpDX;
 using SharpDX.Toolkit.Input;
 using TotL.Labyrinth.Map;
 
-namespace TotL
+namespace TotL.Maps
 {
-    [PathFinder.Attributes.GameSystem(GameSystemType.map)]
-    class MapArea : MapBase,PathFinder.IGameSystem
+   
+    class LabyrinthMap : Map
     {
         #region Globals
         int bs, bo;
@@ -61,16 +61,16 @@ namespace TotL
             cons.debugMessage(Vars.seed.ToString());
             random = new Random(Vars.seed);
             Vars.random = random;
-            AClusterStatus = new UI.ClusterStatus("A_cluster");
-            BClusterStatus = new UI.ClusterStatus("B_cluster");
+            AClusterStatus = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50,128,128,"A_cluster");
+            BClusterStatus = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50 + 128 + 30, 128, 128,"B_cluster");
             #endregion
             MapBuilder mapbuider = new MapBuilder(connect, map);
            
              mapbuider.Build(out eo, out es,out bo, out bs);
 
-            LinkedList<Connection> test;
+            
             AStar.AstarSolver = new AStar.Solver<Connection, Object>(connect);
-            test = AStar.AstarSolver.Search(new System.Drawing.Point(bo + 1, bs + 1), new System.Drawing.Point(eo + 1, es + 1), null);
+            LinkedList<Connection> test = AStar.AstarSolver.Search(new System.Drawing.Point(bo + 1, bs + 1), new System.Drawing.Point(eo + 1, es + 1), null);
 
             if (test == null)
             {
@@ -87,6 +87,8 @@ namespace TotL
 
         public override void LoadContent()
         {
+            AClusterStatus.LoadContent();
+            BClusterStatus.LoadContent();
         }
 
         #region unit managment globals
@@ -126,8 +128,8 @@ namespace TotL
                 {
                     spawnclusterA = true;
                     selectedCluster = 1;
-                    AClusterStatus.select();
-                    BClusterStatus.deSelect();
+                    AClusterStatus.Select();
+                    BClusterStatus.DeSelect();
 
                 }
                 else
@@ -205,7 +207,7 @@ namespace TotL
             foreach (var item in clusterA)
             {
 
-                item.update(map,clusterA);
+                item.Update(map,clusterA);
             }
             #endregion
 
@@ -217,8 +219,8 @@ namespace TotL
                 {
                     spawnclusterB = true;
                     selectedCluster = 2;
-                    BClusterStatus.select();
-                    AClusterStatus.deSelect();
+                    BClusterStatus.Select();
+                    AClusterStatus.DeSelect();
                 }
                 else
                 {
@@ -255,8 +257,8 @@ namespace TotL
                     ClusterBY = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
                     clusterBhastarget = true;
                     clusterBtargetIndex = 0;
-                    BClusterStatus.select();
-                    AClusterStatus.deSelect();
+                    BClusterStatus.Select();
+                    AClusterStatus.DeSelect();
                 }
 
 
@@ -295,7 +297,7 @@ namespace TotL
             foreach (var item in clusterB)
             {
 
-                item.update(map,clusterB);
+                item.Update(map,clusterB);
             }
             #endregion
 
@@ -363,7 +365,7 @@ namespace TotL
 
             for (int i = 0; i < EnemyCluster.Count; i++)
             {
-                EnemyCluster[i].update(map,EnemyCluster);
+                EnemyCluster[i].Update(map,EnemyCluster);
             }
 
             #endregion
@@ -403,8 +405,8 @@ namespace TotL
 
                             if (eLocationX == fLocationX && eLocationY == fLocationY)
                             {
-                                EnemyCluster[ec].damageUnit(1);
-                                clusterA[ca].damageUnit(1);
+                                EnemyCluster[ec].DamageUnit(1);
+                                clusterA[ca].DamageUnit(1);
                                 if (EnemyCluster[ec].HP <= 0)
                                 {
                                     EnemyCluster.Remove(EnemyCluster[ec]);
@@ -449,8 +451,8 @@ namespace TotL
 
                             if (ec > EnemyCluster.Count)
                             {
-                                EnemyCluster[ec].damageUnit(1);
-                                clusterB[cb].damageUnit(1);
+                                EnemyCluster[ec].DamageUnit(1);
+                                clusterB[cb].DamageUnit(1);
 
 
                                 if (EnemyCluster[ec].HP <= 0)
@@ -512,33 +514,38 @@ namespace TotL
                 {
                     for (int o = 0; o < 25; o++)
                     {
-                        map[o, s].draw();
+                        map[o, s].Draw(gameTime);
 
                     }
                 }
 
                 foreach (var item in clusterA)
                 {
-                    item.draw();
+                    item.Draw(gameTime);
                 }
                 foreach (var item in clusterB)
                 {
-                    item.draw();
+                    item.Draw(gameTime);
                 }
                 foreach (var item in EnemyCluster)
                 {
-                    item.draw();
+                    item.Draw(gameTime);
                 }
                 if (AClusterStatus != null)
                 {
-                    AClusterStatus.draw(Vars.ScreenWidth - 200, 50);
+                    AClusterStatus.Draw(gameTime);
                 }
                 if (BClusterStatus != null)
                 {
-                    BClusterStatus.draw(Vars.ScreenWidth - 200, 50 + 128 + 30);
+                    BClusterStatus.Draw(gameTime);
                 }
 
             }
+        }
+
+        public override void UnloadContent()
+        {
+            
         }
     }
 }

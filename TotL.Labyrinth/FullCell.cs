@@ -1,6 +1,7 @@
 ﻿using PathFinder;
 using PathFinder._2D;
 using SharpDX;
+using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using System;
 using System.Collections.Generic;
@@ -33,11 +34,11 @@ namespace TotL.Labyrinth
 
         }
 
-        public override void update()
+        public override void Update(GameTime gameTime)
         {
 
         }
-        public override void draw()
+        public override void Draw(GameTime gameTime)
         {
 
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
@@ -81,6 +82,21 @@ namespace TotL.Labyrinth
         public override string ToString()
         {
             return "FullCell";
+        }
+
+        public override void LoadContent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Initialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UnloadContent()
+        {
+            throw new NotImplementedException();
         }
     }
 }

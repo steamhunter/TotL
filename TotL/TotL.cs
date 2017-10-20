@@ -11,11 +11,20 @@ using PathFinder;
 using SharpDX;
 using PathFinder.Debug;
 using PathFinder._2D;
+using TotL.Maps;
+using PathFinder.Map;
 
 namespace TotL
 {
     class TotL : PathFinderGame
     {
+       // protected Map map = new LabyrinthMap();
+        protected Map map = new LabyrinthMap();
+
+
+
+
+
         public TotL()
         {
             deviceManager = new GraphicsDeviceManager(this);
@@ -24,11 +33,10 @@ namespace TotL
             Content.RootDirectory = "Content";
             PathFinder.Error.error.game = this;
         }
-        protected MapArea map = new MapArea();
+
         protected override void Init()
         {
             Vars.config = configjson.getConfig();
-            PathFinder.GameSystems.Initialize();
             Mykeyboardmanager.Initialize();
             Mymousemanager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -48,6 +56,8 @@ namespace TotL
 #pragma warning restore CS0618 // Type or member is obsolete
             deviceManager.ApplyChanges();
             IsMouseVisible = true;
+
+            map.Initialize();
             
 
         }
@@ -57,6 +67,7 @@ namespace TotL
             if (!Vars.noTextMode)
             {
                 Vars.font = Content.Load<SharpDX.Toolkit.Graphics.SpriteFont>("myfont");
+                map.LoadContent();
             }
             
         }
@@ -65,7 +76,8 @@ namespace TotL
 
             spriteBatch.Begin();
 
-            GraphicsDevice.Clear(Color.DarkGray);     
+            GraphicsDevice.Clear(Color.DarkGray);
+            
             map.Draw(gameTime);
 
             spriteBatch.End();

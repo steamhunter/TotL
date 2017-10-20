@@ -1,6 +1,7 @@
 ﻿using PathFinder;
 using PathFinder._2D;
 using SharpDX;
+using SharpDX.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using TotL.Labyrinth;
 
 namespace TotL.Units
 {
-    class Unit : _2DGraphicsElement
+    abstract class Unit : _2DGraphicsElement
     {
         //public int CoordinateX { get; set; }
         //public int CoordinateY { get; set; }
@@ -72,29 +73,15 @@ namespace TotL.Units
             Coordinate = coordinate;
         }
 
-        public virtual void damageUnit(short dmg)
+        public virtual void DamageUnit(short dmg)
         {
             throw new InvalidCallException("hívás a unit alap fügvényre");
         }
-        public override void draw()
+        public override void Update(GameTime gameTime)
         {
-            throw new InvalidCallException("hívás a unit alap fügvényre");
+            throw new NotImplementedException("Ez a változat nem használható Unit osztály leszármazotain");
         }
-
-        public override void Initialize()
-        {
-            throw new InvalidCallException("hívás a unit alap fügvényre");
-        }
-        public override void Load()
-        {
-            throw new InvalidCallException("hívás a unit alap fügvényre");
-        }
-
-        public override void update()
-        {
-            throw new InvalidCallException("Unit nem fogható meg mint 2DGraphicsElement");
-        }
-        public virtual void update(Cell[,] connect,List<Unit> units)
+        public virtual void Update(Cell[,] connect,List<Unit> units)
         {
             throw new InvalidCallException("hívás a unit alap fügvényre");
         }

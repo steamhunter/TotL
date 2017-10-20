@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Map;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 using System;
@@ -18,7 +19,7 @@ namespace TotL.Labyrinth
        public static float minus90 = -Convert.ToSingle(Math.PI) / 2;
     }
 
-   public class Cell : _2DGraphicsElement, IConnections,ICell
+   public abstract class Cell : MapObject, IConnections,ICell
     {
         #region Globals
         protected static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
@@ -84,20 +85,7 @@ namespace TotL.Labyrinth
             set;
         }
 
-        public int X
-        {
-            get;
-
-
-            set;
-        }
-
-        public int Y
-        {
-        get;
-
-        set;
-        }
+       
         #endregion
 
         /// <summary>

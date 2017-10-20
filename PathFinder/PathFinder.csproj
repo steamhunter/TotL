@@ -68,7 +68,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\GameSystem.cs" />
     <Compile Include="button\frame.cs" />
     <Compile Include="character\Character.cs" />
     <Compile Include="character\managment.cs" />
@@ -77,9 +76,10 @@
     <Compile Include="error.cs" />
     <Compile Include="Exeptions.cs" />
     <Compile Include="fightHandler.cs" />
-    <Compile Include="GameSystems.cs" />
     <Compile Include="GUI\GUI.cs" />
-    <Compile Include="Map\MapBase.cs" />
+    <Compile Include="IGameObject.cs" />
+    <Compile Include="Map\Map.cs" />
+    <Compile Include="Map\MapObject.cs" />
     <Compile Include="Toolkit\Graphics\SpriteBatch.cs" />
     <Compile Include="Toolkit\PathFinderGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +95,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.3\build\SharpDX.targets')" />

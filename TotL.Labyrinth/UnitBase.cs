@@ -3,6 +3,7 @@ using PathFinder._2D;
 using PathFinder.Debug;
 using SharpDX;
 using SharpDX.Direct3D11;
+using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using System;
 using System.Collections.Generic;
@@ -39,10 +40,10 @@ namespace TotL.Labyrinth
 
         }
 
-        public override void draw()
+        public override void Draw(GameTime gameTime)
         {
 
-            realcell.draw();
+            realcell.Draw(gameTime);
             if (!isdestroyed)
             {
                 if (Type == "enemy")
@@ -84,6 +85,26 @@ namespace TotL.Labyrinth
         {
            return realcell.CheckFitting(connect, co, cs, o, s);
 
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+           
+        }
+
+        public override void LoadContent()
+        {
+            
+        }
+
+        public override void Initialize()
+        {
+            
+        }
+
+        public override void UnloadContent()
+        {
+            
         }
     }
 }

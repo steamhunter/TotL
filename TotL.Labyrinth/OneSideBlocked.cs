@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using PathFinder;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
+using SharpDX.Toolkit;
 
 namespace TotL.Labyrinth
 {
@@ -69,7 +70,7 @@ namespace TotL.Labyrinth
             
         }
 
-        public override void draw()
+        public override void Draw(GameTime gameTime)
         {
             Vars.spriteBatch.Draw(texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
@@ -185,6 +186,26 @@ namespace TotL.Labyrinth
         public override string ToString()
         {
             return "OneSideBlocked";
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void LoadContent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Initialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UnloadContent()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -12,14 +12,14 @@ using Tex2D = SharpDX.Toolkit.Graphics.Texture2D;
 
 namespace PathFinder._2D
 {
-    public class _2DGraphicsElement
+    public abstract class _2DGraphicsElement : IGameObject
     {
         protected Tex2D texture;
         public Rectangle rectangle;
         protected float _locationX;
         protected float _locationY;
-        
-        
+
+
         public static Tex2D getTexture(string entity, Game game)
         {
 
@@ -36,39 +36,33 @@ namespace PathFinder._2D
 
             }*/
             throw new DeprecatedMethodException("getTexture is not useable no working code");
-            
+
 
         }
 
         public _2DGraphicsElement()
         {
-           
+
 
 
         }
-       
-        public virtual void update()
-        {
-            throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
-        }
+
+        public abstract void Update(GameTime gameTime);
+
+        public abstract void LoadContent();
+
+        public abstract void Initialize();
 
 
-        public virtual void Load()
+        public virtual void Draw(GameTime gameTime)
         {
-            throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
-        }
-
-        public virtual void Initialize()
-        {
-            throw new NotImplementedException("hívás a 2D Graphics Element alap fügvényre");
-        }
-       
-        public virtual void draw()
-        {
-            Tex2D tex = null;
+            
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             Vars.spriteBatch.Draw(texture, new RectangleF(_locationX, _locationY, unitSize, unitSize), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
-            Vars.spriteBatch.Draw(tex, new RectangleF(_locationX, _locationY, unitSize, unitSize), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
         }
+
+        public abstract void UnloadContent();
+
     }
 }
+

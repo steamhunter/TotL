@@ -32,7 +32,7 @@ namespace TotL.Labyrinth
             
         }
 
-        public override void draw()
+        public override void Draw(GameTime gameTime)
         {
             Vars.spriteBatch.Draw(texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
            /* foreach (var item in _blockedvolumes)
@@ -125,6 +125,26 @@ namespace TotL.Labyrinth
         public override string ToString()
         {
             return "CrossCell";
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            
+        }
+
+        public override void LoadContent()
+        {
+           
+        }
+
+        public override void Initialize()
+        {
+            
+        }
+
+        public override void UnloadContent()
+        {
+            
         }
     }
 }

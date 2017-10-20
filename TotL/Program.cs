@@ -13,6 +13,7 @@ namespace TotL
     {
         static void Main(string[] args)
         {
+            
             foreach (string ar in args)
             {
                 if (ar == "-console")

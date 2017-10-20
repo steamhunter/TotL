@@ -7,8 +7,7 @@ using System.Text;
 
 namespace PathFinder.Map
 {
-    [PathFinder.Attributes.GameSystem(GameSystemType.map)]
-    public abstract class MapBase:IGameSystem
+    public abstract class Map:IGameObject
     {
         private Game igame;
         protected bool ready = false;
@@ -24,25 +23,14 @@ namespace PathFinder.Map
                 ready = true;
             }
         }
-        public virtual void Initialize()
-        {
+        public abstract  void Initialize();
 
-        }
-        public virtual void LoadContent()
-        {
+        public abstract void LoadContent();
 
-        }
-        public virtual void UnloadContent()
-        {
+        public abstract void UnloadContent();
 
-        }
-        public virtual void Update(GameTime gameTime)
-        {
+        public abstract void Update(GameTime gameTime);
 
-        }
-        public virtual void Draw(GameTime gameTime)
-        {
-
-        }
+        public abstract void Draw(GameTime gameTime);
     }
 }
