@@ -219,15 +219,16 @@ namespace PathFinder.AStar.SettlersEngine
 
                     if (y == null)
                         continue;
-                   /* if (y is Connection)
-                    {*/
-                        if (!y.UserContext.IsWalkable(inUserContext,x))
-                            continue;
+                    /* if (y is Connection)
+                     {*/
+                    
+                       /* if (!y.UserContext.IsWalkable(inUserContext,x))
+                            continue;*/
                    /* }
                     else
                     {*/
-                       /* if (!y.UserContext.IsWalkable(inUserContext))
-                            continue;*/
+                        if (!y.UserContext.IsWalkable(inUserContext))
+                            continue;
                    // }
 
                     

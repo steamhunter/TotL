@@ -22,8 +22,8 @@ namespace PathFinder.AStar
 
         private unsafe void Form1_Load(object sender, EventArgs e)
         {
-            try
-            {
+           /* try
+            {*/
                 Random rnd = new Random();
                 Bitmap gridBmp = new Bitmap(32, 32, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                 AStar.PathNode[,] grid = new AStar.PathNode[gridBmp.Width, gridBmp.Height];
@@ -79,11 +79,12 @@ namespace PathFinder.AStar
                 pictureBox1.Image = gridBmp;
 
                 gridBmp.Save(".\\dump.png");
-            }
+            /*}
             catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Unknown error...", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            }*/
         }
     }
 }
