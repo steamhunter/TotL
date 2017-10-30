@@ -21,7 +21,7 @@ namespace PathFinder.AStar
 
 
         private unsafe void Form1_Load(object sender, EventArgs e)
-        {/*
+        {
             try
             {
                 Random rnd = new Random();
@@ -83,7 +83,7 @@ namespace PathFinder.AStar
             catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Unknown error...", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            }
         }
     }
 }

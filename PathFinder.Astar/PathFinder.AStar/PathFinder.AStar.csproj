@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F1AF3392-22D1-4B03-9C3B-C10DA9B1BCCD}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PathFinder.AStar</RootNamespace>
     <AssemblyName>PathFinder.AStar</AssemblyName>
