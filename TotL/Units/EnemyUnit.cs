@@ -156,6 +156,7 @@ namespace TotL.Units
                     if (attackskiptick>=30)
                     {
                         (map[X, Y] as UnitBase).Damagebuilding(1, "enemy");
+                        attackskiptick = 0;
                     }
                    
                 }

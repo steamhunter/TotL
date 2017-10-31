@@ -47,7 +47,7 @@ namespace TotL.Units
         }
         public override void DamageUnit(short dmg)
         {
-            if (Vars.random.Next(0, 100) <90)
+            if (Vars.random.Next(0, 100) <40)
             {
                 HP -= dmg;
             }
@@ -160,6 +160,7 @@ namespace TotL.Units
                     if (attackskiptick>=10)
                     {
                         (map[X, Y] as UnitBase).Damagebuilding(1, "friendly");
+                        attackskiptick = 0;
                     }
                   
                 }

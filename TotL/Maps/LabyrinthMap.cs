@@ -428,7 +428,7 @@ namespace TotL.Maps
                         break;
                     }
                 }
-
+                ;
                 for (int cb = 0; cb < clusterB.Count; cb++)
                 {
                     int fLocationX = -1;
@@ -449,7 +449,7 @@ namespace TotL.Maps
                         if (clusterB.Count > 0&&EnemyCluster.Count>0)
                         {
 
-                            if (ec > EnemyCluster.Count)
+                            if (ec < EnemyCluster.Count)
                             {
                                 EnemyCluster[ec].DamageUnit(1);
                                 clusterB[cb].DamageUnit(1);
