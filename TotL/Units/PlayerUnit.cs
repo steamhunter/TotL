@@ -73,7 +73,7 @@ namespace TotL.Units
             {
                 try
                 {
-                    path = AStar.AstarSolver.Search(new System.Drawing.Point(X + 1, Y + 1), new System.Drawing.Point((int)target.X + 1, (int)target.Y + 1), map);
+                    path = AStar.RelationalAstarSolver.Search(new System.Drawing.Point(X + 1, Y + 1), new System.Drawing.Point((int)target.X + 1, (int)target.Y + 1), map);
                     if (path == null)
                     {
                         hasTarget = false;

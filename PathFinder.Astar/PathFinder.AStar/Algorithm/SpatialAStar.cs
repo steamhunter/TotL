@@ -43,16 +43,16 @@ namespace PathFinder.AStar.SettlersEngine
     public class SpatialAStar<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
     {
         
-        private OpenCloseMap m_ClosedSet;
-        private OpenCloseMap m_OpenSet;
-        private PriorityQueue<PathNode> m_OrderedOpenSet;
-        private PathNode[,] m_CameFrom;
-        private OpenCloseMap m_RuntimeGrid;
-        private PathNode[,] m_SearchSpace;
+        protected OpenCloseMap m_ClosedSet;
+        protected OpenCloseMap m_OpenSet;
+        internal PriorityQueue<PathNode> m_OrderedOpenSet;
+        protected PathNode[,] m_CameFrom;
+        protected OpenCloseMap m_RuntimeGrid;
+        protected PathNode[,] m_SearchSpace;
 
-        public TPathNode[,] SearchSpace { get; private set; }
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public TPathNode[,] SearchSpace { get; protected set; }
+        public int Width { get; protected set; }
+        public int Height { get; protected set; }
 
         public class PathNode : IPathNode<TUserContext>, IComparer<PathNode>, IIndexedObject
         {
@@ -152,7 +152,7 @@ namespace PathFinder.AStar.SettlersEngine
         /// Returns null, if no path is found. Start- and End-Node are included in returned path. The user context
         /// is passed to IsWalkable().
         /// </summary>
-        public LinkedList<TPathNode> Search(System.Drawing.Point inStartNode, System.Drawing.Point inEndNode, TUserContext inUserContext)
+        public virtual LinkedList<TPathNode> Search(System.Drawing.Point inStartNode, System.Drawing.Point inEndNode, TUserContext inUserContext)
         {
             PathNode startNode = m_SearchSpace[inStartNode.X, inStartNode.Y];
             PathNode endNode = m_SearchSpace[inEndNode.X, inEndNode.Y];
@@ -278,7 +278,7 @@ namespace PathFinder.AStar.SettlersEngine
             return null;
         }
 
-        private LinkedList<TPathNode> ReconstructPath(PathNode[,] came_from, PathNode current_node)
+        protected LinkedList<TPathNode> ReconstructPath(PathNode[,] came_from, PathNode current_node)
         {
             LinkedList<TPathNode> result = new LinkedList<TPathNode>();
 
@@ -301,7 +301,7 @@ namespace PathFinder.AStar.SettlersEngine
                 result.AddLast(current_node.UserContext);
         }
 
-        private void StoreNeighborNodes(PathNode inAround, PathNode[] inNeighbors)
+        protected void StoreNeighborNodes(PathNode inAround, PathNode[] inNeighbors)
         {
             int x = inAround.X;
             int y = inAround.Y;
@@ -347,7 +347,7 @@ namespace PathFinder.AStar.SettlersEngine
                 inNeighbors[7] = null;*/
         }
 
-        private class OpenCloseMap
+        protected class OpenCloseMap
         {
             private PathNode[,] m_Map;
             public int Width { get; private set; }

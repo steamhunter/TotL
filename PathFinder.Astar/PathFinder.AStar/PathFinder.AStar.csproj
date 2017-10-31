@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithm\PriorityQueue.cs" />
+    <Compile Include="Algorithm\RelationalSpatitalAstar.cs" />
     <Compile Include="Algorithm\SpatialAStar.cs" />
     <Compile Include="AStar.cs" />
     <Compile Include="Form1.cs">

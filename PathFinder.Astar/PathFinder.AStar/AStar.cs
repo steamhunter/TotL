@@ -31,25 +31,58 @@ namespace PathFinder.AStar
             }
         }
 
-        #region solver
+        #region solvers
         private static Solver<Connection, Object> _astarsolver;
-        public static Solver<Connection, Object> AstarSolver
+        //public static Solver<Connection, Object> AstarSolver
+        //{
+        //    get
+        //    {
+        //        if (_astarsolver!=null)
+        //        {
+        //            return _astarsolver;
+        //        }
+        //        throw new Exception("No Solver created");
+        //    }
+        //    set
+        //    {
+        //        _astarsolver = value;
+        //    }
+        //}
+        private static RelationalSolver<Connection, Object> _relastarsolver;
+        public static RelationalSolver<Connection, Object> RelationalAstarSolver
         {
             get
             {
-                if (_astarsolver!=null)
+                if (_relastarsolver != null)
                 {
-                    return _astarsolver;
+                    return _relastarsolver;
                 }
                 throw new Exception("No Solver created");
             }
             set
             {
-                _astarsolver = value;
+                _relastarsolver = value;
             }
         }
         #endregion
 
+        public class RelationalSolver<TPathNode, TUserContext> : RelationalSpatitalAstar<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
+        {
+            protected override Double Heuristic(PathNode inStart, PathNode inEnd)
+            {
+                return Math.Abs(inStart.X - inEnd.X) + Math.Abs(inStart.Y - inEnd.Y);
+            }
+
+            protected override Double NeighborDistance(PathNode inStart, PathNode inEnd)
+            {
+                return Heuristic(inStart, inEnd);
+            }
+
+            public RelationalSolver(TPathNode[,] inGrid)
+                : base(inGrid)
+            {
+            }
+        }
         public class Solver<TPathNode, TUserContext> : SpatialAStar<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
         {
             protected override Double Heuristic(PathNode inStart, PathNode inEnd)

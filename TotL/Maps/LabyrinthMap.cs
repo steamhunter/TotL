@@ -69,8 +69,8 @@ namespace TotL.Maps
              mapbuider.Build(out eo, out es,out bo, out bs);
 
             
-            AStar.AstarSolver = new AStar.Solver<Connection, Object>(connect);
-            LinkedList<Connection> test = AStar.AstarSolver.Search(new System.Drawing.Point(bo + 1, bs + 1), new System.Drawing.Point(eo + 1, es + 1), null);
+            AStar.RelationalAstarSolver = new AStar.RelationalSolver<Connection, Object>(connect);
+            LinkedList<Connection> test = AStar.RelationalAstarSolver.Search(new System.Drawing.Point(bo + 1, bs + 1), new System.Drawing.Point(eo + 1, es + 1), null);
 
             if (test == null)
             {
@@ -446,7 +446,7 @@ namespace TotL.Maps
 
                     if (eLocationX == fLocationX && eLocationY == fLocationY)
                     {
-                        if (EnemyCluster.Count > 0&&EnemyCluster.Count>0)
+                        if (clusterB.Count > 0&&EnemyCluster.Count>0)
                         {
 
                             if (ec > EnemyCluster.Count)
