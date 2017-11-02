@@ -55,10 +55,10 @@ namespace TotL.Maps
             #region Game system init
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             int now = DateTime.Now.Millisecond * DateTime.Now.Second;
-            cons.debugMessage(now.ToString());
+            cons.debugMessage($"base time: {now.ToString()}","generator");
             Random random = new Random(now);
             Vars.seed = random.Next(10000000, 99999999);
-            cons.debugMessage(Vars.seed.ToString());
+            cons.debugMessage($"SEED: {Vars.seed.ToString()}","generator");
             random = new Random(Vars.seed);
             Vars.random = random;
             AClusterStatus = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50,128,128,"A_cluster");
@@ -76,8 +76,8 @@ namespace TotL.Maps
             {
                 Initialize();
             }
-            cons.debugMessage("base" + bo + " " + bs);
-            cons.debugMessage("enemy" + eo + " " + es);
+            cons.debugMessage($"base {bo} {bs}","generator");
+            cons.debugMessage($"enemy {eo} {es}","generator");
 
             Vars.mapstate = internalstates.map_ready;
         }

@@ -6,6 +6,6 @@
 "oneside_weight":25,
 "twoside_weight":25,
 "tunnel_weight":30,
-"isFullScreen": true
+"isFullScreen": false
 
 }

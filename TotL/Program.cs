@@ -13,13 +13,18 @@ namespace TotL
     {
         static void Main(string[] args)
         {
-            
+
+#if DEBUG
+            cons.onDebug = true;
+            cons.debugMessage("debug enabled", "info");
+#endif
             foreach (string ar in args)
             {
+
                 if (ar == "-console")
                 {
                     cons.onDebug = true;
-                    cons.debugMessage("debug enabled");
+                    cons.debugMessage("debug enabled","info");
 
                 }
                 if (ar=="-path-debug-draw")

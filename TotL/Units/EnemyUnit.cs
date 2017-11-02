@@ -121,7 +121,7 @@ namespace TotL.Units
                     }
                     else
                     {
-                        cons.debugMessage(map[X, Y].ToString());
+                        
                         navcoordinate2 = navcoordinate;
                         navcoordinate = new Vector2(GetCoordinateFromLocation(X), GetCoordinateFromLocation(Y));
                         relocation = true;

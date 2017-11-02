@@ -10,39 +10,39 @@ namespace PathFinder.Debug
 
         private static bool vanconsole = false;
         public static bool onDebug = false;
-        public static void debugMessage(string msg)
+        public static void debugMessage(string msg,string subgroup)
         {
-            cons.groupedMessage(msg,"DEBUG");
+            cons.groupedMessage(msg,"DEBUG",subgroup);
             
 
         }
 
-        public static void groupedMessage(string msg,string group)
+        public static void groupedMessage(string msg,string group,string subgroup)
         {
             if (onDebug)
             {
-               group = group.ToUpper();
+              
                 if (vanconsole == false)
                 {
                     if (NativeMethods.AllocConsole())
                     {
-                        Console.WriteLine("[" + group + "] " + msg);
+                        Console.WriteLine($"[{group.ToUpper()}] [{subgroup}] " + msg);
                         vanconsole = true;
                     }
                 }
                 else
                 {
 
-                    Console.WriteLine("[" + group + "] " + msg);
+                    Console.WriteLine($"[{group.ToUpper()}] [{subgroup}] " + msg);
                 }
             }
             
 
         }
 
-        public static void infoMessage(string msg)
+        public static void infoMessage(string msg,string subgroup)
         {
-            cons.groupedMessage(msg,"INFO");
+            cons.groupedMessage(msg,"INFO",subgroup);
             
 
         }

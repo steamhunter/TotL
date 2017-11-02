@@ -17,7 +17,7 @@ namespace TotL.Labyrinth.Map
                 if (cell.CheckFitting(connect, co, cs, o, s))
                 {
 
-                    cons.groupedMessage(cell.ToString(), "TERGEN");
+                    cons.groupedMessage(cell.ToString(), "generator","terrain");
                     map[o, s] = cell;
                     return true;
                 }
@@ -58,7 +58,7 @@ namespace TotL.Labyrinth.Map
 
 
                     co++;
-                    cons.groupedMessage(o + " " + s, "TERGEN");
+                    cons.groupedMessage(o + " " + s, "generator","terrain");
                     #region valid cell gen
                     bool valid = false;
                     while (!valid)

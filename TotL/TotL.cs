@@ -52,7 +52,7 @@ namespace TotL
             Vars.ScreenWidth =  GraphicsDevice.Adapter.DesktopBounds.Width;
             Vars.ScreenHeight = GraphicsDevice.Adapter.DesktopBounds.Height;
             Vars.cellSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            cons.debugMessage(Vars.cellSize.ToString());
+            cons.debugMessage(Vars.cellSize.ToString(),"TOTL init");
 #pragma warning restore CS0618 // Type or member is obsolete
             deviceManager.ApplyChanges();
             IsMouseVisible = true;
@@ -88,10 +88,10 @@ namespace TotL
                 {
                     Exit();
                 }
-                if (Vars.mapstate == internalstates.map_not_initialized)
+                /*if (Vars.mapstate == internalstates.map_not_initialized)
                 {
                     map.Initialize();
-                }
+                }*/
                 if (Vars.mapstate == internalstates.map_ready || Vars.mapstate == internalstates.on_map)
                 {
                     map.Update(gameTime);
