@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PathFinder.Toolkit;
 using PathFinder.Debug;
 using PathFinder;
+using System.IO;
 
 namespace TotL
 {
@@ -15,6 +16,8 @@ namespace TotL
         {
 
 #if DEBUG
+            if(!Directory.Exists("logs"))
+             Directory.CreateDirectory("logs");
             cons.onDebug = true;
             cons.debugMessage("debug enabled", "info");
 #endif
@@ -41,7 +44,12 @@ namespace TotL
                 game.Run();
             }
 
-          
+            if (cons.onDebug)
+            {
+                cons.Endlog();
+            }
+
+
         }
        
     }

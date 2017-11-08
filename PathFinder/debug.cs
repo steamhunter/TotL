@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -10,6 +11,8 @@ namespace PathFinder.Debug
 
         private static bool vanconsole = false;
         public static bool onDebug = false;
+        private static StreamWriter logger = new StreamWriter("logs/debug.log");
+        private static StreamWriter genlogger = new StreamWriter("logs/generator.log");
         public static void debugMessage(string msg,string subgroup)
         {
             cons.groupedMessage(msg,"DEBUG",subgroup);
@@ -17,6 +20,12 @@ namespace PathFinder.Debug
 
         }
 
+        public static void Endlog()
+        {
+            groupedMessage("stoping logger", "log", "exit_event");
+            logger.Close();
+            genlogger.Close();
+        }
         public static void groupedMessage(string msg,string group,string subgroup)
         {
             if (onDebug)
@@ -26,19 +35,30 @@ namespace PathFinder.Debug
                 {
                     if (NativeMethods.AllocConsole())
                     {
-                        Console.WriteLine($"[{group.ToUpper()}] [{subgroup}] " + msg);
+                        string compmsg = $"[{group.ToUpper()}] [{subgroup.ToUpper()}] " + msg;
+                        if (group.ToUpper() == "GENERATOR")
+                            genlogger.WriteLine(compmsg);
+                        else
+                            logger.WriteLine(compmsg);
+                        Console.WriteLine(compmsg);
                         vanconsole = true;
                     }
                 }
                 else
                 {
-
-                    Console.WriteLine($"[{group.ToUpper()}] [{subgroup}] " + msg);
+                    string compmsg = $"[{group.ToUpper()}] [{subgroup.ToUpper()}] " + msg;
+                    if (group.ToUpper() == "GENERATOR")
+                        genlogger.WriteLine(compmsg);
+                    else
+                        logger.WriteLine(compmsg);
+                    Console.WriteLine($"[{group.ToUpper()}] [{subgroup.ToUpper()}] " + msg);
                 }
             }
             
 
         }
+
+
 
         public static void infoMessage(string msg,string subgroup)
         {
