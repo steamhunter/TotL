@@ -25,7 +25,7 @@ namespace PathFinder.AStar
            /* try
             {*/
                 Random rnd = new Random();
-                Bitmap gridBmp = new Bitmap(32, 32, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                Bitmap gridBmp = new Bitmap(512, 512, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                 AStar.PathNode[,] grid = new AStar.PathNode[gridBmp.Width, gridBmp.Height];
                 SettlersEngine.ImagePixelLock locked = new SettlersEngine.ImagePixelLock(gridBmp, false);
 
@@ -38,7 +38,7 @@ namespace PathFinder.AStar
                     {
                         for (int y = 0; y < gridBmp.Height; y++)
                         {
-                            Boolean isWall = false; //((y % 2) != 0) && (rnd.Next(0, 10) != 8);
+                            Boolean isWall = ((y % 2) != 0) && (rnd.Next(0, 10) != 8);
 
                             if (isWall)
                                 *pixels = unchecked((int)0xFF000000);

@@ -33,21 +33,21 @@ namespace PathFinder.AStar
 
         #region solvers
         private static Solver<Connection, Object> _astarsolver;
-        //public static Solver<Connection, Object> AstarSolver
-        //{
-        //    get
-        //    {
-        //        if (_astarsolver!=null)
-        //        {
-        //            return _astarsolver;
-        //        }
-        //        throw new Exception("No Solver created");
-        //    }
-        //    set
-        //    {
-        //        _astarsolver = value;
-        //    }
-        //}
+        public static Solver<Connection, Object> AstarSolver
+        {
+            get
+            {
+                if (_astarsolver != null)
+                {
+                    return _astarsolver;
+                }
+                throw new Exception("No Solver created");
+            }
+            set
+            {
+                _astarsolver = value;
+            }
+        }
         private static RelationalSolver<Connection, Object> _relastarsolver;
         public static RelationalSolver<Connection, Object> RelationalAstarSolver
         {
