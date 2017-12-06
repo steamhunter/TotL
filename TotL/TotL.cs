@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PathFinder.Toolkit;
+//using PathFinder.Toolkit;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Input;
 using PathFinder.Toolkit.Graphics;
@@ -16,7 +16,7 @@ using PathFinder.Map;
 
 namespace TotL
 {
-    class TotL : PathFinderGame
+    class TotL : PathFinder.Toolkit.PathFinderGame
     {
        // protected Map map = new LabyrinthMap();
         protected Map map = new LabyrinthMap();
@@ -27,7 +27,7 @@ namespace TotL
 
         public TotL()
         {
-            deviceManager = new GraphicsDeviceManager(this);
+            deviceManager = new SharpDX.Toolkit.GraphicsDeviceManager(this);
             Mykeyboardmanager = new KeyboardManager(this);
             Mymousemanager = new MouseManager(this);
             Content.RootDirectory = "Content";

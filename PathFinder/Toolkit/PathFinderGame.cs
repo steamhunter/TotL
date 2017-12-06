@@ -12,7 +12,7 @@ using SharpDX.Toolkit.Input;
 
 namespace PathFinder.Toolkit
 {
-   public class PathFinderGame: Game
+   public class PathFinderGame:SharpDX.Toolkit.Game
     {
         protected GraphicsDeviceManager deviceManager;
         protected KeyboardManager Mykeyboardmanager;

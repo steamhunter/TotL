@@ -80,6 +80,7 @@
     <Compile Include="IGameObject.cs" />
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\MapObject.cs" />
+    <Compile Include="Toolkit\Game.cs" />
     <Compile Include="Toolkit\Graphics\SpriteBatch.cs" />
     <Compile Include="Toolkit\PathFinderGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
