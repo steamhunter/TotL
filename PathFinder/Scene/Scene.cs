@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PathFinder.Map
+namespace PathFinder.Scene
 {
-    public abstract class Map:IGameObject
+    public abstract class Scene:IGameObject
     {
+        public Terrain terrain;
         private Game igame;
         protected bool ready = false;
         public Game game

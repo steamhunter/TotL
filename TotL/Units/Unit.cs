@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Scene;
 using SharpDX;
 using SharpDX.Toolkit;
 using System;
@@ -81,7 +82,7 @@ namespace TotL.Units
         {
             throw new NotImplementedException("Ez a változat nem használható Unit osztály leszármazotain");
         }
-        public virtual void Update(Cell[,] connect,List<Unit> units)
+        public virtual void Update(TerrainTile[,] connect,List<Unit> units)
         {
             throw new InvalidCallException("hívás a unit alap fügvényre");
         }

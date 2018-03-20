@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using PathFinder;
 
 
-namespace TotL.Labyrinth
+namespace PathFinder.Scene
 {
-    public class Connection : IConnections, IPathNode<Object>,ICell
+    public class Connection : IConnections, IPathNode<Object>,IProcGeneralable
     {
         private bool _up, _down, _left, _right;
         private int _closedsides;
@@ -16,7 +16,7 @@ namespace TotL.Labyrinth
         private bool _ispopulated;
         public Connection(int x, int y)
         {
-            isPopulated = false;
+            IsPopulated = false;
             _rotation = 0f;
             X = x;
             Y = y;
@@ -24,33 +24,33 @@ namespace TotL.Labyrinth
         public static int getClosedSides(Connection top, Connection right, Connection bottom, Connection left)
         {
             int closedsides = 0;
-            if (top.isPopulated && top.down == false)
+            if (top.IsPopulated && top.down == false)
             {
                 closedsides++;
             }
-            if (right.isPopulated && right.left == false)
+            if (right.IsPopulated && right.left == false)
             {
                 closedsides++;
             }
-            if (left.isPopulated && left.right == false)
+            if (left.IsPopulated && left.right == false)
             {
                 closedsides++;
             }
-            if (bottom.isPopulated && bottom.up == false)
+            if (bottom.IsPopulated && bottom.up == false)
             {
                 closedsides++;
             }
             return closedsides;
         }
-        public static bool isFiting(Cell cell, Connection top, Connection right, Connection bottom, Connection left)
+        public static bool isFiting(TerrainTile cell, Connection top, Connection right, Connection bottom, Connection left)
         {
-            if (cell.up == top.down || !top.isPopulated)
+            if (cell.up == top.down || !top.IsPopulated)
             {
-                if (cell.right == right.left || !right.isPopulated)
+                if (cell.right == right.left || !right.IsPopulated)
                 {
-                    if (cell.down == bottom.up || !bottom.isPopulated)
+                    if (cell.down == bottom.up || !bottom.IsPopulated)
                     {
-                        if (cell.left == left.right || !left.isPopulated)
+                        if (cell.left == left.right || !left.IsPopulated)
                         {
                             return true;
                         }
@@ -71,7 +71,7 @@ namespace TotL.Labyrinth
 
             set
             {
-                isPopulated = true;
+                IsPopulated = true;
                 _down = value;
             }
         }
@@ -85,7 +85,7 @@ namespace TotL.Labyrinth
 
             set
             {
-                isPopulated = true;
+                IsPopulated = true;
                 _left = value;
             }
         }
@@ -99,7 +99,7 @@ namespace TotL.Labyrinth
 
             set
             {
-                isPopulated = true;
+                IsPopulated = true;
                 _right = value;
             }
         }
@@ -126,7 +126,7 @@ namespace TotL.Labyrinth
 
             set
             {
-                isPopulated = true;
+                IsPopulated = true;
                 _up = value;
             }
         }
@@ -144,7 +144,7 @@ namespace TotL.Labyrinth
             }
         }
 
-        public bool isPopulated
+        public bool IsPopulated
         {
             get
             {
@@ -171,7 +171,7 @@ namespace TotL.Labyrinth
             set;
         }
 
-        public void setRotation(float rotation)
+        public void SetRotation(float rotation)
         {
             throw new InvalidCallException("setRotation nem hívható a connection osztályon");
         }

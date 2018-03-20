@@ -12,13 +12,15 @@ using Tex2D = SharpDX.Toolkit.Graphics.Texture2D;
 
 namespace PathFinder._2D
 {
-    public abstract class _2DGraphicsElement : IGameObject
+    public abstract class _2DGraphicsElement
     {
         protected Tex2D texture;
         public Rectangle rectangle;
         protected float _locationX;
         protected float _locationY;
 
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public static Tex2D getTexture(string entity, Game game)
         {

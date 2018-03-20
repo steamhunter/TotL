@@ -1,6 +1,7 @@
 ﻿using PathFinder;
 using PathFinder._2D;
 using PathFinder.Debug;
+using PathFinder.Scene;
 using SharpDX;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
@@ -13,15 +14,15 @@ using System.Threading.Tasks;
 
 namespace TotL.Labyrinth
 {
-    public class UnitBase : Cell
+    public class UnitBase : TerrainTile
     {
-        private Cell realcell;
+        private TerrainTile realcell;
         public int hp = 10000;
         ShaderResourceView baseTexture;
        public bool isdestroyed = false;
         public string Type { get; set; }
 
-        public UnitBase(Cell realcell, string type,int x,int y):base(x,y)
+        public UnitBase(TerrainTile realcell, string type,int x,int y):base(x,y)
         {
             baseTexture =TextureLoader.getTexture("UnitBase");
             closedsides = realcell.closedsides;
@@ -34,9 +35,9 @@ namespace TotL.Labyrinth
         }
 
 
-        public override void setRotation(float rotation)
+        public override void SetRotation(float rotation)
         {
-            realcell.setRotation(rotation);
+            realcell.SetRotation(rotation);
 
         }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TotL.Labyrinth
+namespace PathFinder
 {
 
    public interface IConnections: ICoordinate

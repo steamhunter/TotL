@@ -8,22 +8,23 @@ using PathFinder;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 using SharpDX.Toolkit;
+using PathFinder.Scene;
 
 namespace TotL.Labyrinth
 {
-    public class OneSideBlocked : Cell
+    public class OneSideBlocked : TerrainTile
     {
         public OneSideBlocked(int x,int y):base(x,y) 
         {
             texture = TextureLoader.getTexture("OneSideBlockedCell");
 
-            setRotation(0f);
+            SetRotation(0f);
             closedsides = 1;
             X = x;
             Y = y;
         }
 
-        public override void setRotation(float rotation)
+        public override void SetRotation(float rotation)
         {
             base.rotation = rotation;
             if (rotation == Rotaitions.zero)
@@ -97,7 +98,7 @@ namespace TotL.Labyrinth
                 }
                 else
                 {
-                    setRotation(Rotaitions.plus90);
+                    SetRotation(Rotaitions.plus90);
                     if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                     {
                         locationX = 20 + ((o) * unitSize);
@@ -110,7 +111,7 @@ namespace TotL.Labyrinth
                     }
                     else
                     {
-                        setRotation(Rotaitions.half);
+                        SetRotation(Rotaitions.half);
                         if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                         {
                             locationX = 20 + ((o) * unitSize);
@@ -123,7 +124,7 @@ namespace TotL.Labyrinth
                         }
                         else
                         {
-                            setRotation(Rotaitions.minus90);
+                            SetRotation(Rotaitions.minus90);
                             if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                             {
                                 locationX = 20 + ((o) * unitSize);

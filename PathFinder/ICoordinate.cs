@@ -1,16 +1,14 @@
-﻿using PathFinder._2D;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpDX.Toolkit;
 
-namespace PathFinder.Map
+namespace PathFinder
 {
-    public abstract class MapObject : _2DGraphicsElement, IGameObject
+    public interface ICoordinate
     {
-        public int X
+        int X
         {
             get;
 
@@ -18,7 +16,7 @@ namespace PathFinder.Map
             set;
         }
 
-        public int Y
+        int Y
         {
             get;
 

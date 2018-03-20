@@ -4,18 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TotL.Labyrinth
+namespace PathFinder
 {
-    interface ICell
+    interface IProcGeneralable
     {
-        bool isPopulated
+        bool IsPopulated
         {
             get; set;
         }
-        float rotation
-        {
-            get; set;
-        }
-        void setRotation(float rotation);
+        
     }
 }

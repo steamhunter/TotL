@@ -8,10 +8,11 @@ using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using PathFinder;
 using SharpDX;
+using PathFinder.Scene;
 
 namespace TotL.Labyrinth
 {
-    public class CrossCell : Cell 
+    public class CrossCell : TerrainTile 
     {
         public CrossCell(int x,int y):base(x,y)
         {
@@ -21,7 +22,7 @@ namespace TotL.Labyrinth
             Y = y;
         }
 
-        public override void setRotation(float rotation)
+        public override void SetRotation(float rotation)
         {
             base.rotation = 0;
            
@@ -69,7 +70,7 @@ namespace TotL.Labyrinth
                 }
                 else
                 {
-                    setRotation(Rotaitions.plus90);
+                    SetRotation(Rotaitions.plus90);
                     if (Connection.isFiting(this,connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                     {
                         locationX = 20 + ((o) * unitSize);
@@ -82,7 +83,7 @@ namespace TotL.Labyrinth
                     }
                     else
                     {
-                        setRotation(Rotaitions.half);
+                        SetRotation(Rotaitions.half);
                         if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                         {
                             locationX = 20 + ((o) * unitSize);
@@ -95,7 +96,7 @@ namespace TotL.Labyrinth
                         }
                         else
                         {
-                            setRotation(Rotaitions.minus90);
+                            SetRotation(Rotaitions.minus90);
                             if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                             {
                                 locationX = 20 + ((o) * unitSize);

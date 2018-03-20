@@ -11,15 +11,15 @@ using PathFinder;
 using SharpDX;
 using PathFinder.Debug;
 using PathFinder._2D;
-using TotL.Maps;
-using PathFinder.Map;
+using TotL.Scenes;
+using PathFinder.Scene;
 
 namespace TotL
 {
     class TotL : PathFinderGame
     {
        // protected Map map = new LabyrinthMap();
-        protected Map map = new LabyrinthMap();
+        protected Scene map = new LabyrinthScene();
 
 
 

@@ -1,18 +1,21 @@
 ﻿using PathFinder;
 using PathFinder.Debug;
+using PathFinder.Scene;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TotL.Labyrinth.Map
+namespace TotL.Labyrinth.Scene
 {
-    public class MapBuilder
+    public class LabyrinthBuilder:MapBuilder
     {
+        public int bs, bo;
+        public int es, eo;
         private static class CellSelector
         {
-            public static bool CheckCell(Cell cell, Connection[,] connect, Cell[,] map, int co, int cs, int o, int s)
+            public static bool CheckCell(TerrainTile cell, Connection[,] connect, TerrainTile[,] map, int co, int cs, int o, int s)
             {
                 if (cell.CheckFitting(connect, co, cs, o, s))
                 {
@@ -27,16 +30,15 @@ namespace TotL.Labyrinth.Map
                 }
             }
         }
-        Connection[,] connect;
-        Cell[,] map;
+        
 
-        public MapBuilder(Connection[,] connect, Cell[,] map)
+        public LabyrinthBuilder(Connection[,] connect, TerrainTile[,] map):base(connect,map)
         {
             this.connect = connect;
             this.map = map;
         }
 
-        public void Build(out int eo, out int es, out int bo, out int bs)
+        public override void Build()
         {
             GenerateBorder(connect);
 
@@ -121,33 +123,6 @@ namespace TotL.Labyrinth.Map
             map[eo, es] = new UnitBase(map[eo, es], "enemy", eo, es);
         }
 
-        private void GenerateBorder(Connection[,] connect)
-        {
-            for (int s = 0; s < 18; s++)
-            {
-                for (int o = 0; o < 27; o++)
-                {
-                    if (s == 0 || o == 0 || o == 26 || s == 16)
-                    {
-                        connect[o, s] = new Connection(o, s);
-                        connect[o, s].up = false;
-                        connect[o, s].down = false;
-                        connect[o, s].left = false;
-                        connect[o, s].right = false;
-                        connect[o, s].closedsides = 4;
-                    }
-                    else
-                    {
-                        connect[o, s] = new Connection(o, s);
-                        connect[o, s].closedsides = 0;
-                        connect[o, s].up = true; //map[i - 1, j - 1].up;
-                        connect[o, s].down = true; //map[i - 1, j - 1].down;
-                        connect[o, s].left = true;// map[i - 1, j - 1].left;
-                        connect[o, s].right = true;//map[i - 1, j - 1].right;
-                        connect[o, s].isPopulated = false;
-                    }
-                }
-            }
-        }
+       
     }
 }

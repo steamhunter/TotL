@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TotL.Labyrinth
 {
-    public interface ICoordinate
+   /* public interface ICoordinate
     {
         int X { get; set; }
         int Y { get; set; }
-    }
+    }*/
 }

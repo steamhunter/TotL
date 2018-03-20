@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Scene;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
@@ -11,18 +12,18 @@ using System.Threading.Tasks;
 
 namespace TotL.Labyrinth
 {
-    public class FullCell:Cell
+    public class FullCell:TerrainTile
     {
         public FullCell(int x,int y):base(x,y)
         {
             texture =TextureLoader.getTexture("FullCell");
-            setRotation(0f);
+            SetRotation(0f);
             closedsides = 4;
             X = x;
             Y = y;
         }
 
-        public override void setRotation(float rotation)
+        public override void SetRotation(float rotation)
         {
             base.rotation = 0;
            

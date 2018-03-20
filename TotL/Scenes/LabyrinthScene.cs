@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PathFinder.Map;
+using PathFinder.Scene;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using PathFinder._2D;
@@ -13,18 +13,14 @@ using PathFinder.Debug;
 using PathFinder.AStar;
 using SharpDX;
 using SharpDX.Toolkit.Input;
-using TotL.Labyrinth.Map;
 
-namespace TotL.Maps
+namespace TotL.Scenes
 {
    
-    class LabyrinthMap : Map
+    class LabyrinthScene : Scene
     {
         #region Globals
-        int bs, bo;
-        int es, eo;
-        Cell[,] map = new Cell[25, 15];
-        Connection[,] connect = new Connection[27, 18];
+        Labyrinth.Scene.LabyrinthBuilder mapbuilder;
         List<Units.Unit> clusterA = new List<Units.Unit>();
         List<Units.Unit> clusterB = new List<Units.Unit>();
         List<Units.Unit> EnemyCluster = new List<Units.Unit>();
@@ -51,6 +47,7 @@ namespace TotL.Maps
 
         public override void Initialize()
         {
+            terrain = new Labyrinth.Scene.LabyrinthTerrain(new TerrainTile[25, 15], new Connection[27, 18]);
             Vars.mapstate = internalstates.map_initializing;
             #region Game system init
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
@@ -64,20 +61,20 @@ namespace TotL.Maps
             AClusterStatus = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50,128,128,"A_cluster");
             BClusterStatus = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50 + 128 + 30, 128, 128,"B_cluster");
             #endregion
-            MapBuilder mapbuider = new MapBuilder(connect, map);
-           
-             mapbuider.Build(out eo, out es,out bo, out bs);
 
+            mapbuilder = ((Labyrinth.Scene.LabyrinthBuilder)((Labyrinth.Scene.LabyrinthTerrain)terrain).mapBuilder);
             
-            AStar.RelationalAstarSolver = new AStar.RelationalSolver<Connection, Object>(connect);
-            LinkedList<Connection> test = AStar.RelationalAstarSolver.Search(new System.Drawing.Point(bo + 1, bs + 1), new System.Drawing.Point(eo + 1, es + 1), null);
+            mapbuilder.Build();
+            
+            AStar.RelationalAstarSolver = new AStar.RelationalSolver<Connection, Object>(((Labyrinth.Scene.LabyrinthTerrain)terrain).connect);
+            LinkedList<Connection> test = AStar.RelationalAstarSolver.Search(new System.Drawing.Point(mapbuilder.bo + 1, mapbuilder.bs + 1), new System.Drawing.Point(mapbuilder.eo + 1, mapbuilder.es + 1), null);
 
             if (test == null)
             {
                 Initialize();
             }
-            cons.debugMessage($"base {bo} {bs}","generator");
-            cons.debugMessage($"enemy {eo} {es}","generator");
+            cons.debugMessage($"base {mapbuilder.bo} {mapbuilder.bs}","generator");
+            cons.debugMessage($"enemy {mapbuilder.eo} {mapbuilder.es}","generator");
 
             Vars.mapstate = internalstates.map_ready;
         }
@@ -147,8 +144,8 @@ namespace TotL.Maps
                     if (clusterAtick >= 30)
                     {
                         
-                        Units.PlayerUnit newunit = new Units.PlayerUnit(new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs)));
-                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
+                        Units.PlayerUnit newunit = new Units.PlayerUnit(new Vector2(GetCoordinateFromLocation(mapbuilder.bo), GetCoordinateFromLocation(mapbuilder.bs)));
+                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(mapbuilder.bo), GetCoordinateFromLocation(mapbuilder.bs));
                         clusterA.Add(newunit);
                         clusterAsize++;
                         clusterAtick = 0;
@@ -207,7 +204,7 @@ namespace TotL.Maps
             foreach (var item in clusterA)
             {
 
-                item.Update(map,clusterA);
+                item.Update(mapbuilder.map,clusterA);
             }
             #endregion
 
@@ -236,8 +233,8 @@ namespace TotL.Maps
                     if (clusterBtick >= 30)
                     {
                         
-                        Units.PlayerUnit newunit = new Units.PlayerUnit(new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs)));
-                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(bo), GetCoordinateFromLocation(bs));
+                        Units.PlayerUnit newunit = new Units.PlayerUnit(new Vector2(GetCoordinateFromLocation(mapbuilder.bo), GetCoordinateFromLocation(mapbuilder.bs)));
+                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(mapbuilder.bo), GetCoordinateFromLocation(mapbuilder.bs));
                         clusterB.Add(newunit);
                         clusterBsize++;
                         clusterBtick = 0;
@@ -297,7 +294,7 @@ namespace TotL.Maps
             foreach (var item in clusterB)
             {
 
-                item.Update(map,clusterB);
+                item.Update(mapbuilder.map,clusterB);
             }
             #endregion
 
@@ -319,8 +316,8 @@ namespace TotL.Maps
                 {
                     if (EnemyClustertick >= 20)
                     {
-                        Units.EnemyUnit newunit = new Units.EnemyUnit(new Vector2(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es)));
-                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(eo), GetCoordinateFromLocation(es));
+                        Units.EnemyUnit newunit = new Units.EnemyUnit(new Vector2(GetCoordinateFromLocation(mapbuilder.eo), GetCoordinateFromLocation(mapbuilder.es)));
+                        newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(mapbuilder.eo), GetCoordinateFromLocation(mapbuilder.es));
                         EnemyCluster.Add(newunit);
                         EnemySize++;
                         EnemyClustertick = 0;
@@ -335,8 +332,8 @@ namespace TotL.Maps
 
             if (EnemyCluster.Count == 20)
             {
-                EnemyClusterX = GetCoordinateFromLocation(bo);
-                EnemyClusterY = GetCoordinateFromLocation(bs);
+                EnemyClusterX = GetCoordinateFromLocation(mapbuilder.bo);
+                EnemyClusterY = GetCoordinateFromLocation(mapbuilder.bs);
                 EnemyClusterhastarget = true;
 
             }
@@ -365,7 +362,7 @@ namespace TotL.Maps
 
             for (int i = 0; i < EnemyCluster.Count; i++)
             {
-                EnemyCluster[i].Update(map,EnemyCluster);
+                EnemyCluster[i].Update(mapbuilder.map,EnemyCluster);
             }
 
             #endregion
@@ -488,14 +485,14 @@ namespace TotL.Maps
 
                 }
             }
-            else if ((map[eo, es] as UnitBase).isdestroyed||EnemyCluster.Count==0&&wasmovement)
+            else if ((mapbuilder.map[mapbuilder.eo, mapbuilder.es] as UnitBase).isdestroyed||EnemyCluster.Count==0&&wasmovement)
             {
                 if (!Vars.noTextMode)
                 {
                     Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
                 }
             }
-            else if ((map[bo, bs] as UnitBase).isdestroyed|| clusterA.Count == 0 && clusterB.Count == 0&&wasmovement)
+            else if ((mapbuilder.map[mapbuilder.bo, mapbuilder.bs] as UnitBase).isdestroyed|| clusterA.Count == 0 && clusterB.Count == 0&&wasmovement)
             {
                 if (!Vars.noTextMode)
                 {
@@ -507,14 +504,14 @@ namespace TotL.Maps
             {
                 if (!Vars.noTextMode)
                 {
-                    Vars.spriteBatch.DrawString(Vars.font, "Saját bázis élete :" + "10000/" + (map[bo, bs] as UnitBase).hp, new Vector2(20, Vars.ScreenHeight - 50), Color.Black);
-                    Vars.spriteBatch.DrawString(Vars.font, "ellenséges bázis élete :" + "10000/" + (map[eo, es] as UnitBase).hp, new Vector2(Vars.ScreenHeight - 50, Vars.ScreenHeight - 50), Color.Black);
+                    Vars.spriteBatch.DrawString(Vars.font, "Saját bázis élete :" + "10000/" + (mapbuilder.map[mapbuilder.bo, mapbuilder.bs] as UnitBase).hp, new Vector2(20, Vars.ScreenHeight - 50), Color.Black);
+                    Vars.spriteBatch.DrawString(Vars.font, "ellenséges bázis élete :" + "10000/" + (mapbuilder.map[mapbuilder.eo, mapbuilder.es] as UnitBase).hp, new Vector2(Vars.ScreenHeight - 50, Vars.ScreenHeight - 50), Color.Black);
                 }
                 for (int s = 0; s < 15; s++)
                 {
                     for (int o = 0; o < 25; o++)
                     {
-                        map[o, s].Draw(gameTime);
+                        mapbuilder.map[o, s].Draw(gameTime);
 
                     }
                 }

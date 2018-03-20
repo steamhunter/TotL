@@ -1,6 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
-using PathFinder.Map;
+using PathFinder.Scene;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 using System;
@@ -9,17 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TotL.Labyrinth
+namespace PathFinder
 {
-    class Rotaitions
-    {
-       public static float zero = 0f;
-       public static float plus90 = Convert.ToSingle(Math.PI) / 2;
-       public static float half = Convert.ToSingle(Math.PI);
-       public static float minus90 = -Convert.ToSingle(Math.PI) / 2;
-    }
+    
 
-   public abstract class Cell : MapObject, IConnections,ICell
+   public abstract class TerrainTile : SceneObject, IConnections,IProcGeneralable
     {
         #region Globals
         protected static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
@@ -28,7 +22,7 @@ namespace TotL.Labyrinth
         public float LocationYoffset;
         #endregion
 
-        public Cell(int x,int y)
+        public TerrainTile(int x,int y)
         {
             X = x;
             Y = y;
@@ -78,7 +72,7 @@ namespace TotL.Labyrinth
             set;
         }
 
-        public bool isPopulated
+        public bool IsPopulated
         {
             get;
 
@@ -88,17 +82,7 @@ namespace TotL.Labyrinth
        
         #endregion
 
-        /// <summary>
-        /// beálítja a cella forgatásí irányát
-        /// KÖTELEZŐ FELÜLIRNI
-        /// nincs megvalósítás
-        /// throws InvalidCallException()
-        /// </summary>
-        /// <param name="rotation">forgatás iránya a Totl.Labyrith.Rotations szerint</param>
-        public virtual void setRotation(float rotation)
-        {
-            throw new InvalidCallException("hívás a Cell alap fügvényre" + GetType().ToString());
-        }
+        
 
         /// <summary>
         /// létrehozza a falat jelentö akadályt
@@ -115,8 +99,8 @@ namespace TotL.Labyrinth
         /// elenörzi hogy a kordináta falban van e?
         /// </summary>
         /// <param name="location">az ellenörizendő koordináta</param>
-        /// <returns>ture: benne van false: nincs</returns>
-        public virtual bool CheckBlockingState(RectangleF location)
+        /// <returns>true: benne van false: nincs</returns>
+        public virtual bool IsIntersectsWith(RectangleF location)
         {
             
             bool colision = false;
@@ -135,12 +119,15 @@ namespace TotL.Labyrinth
         /// <param name="cs">sor kordináta a connect mátrix szerint</param>
         /// <param name="o">oszlop a Cell mátrix szerint</param>
         /// <param name="s">sor a Cell mátrix szerint</param>
-        /// <returns></returns>
+        /// <returns> true ha illesztkedik</returns>
         public virtual bool CheckFitting( Connection[,] connect ,int co,int cs,int o,int s)
         {
             throw new PathFinder.InvalidCallException("hívás a Cell alap fügvényre"+this.GetType().ToString());
         }
 
-       
+        /*public virtual void SetRotation(float rotation)
+        {
+            throw new PathFinder.InvalidCallException("hívás a Cell alap fügvényre" + this.GetType().ToString());
+        }*/
     }
 }

@@ -53,7 +53,7 @@ namespace TotL.Units
             }
         }
         private short attackskiptick = 0;
-        public override void Update(Cell[,] map,List<Unit> units)
+        public override void Update(TerrainTile[,] map,List<Unit> units)
         {
             int X = ((int)Coordinate.X - 20) / (int)Vars.cellSize;
             int Y = ((int)Coordinate.Y - 20) / (int)Vars.cellSize;
@@ -96,7 +96,7 @@ namespace TotL.Units
                 if ((int)navcoordinate.X != Coordinate.X || navcoordinate.Y != Coordinate.Y)
                 {
 
-                    if (!map[X, Y].CheckBlockingState(new RectangleF(Coordinate.X + 1, Coordinate.Y + 1, unitsize, unitsize)) || relocation)
+                    if (!map[X, Y].IsIntersectsWith(new RectangleF(Coordinate.X + 1, Coordinate.Y + 1, unitsize, unitsize)) || relocation)
                     {
                         if ((int)navcoordinate.X > Coordinate.X)
                         {

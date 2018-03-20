@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Scene;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
@@ -11,19 +12,19 @@ using System.Threading.Tasks;
 
 namespace TotL.Labyrinth
 {
-    public class TunnelCell:Cell
+    public class TunnelCell:TerrainTile
     {
 
         public TunnelCell(int x,int y):base(x,y)
         {
             texture = TextureLoader.getTexture("TunnelCell");
-            setRotation(0f);
+            SetRotation(0f);
             closedsides = 2;
             X = x;
             Y = y;
         }
 
-        public override void setRotation(float rotation)
+        public override void SetRotation(float rotation)
         {
             base.rotation = rotation;
             if (rotation == Rotaitions.zero)
@@ -115,7 +116,7 @@ namespace TotL.Labyrinth
                 }
                 else
                 {
-                    setRotation(Rotaitions.plus90);
+                    SetRotation(Rotaitions.plus90);
                     if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                     {
                         locationX = 20 + ((o) * unitSize);
@@ -129,7 +130,7 @@ namespace TotL.Labyrinth
                     }
                     else
                     {
-                        setRotation(Rotaitions.half);
+                        SetRotation(Rotaitions.half);
                         if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                         {
                             locationX = 20 + ((o) * unitSize);
@@ -143,7 +144,7 @@ namespace TotL.Labyrinth
                         }
                         else
                         {
-                            setRotation(Rotaitions.minus90);
+                            SetRotation(Rotaitions.minus90);
                             if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                             {
                                 locationX = 20 + ((o) * unitSize);
