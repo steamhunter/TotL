@@ -16,10 +16,8 @@ namespace TotL.Labyrinth
     {
         public CrossCell(int x,int y):base(x,y)
         {
-            texture = TextureLoader.getTexture("CrossCell");
+            ((PathFinder.Components.Drawer)GetComponent(typeof(PathFinder.Components.Drawer))).Texture = TextureLoader.getTexture("CrossCell");
             closedsides = 0;
-            X = x;
-            Y = y;
         }
 
         public override void SetRotation(float rotation)

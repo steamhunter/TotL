@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Components;
 using PathFinder.Scene;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
@@ -13,7 +14,7 @@ namespace PathFinder
 {
     
 
-   public abstract class TerrainTile : SceneObject, IConnections,IProcGeneralable
+   public abstract class TerrainTile :GameObject, IConnections,IProcGeneralable
     {
         #region Globals
         protected static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
@@ -24,8 +25,10 @@ namespace PathFinder
 
         public TerrainTile(int x,int y)
         {
-            X = x;
-            Y = y;
+            Transform transform = (Transform)GetComponent(typeof(Transform));
+            transform.setRotation = SetRotation;
+            transform.X = x;
+            transform.Y = y;
         }
         #region Propertys
         public bool down
@@ -125,9 +128,9 @@ namespace PathFinder
             throw new PathFinder.InvalidCallException("hívás a Cell alap fügvényre"+this.GetType().ToString());
         }
 
-        /*public virtual void SetRotation(float rotation)
+        public virtual void SetRotation(float rotation)
         {
             throw new PathFinder.InvalidCallException("hívás a Cell alap fügvényre" + this.GetType().ToString());
-        }*/
+        }
     }
 }

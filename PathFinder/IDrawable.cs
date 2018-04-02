@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace PathFinder
 {
-    interface IDrawable:ICoordinate,IGameObject
+  /*  interface IDrawable:ICoordinate,IGameObject
     {
         
-    }
+    }*/
 }

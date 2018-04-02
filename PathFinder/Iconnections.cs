@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PathFinder
 {
 
-   public interface IConnections: ICoordinate
+   public interface IConnections
     {
         
        

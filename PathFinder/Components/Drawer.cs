@@ -10,17 +10,13 @@ using System.Threading.Tasks;
 using PathFinder;
 using Tex2D = SharpDX.Toolkit.Graphics.Texture2D;
 
-namespace PathFinder._2D
+namespace PathFinder.Components
 {
-    public abstract class _2DGraphicsElement
+    public abstract class Drawer:Component
     {
-        protected Tex2D texture;
+        public Tex2D Texture { get; set; }
         public Rectangle rectangle;
-        protected float _locationX;
-        protected float _locationY;
 
-        public int X { get; set; }
-        public int Y { get; set; }
 
         public static Tex2D getTexture(string entity, Game game)
         {
@@ -42,28 +38,22 @@ namespace PathFinder._2D
 
         }
 
-        public _2DGraphicsElement()
+        public Drawer(GameObject parent):base(parent)
         {
 
 
 
         }
 
-        public abstract void Update(GameTime gameTime);
-
-        public abstract void LoadContent();
-
-        public abstract void Initialize();
 
 
-        public virtual void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
-            
+            Transform transform=(Transform)GetComponent(typeof(Transform));
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            Vars.spriteBatch.Draw(texture, new RectangleF(_locationX, _locationY, unitSize, unitSize), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(Texture, new RectangleF(transform.X, transform.Y, unitSize, unitSize), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
         }
 
-        public abstract void UnloadContent();
 
     }
 }

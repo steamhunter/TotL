@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace PathFinder
 {
-    interface IRotatable: ICoordinate
+    class LinkedList<t>:System.Collections.Generic.LinkedList<t>
     {
-        
-        float Rotation
+        public void Add(t element)
         {
-            get; set;
+            AddLast(element);
         }
     }
 }
