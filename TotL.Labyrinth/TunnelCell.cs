@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Components;
 using PathFinder.Scene;
 using SharpDX;
 using SharpDX.Toolkit;
@@ -17,11 +18,9 @@ namespace TotL.Labyrinth
 
         public TunnelCell(int x,int y):base(x,y)
         {
-            texture = TextureLoader.getTexture("TunnelCell");
+            GetComponent<Drawer>().Texture = TextureLoader.getTexture("TunnelCell");
             SetRotation(0f);
             closedsides = 2;
-            X = x;
-            Y = y;
         }
 
         public override void SetRotation(float rotation)
@@ -74,7 +73,7 @@ namespace TotL.Labyrinth
         public override void Draw(GameTime gameTime)
         {
 
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(GetComponent<Drawer>().Texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
              /* foreach (var item in _blockedvolumes)
               {

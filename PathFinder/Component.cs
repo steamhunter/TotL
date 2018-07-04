@@ -15,9 +15,9 @@ namespace PathFinder
         {
             this.parent = parent;
         }
-        public Component GetComponent(Type type)
+        public T GetComponent<T>() where T:IComponent
         {
-            return parent.GetComponent(type);
+            return parent.GetComponent<T>();
         }
 
         public virtual void Draw(GameTime gameTime)

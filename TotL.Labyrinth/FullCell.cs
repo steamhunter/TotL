@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Components;
 using PathFinder.Scene;
 using SharpDX;
 using SharpDX.Toolkit;
@@ -16,11 +17,10 @@ namespace TotL.Labyrinth
     {
         public FullCell(int x,int y):base(x,y)
         {
-            texture =TextureLoader.getTexture("FullCell");
+           GetComponent<Drawer>().Texture = TextureLoader.getTexture("FullCell");
+            
             SetRotation(0f);
             closedsides = 4;
-            X = x;
-            Y = y;
         }
 
         public override void SetRotation(float rotation)
@@ -43,12 +43,12 @@ namespace TotL.Labyrinth
         {
 
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-              Vars.spriteBatch.Draw(texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+              Vars.spriteBatch.Draw(GetComponent<Drawer>().Texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
         }
         public override void SetBlockingVolumes()
         {
-            _blockedvolumes.Add(rectangle);
+            _blockedvolumes.Add(GetComponent<Drawer>().Rectangle);
             //base.SetBlockingVolumes();
         }
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)

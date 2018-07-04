@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TotL.Labyrinth;
 using SharpDX.Toolkit;
+using PathFinder.Components;
 
 namespace TotL.Units
 {
@@ -25,7 +26,7 @@ namespace TotL.Units
         {
 
             Coordinate = coordinate;
-            texture =TextureLoader.getTexture("transparent");
+            GetComponent<Drawer>().Texture = TextureLoader.getTexture("transparent");
             HP = 100;
         }
 
@@ -34,7 +35,7 @@ namespace TotL.Units
 
             Coordinate = coordinate;
             this.navcoordinate=navcoordinate;
-            texture = TextureLoader.getTexture("transparent");
+            GetComponent<Drawer>().Texture = TextureLoader.getTexture("transparent");
             HP = 100;
         }
 
@@ -169,7 +170,7 @@ namespace TotL.Units
         }
         public override void Draw(GameTime gameTime)
         {
-                 Vars.spriteBatch.Draw(texture,new RectangleF(Coordinate.X,Coordinate.Y,unitsize,unitsize),null,Color.White,0f,new Vector2(0,0),SpriteEffects.None,0f);
+                 Vars.spriteBatch.Draw(GetComponent<Drawer>().Texture, new RectangleF(Coordinate.X,Coordinate.Y,unitsize,unitsize),null,Color.White,0f,new Vector2(0,0),SpriteEffects.None,0f);
                 
             if (Vars.path_debug_Draw && path != null)
             {

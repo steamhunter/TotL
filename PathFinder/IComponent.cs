@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PathFinder
 {
-    interface IComponent
+    public interface IComponent
     {
         void Initialize();
         void LoadContent();

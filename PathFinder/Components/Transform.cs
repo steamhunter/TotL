@@ -7,7 +7,7 @@ using SharpDX.Toolkit;
 
 namespace PathFinder.Components
 {
-    class Transform : Component, IRotatable
+    public class Transform : Component, IRotatable
     {
         public Transform(GameObject parent) : base(parent)
         {

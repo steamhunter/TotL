@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Components;
 using PathFinder.Debug;
 using PathFinder.Scene;
 using SharpDX;
@@ -29,8 +30,6 @@ namespace TotL.Labyrinth
             this.realcell = realcell;
             locationX = realcell.locationX/*+realcell.LocationXoffset*/;
             locationY = realcell.locationY/*+realcell.LocationYoffset*/;
-            X = x;
-            Y = y;
             this.Type = type;
         }
 

@@ -21,11 +21,13 @@ namespace PathFinder
         protected List<RectangleF> _blockedvolumes = new List<RectangleF>();
         public float LocationXoffset;
         public float LocationYoffset;
+        public Transform transform;
         #endregion
 
         public TerrainTile(int x,int y)
         {
-            Transform transform = (Transform)GetComponent(typeof(Transform));
+            transform = GetComponent<Transform>();
+            AddComponent(new Drawer(parent));
             transform.setRotation = SetRotation;
             transform.X = x;
             transform.Y = y;

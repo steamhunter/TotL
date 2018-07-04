@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SharpDX.Toolkit;
+using PathFinder.Components;
 
 namespace TotL.UI
 {
@@ -18,8 +19,6 @@ namespace TotL.UI
 
         public ClusterStatus(int x, int y, int width, int height, string textureName) : base(x, y, width, height, textureName)
         {
-            X = x;
-            Y = y;
             Width = width;
             Height = height;
             TextureName = textureName;
@@ -30,15 +29,15 @@ namespace TotL.UI
 
         public override void Draw(GameTime gameTime)
         {
-            Vars.spriteBatch.Draw(texture, new RectangleF(X, Y, Width, Height), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(GetComponent<Drawer>().Texture, new RectangleF(transform.X, transform.Y, Width, Height), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
         }
         public void Select()
         {
-            texture = active;
+           GetComponent<Drawer>().Texture = active;
         }
         public void DeSelect()
         {
-            texture = notActive;
+            GetComponent<Drawer>().Texture = notActive;
         }
 
         public override void Update(GameTime gameTime)
@@ -48,8 +47,8 @@ namespace TotL.UI
 
         public override void LoadContent()
         {
-            texture = TextureLoader.getTexture(TextureName + "_status");
-            notActive = texture;
+            GetComponent<Drawer>().Texture = TextureLoader.getTexture(TextureName + "_status");
+            notActive = GetComponent<Drawer>().Texture;
             active = TextureLoader.getTexture(TextureName + "_status_selected");
         }
 

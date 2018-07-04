@@ -1,5 +1,6 @@
 ﻿using PathFinder;
 using PathFinder._2D;
+using PathFinder.Components;
 using PathFinder.Scene;
 using SharpDX;
 using SharpDX.Toolkit;
@@ -12,7 +13,7 @@ using TotL.Labyrinth;
 
 namespace TotL.Units
 {
-    abstract class Unit : _2DGraphicsElement
+    abstract class Unit : GameObject
     {
         //public int CoordinateX { get; set; }
         //public int CoordinateY { get; set; }
@@ -67,11 +68,13 @@ namespace TotL.Units
         public Unit(Vector2 coordinate)
         {
             Coordinate = coordinate;
+            AddComponent(new Drawer(parent));
         }
 
         public Unit(Vector2 coordinate, Vector2 targetcoordinate)
         {
             Coordinate = coordinate;
+            AddComponent(new Drawer(parent));
         }
 
         public virtual void DamageUnit(short dmg)

@@ -12,10 +12,11 @@ using Tex2D = SharpDX.Toolkit.Graphics.Texture2D;
 
 namespace PathFinder.Components
 {
-    public abstract class Drawer:Component
+    public class Drawer:Component
     {
         public Tex2D Texture { get; set; }
-        public Rectangle rectangle;
+        public Rectangle Rectangle { get; set; }
+
 
 
         public static Tex2D getTexture(string entity, Game game)
@@ -49,7 +50,7 @@ namespace PathFinder.Components
 
         public override void Draw(GameTime gameTime)
         {
-            Transform transform=(Transform)GetComponent(typeof(Transform));
+            Transform transform=GetComponent<Transform>();
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             Vars.spriteBatch.Draw(Texture, new RectangleF(transform.X, transform.Y, unitSize, unitSize), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
         }

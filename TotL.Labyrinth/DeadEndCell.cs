@@ -9,6 +9,7 @@ using SharpDX;
 using SharpDX.Toolkit.Graphics;
 using SharpDX.Toolkit;
 using PathFinder.Scene;
+using PathFinder.Components;
 
 namespace TotL.Labyrinth
 {
@@ -16,11 +17,9 @@ namespace TotL.Labyrinth
     {
         public DeadEndCell(int x, int y) : base(x, y)
         {
-            texture = TextureLoader.getTexture("DeadEndCell");
+            GetComponent<Drawer>().Texture = TextureLoader.getTexture("DeadEndCell");
             SetRotation(0f);
             closedsides = 3;
-            X = x;
-            Y = y;
         }
         public override void SetRotation(float rotation)
         {
@@ -72,7 +71,7 @@ namespace TotL.Labyrinth
         public override void Draw(GameTime gameTime)
         {
 
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(GetComponent<Drawer>().Texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
 
             /*foreach (var item in _blockedvolumes)

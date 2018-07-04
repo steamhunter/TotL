@@ -16,7 +16,7 @@ namespace TotL.Labyrinth
     {
         public CrossCell(int x,int y):base(x,y)
         {
-            ((PathFinder.Components.Drawer)GetComponent(typeof(PathFinder.Components.Drawer))).Texture = TextureLoader.getTexture("CrossCell");
+            GetComponent<PathFinder.Components.Drawer>().Texture = TextureLoader.getTexture("CrossCell");
             closedsides = 0;
         }
 
@@ -33,7 +33,7 @@ namespace TotL.Labyrinth
 
         public override void Draw(GameTime gameTime)
         {
-            Vars.spriteBatch.Draw(texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(GetComponent<PathFinder.Components.Drawer>().Texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
            /* foreach (var item in _blockedvolumes)
             {
                 Vars.spriteBatch.Draw(TextureFromFile.TextureProcessor.getTexture("transparent"), item, Color.White);

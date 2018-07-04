@@ -9,49 +9,64 @@ namespace PathFinder
 {
     public class GameObject:IGameObject
     {
-        LinkedList<Component> components = new LinkedList<Component>();
-
-        public void Draw(GameTime gameTime)
+        public GameObject parent;
+        public GameObject()
         {
-            foreach (var item in components)
+            parent = this;
+            Components.Add(new Components.Transform(this));
+        }
+
+        internal LinkedList<IComponent> Components { get; private set; } = new LinkedList<IComponent>();
+
+        public virtual void Draw(GameTime gameTime)
+        {
+            foreach (var item in Components)
             {
                 item.Draw(gameTime);
             }
         }
 
-        public Component GetComponent(Type type)
+        public T GetComponent<T>() where T:IComponent
         {
-            return components.First(x => x.GetType() == type);
+            return (T)Components.First(x => x.GetType().Equals(typeof(T)));
         }
 
-        public void Initialize()
+        public void AddComponent<T>(T comp) where T : IComponent
         {
-            components.Add(new Components.Transform(this));
-            foreach (var item in components)
+            if (Components.Count(x => x.GetType() == typeof(T))==0)
+            {
+                Components.Add(comp);
+            }
+        }
+
+        public virtual void Initialize()
+        {
+           
+            foreach (var item in Components)
             {
                 item.Initialize();
             }
         }
 
-        public void LoadContent()
+        public virtual void LoadContent()
         {
-            foreach (var item in components)
+            foreach (var item in Components)
             {
                 item.LoadContent();
             }
         }
 
-        public void UnloadContent()
+        public virtual void UnloadContent()
         {
-            foreach (var item in components)
+            foreach (var item in Components)
             {
                 item.UnloadContent();
             }
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
-            foreach (var item in components)
+            foreach (var item in Components)
             {
                 item.Update(gameTime);
             }
