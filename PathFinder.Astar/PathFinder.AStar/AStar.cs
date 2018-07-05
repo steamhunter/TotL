@@ -44,7 +44,7 @@ namespace PathFinder.AStar
                     {
                         return _astarsolver;
                     }
-                    throw new NullReferenceException("Realtional Solver");
+                    throw new NullReferenceException("Solver");
                 }
                 catch (Exception e)
                 {
