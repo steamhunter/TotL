@@ -38,11 +38,21 @@ namespace PathFinder.AStar
         {
             get
             {
-                if (_astarsolver != null)
+                try
                 {
-                    return _astarsolver;
+                    if (_astarsolver != null)
+                    {
+                        return _astarsolver;
+                    }
+                    throw new NullReferenceException("Realtional Solver");
                 }
-                throw new Exception("No Solver created");
+                catch (Exception e)
+                {
+
+                    throw new SolverException("Retrival of the Solver caused ",e); 
+                }
+               
+                
             }
             set
             {
@@ -54,11 +64,20 @@ namespace PathFinder.AStar
         {
             get
             {
-                if (_relastarsolver != null)
+                try
                 {
-                    return _relastarsolver;
+                    if (_relastarsolver != null)
+                    {
+                        return _relastarsolver;
+                    }
+                    throw new NullReferenceException("Realtional Solver");
                 }
-                throw new Exception("No Solver created");
+                catch (Exception e)
+                {
+
+                    throw new SolverException("Retrival of the Solver caused ", e);
+                }
+               
             }
             set
             {

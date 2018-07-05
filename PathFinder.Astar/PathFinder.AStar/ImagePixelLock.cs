@@ -102,10 +102,12 @@ namespace PathFinder.AStar.SettlersEngine
 
         ~ImagePixelLock()
         {
-            Dispose();
+            Dispose(false);
+            return;
+
         }
 
-        public void Dispose()
+        unsafe protected virtual void Dispose(bool clearnative)
         {
             try
             {
@@ -119,10 +121,16 @@ namespace PathFinder.AStar.SettlersEngine
             {
                 // bitmap might be already disposed even if we got a valid pixellock
             }
-
             data = null;
             bitmap = null;
             Pixels = (int*)0;
+        }
+        public void Dispose()
+        {
+
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
         }
     }
 

@@ -68,6 +68,7 @@
     <Compile Include="CrossCell.cs" />
     <Compile Include="DeadEndCell.cs" />
     <Compile Include="FullCell.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ICoordinate.cs" />
     <Compile Include="OneSideBlocked.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

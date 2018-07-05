@@ -87,7 +87,7 @@ namespace PathFinder.AStar.SettlersEngine
                 return 0;
             }
 
-            object IPathNode<TUserContext>.UserContext()
+             object IPathNode<TUserContext>.UserContext()
             {
                 return UserContext;
             }
