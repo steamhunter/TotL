@@ -54,18 +54,18 @@ namespace PathFinder
             set;
         }
       
-         public float rotation
+         public float Rotation
         {
             get;
 
             set;
         }
 
-        public float locationX {
+        public float LocationX {
             get;
             set;
         }
-        public float locationY
+        public float LocationY
         {
             get;
             set;

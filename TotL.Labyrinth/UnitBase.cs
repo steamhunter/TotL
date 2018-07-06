@@ -28,8 +28,8 @@ namespace TotL.Labyrinth
             baseTexture =TextureLoader.getTexture("UnitBase");
             closedsides = realcell.closedsides;
             this.realcell = realcell;
-            locationX = realcell.locationX/*+realcell.LocationXoffset*/;
-            locationY = realcell.locationY/*+realcell.LocationYoffset*/;
+            LocationX = realcell.LocationX/*+realcell.LocationXoffset*/;
+            LocationY = realcell.LocationY/*+realcell.LocationYoffset*/;
             this.Type = type;
         }
 
@@ -48,11 +48,11 @@ namespace TotL.Labyrinth
             {
                 if (Type == "enemy")
                 {
-                    Vars.spriteBatch.Draw(baseTexture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.Red, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+                    Vars.spriteBatch.Draw(baseTexture, new RectangleF(LocationX, LocationY, unitSize, unitSize), null, Color.Red, Rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
                 }
                 else
                 {
-                    Vars.spriteBatch.Draw(baseTexture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.Blue, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+                    Vars.spriteBatch.Draw(baseTexture, new RectangleF(LocationX, LocationY, unitSize, unitSize), null, Color.Blue, Rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
                 }
             }
            

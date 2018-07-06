@@ -25,7 +25,7 @@ namespace TotL.Labyrinth
 
         public override void SetRotation(float rotation)
         {
-            base.rotation = rotation;
+            base.Rotation = rotation;
             if (rotation == Rotaitions.zero)
             {
                 up = true;
@@ -72,7 +72,7 @@ namespace TotL.Labyrinth
 
         public override void Draw(GameTime gameTime)
         {
-            Vars.spriteBatch.Draw(GetComponent<Drawer>().Texture, new RectangleF(locationX+LocationXoffset, locationY+LocationYoffset, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+            Vars.spriteBatch.Draw(GetComponent<Drawer>().Texture, new RectangleF(LocationX+LocationXoffset, LocationY+LocationYoffset, unitSize, unitSize), null, Color.White, Rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
             /*foreach (var item in _blockedvolumes)
             {
@@ -86,8 +86,8 @@ namespace TotL.Labyrinth
             {
                 if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                 {
-                    locationX = 20 + ((o) * unitSize);
-                    locationY = 20 + ((s) * unitSize);
+                    LocationX = 20 + ((o) * unitSize);
+                    LocationY = 20 + ((s) * unitSize);
                     connect[co, cs].up = up;
                     connect[co, cs].down = down;
                     connect[co, cs].left = left;
@@ -100,8 +100,8 @@ namespace TotL.Labyrinth
                     SetRotation(Rotaitions.plus90);
                     if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                     {
-                        locationX = 20 + ((o) * unitSize);
-                        locationY = 20 + ((s) * unitSize);
+                        LocationX = 20 + ((o) * unitSize);
+                        LocationY = 20 + ((s) * unitSize);
                         connect[co, cs].up = up;
                         connect[co, cs].down = down;
                         connect[co, cs].left = left;
@@ -113,8 +113,8 @@ namespace TotL.Labyrinth
                         SetRotation(Rotaitions.half);
                         if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                         {
-                            locationX = 20 + ((o) * unitSize);
-                            locationY = 20 + ((s) * unitSize);
+                            LocationX = 20 + ((o) * unitSize);
+                            LocationY = 20 + ((s) * unitSize);
                             connect[co, cs].up = up;
                             connect[co, cs].down = down;
                             connect[co, cs].left = left;
@@ -126,8 +126,8 @@ namespace TotL.Labyrinth
                             SetRotation(Rotaitions.minus90);
                             if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                             {
-                                locationX = 20 + ((o) * unitSize);
-                                locationY = 20 + ((s) * unitSize);
+                                LocationX = 20 + ((o) * unitSize);
+                                LocationY = 20 + ((s) * unitSize);
                                 connect[co, cs].up = up;
                                 connect[co, cs].down = down;
                                 connect[co, cs].left = left;
@@ -153,29 +153,29 @@ namespace TotL.Labyrinth
         public override void SetBlockingVolumes()
         {
 
-            float locationx = locationX + LocationXoffset;
-            float locationy = locationY + LocationYoffset;
-            if (rotation == Rotaitions.zero)
+            float locationx = LocationX + LocationXoffset;
+            float locationy = LocationY + LocationYoffset;
+            if (Rotation == Rotaitions.zero)
             {
                 _blockedvolumes.Add(new RectangleF(locationx, locationy, unitSize / 4, unitSize));
                 _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, locationy, unitSize / 4, unitSize / 4));
                 _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
             }
             else
-            if (rotation == Rotaitions.plus90)
+            if (Rotation == Rotaitions.plus90)
             {
                 _blockedvolumes.Add(new RectangleF(locationx - unitSize, locationy, unitSize, unitSize / 4));
                 _blockedvolumes.Add(new RectangleF(locationx - unitSize, locationy + (unitSize - unitSize / 4), unitSize / 4, unitSize / 4));
                 _blockedvolumes.Add(new RectangleF(locationx - unitSize / 4, (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
             }
             else
-            if (rotation == Rotaitions.half)
+            if (Rotation == Rotaitions.half)
             {
                 _blockedvolumes.Add(new RectangleF(locationx - unitSize / 4, locationy - unitSize, unitSize / 4, unitSize));
                 _blockedvolumes.Add(new RectangleF(locationx - unitSize, locationy - unitSize / 4, unitSize / 4, unitSize / 4));
                 _blockedvolumes.Add(new RectangleF(locationx - unitSize, locationy - unitSize, unitSize / 4, unitSize / 4));
             }
-            else if (rotation == Rotaitions.minus90)
+            else if (Rotation == Rotaitions.minus90)
             {
                 _blockedvolumes.Add(new RectangleF(locationx, locationy - unitSize / 4, unitSize, unitSize / 4));
                 _blockedvolumes.Add(new RectangleF(locationx, locationy - unitSize, unitSize / 4, unitSize / 4));

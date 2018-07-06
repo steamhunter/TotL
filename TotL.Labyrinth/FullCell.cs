@@ -25,7 +25,7 @@ namespace TotL.Labyrinth
 
         public override void SetRotation(float rotation)
         {
-            base.rotation = 0;
+            base.Rotation = 0;
            
                 up = false;
                 left = false;
@@ -43,7 +43,7 @@ namespace TotL.Labyrinth
         {
 
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-              Vars.spriteBatch.Draw(GetComponent<Drawer>().Texture, new RectangleF(locationX, locationY, unitSize, unitSize), null, Color.White, rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
+              Vars.spriteBatch.Draw(GetComponent<Drawer>().Texture, new RectangleF(LocationX, LocationY, unitSize, unitSize), null, Color.White, Rotation, new Vector2(0, 0), SpriteEffects.None, 0f);
 
         }
         public override void SetBlockingVolumes()
@@ -57,8 +57,8 @@ namespace TotL.Labyrinth
             {
                 if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                 {
-                    locationX = 20 + ((o) * unitSize);
-                    locationY = 20 + ((s) * unitSize);
+                    LocationX = 20 + ((o) * unitSize);
+                    LocationY = 20 + ((s) * unitSize);
                     connect[co,cs].up = up;
                     connect[co,cs].down = down;
                     connect[co,cs].left = left;
