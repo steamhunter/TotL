@@ -54,7 +54,7 @@ namespace TotL.Units
             }
         }
         private short attackskiptick = 0;
-        public override void Update(TerrainTile[,] map,List<Unit> units)
+        public override void Update(TerrainTile[,] map,Cluster units)
         {
             int X = ((int)Coordinate.X - 20) / (int)Vars.cellSize;
             int Y = ((int)Coordinate.Y - 20) / (int)Vars.cellSize;

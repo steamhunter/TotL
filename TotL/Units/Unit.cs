@@ -85,7 +85,7 @@ namespace TotL.Units
         {
             throw new NotImplementedException("Ez a változat nem használható Unit osztály leszármazotain");
         }
-        public virtual void Update(TerrainTile[,] connect,List<Unit> units)
+        public virtual void Update(TerrainTile[,] connect,Cluster units)
         {
             throw new InvalidCallException("hívás a unit alap fügvényre");
         }

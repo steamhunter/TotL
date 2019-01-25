@@ -16,23 +16,19 @@ using SharpDX.Toolkit.Input;
 
 namespace TotL.Scenes
 {
-   
+
     class LabyrinthScene : Scene
     {
         #region Globals
         Labyrinth.Scene.LabyrinthBuilder mapbuilder;
-        List<Units.Unit> clusterA = new List<Units.Unit>();
-        List<Units.Unit> clusterB = new List<Units.Unit>();
-        List<Units.Unit> EnemyCluster = new List<Units.Unit>();
-        UI.ClusterStatus AClusterStatus;
-        UI.ClusterStatus BClusterStatus;
-        bool spawnclusterA = false;
-        short clusterAsize = 0;
-        bool spawnclusterB = false;
-        short clusterBsize = 0;
-        bool spawnEnemy = false;
-        short EnemySize = 0;
+        Cluster clusterA = new Cluster();
+        Cluster clusterB = new Cluster();
+        Cluster EnemyCluster = new Cluster();
+        // List<Units.Unit> EnemyCluster = new List<Units.Unit>();
+        // bool spawnEnemy = false;
+        // short EnemySize = 0;
         bool wasmovement = false;
+        short selectedCluster = 0;
         #endregion
 
         private int GetCoordinateFromLocation(int location)
@@ -52,20 +48,20 @@ namespace TotL.Scenes
             #region Game system init
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             int now = DateTime.Now.Millisecond * DateTime.Now.Second;
-            cons.debugMessage($"base time: {now.ToString()}","generator");
+            cons.debugMessage($"base time: {now.ToString()}", "generator");
             Random random = new Random(now);
             Vars.seed = random.Next(10000000, 99999999);
-            cons.debugMessage($"SEED: {Vars.seed.ToString()}","generator");
+            cons.debugMessage($"SEED: {Vars.seed.ToString()}", "generator");
             random = new Random(Vars.seed);
             Vars.random = random;
-            AClusterStatus = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50,128,128,"A_cluster");
-            BClusterStatus = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50 + 128 + 30, 128, 128,"B_cluster");
+            clusterA.Status = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50, 128, 128, "A_cluster");
+            clusterB.Status = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50 + 128 + 30, 128, 128, "B_cluster");
             #endregion
 
             mapbuilder = ((Labyrinth.Scene.LabyrinthBuilder)((Labyrinth.Scene.LabyrinthTerrain)terrain).mapBuilder);
-            
+
             mapbuilder.Build();
-            
+
             AStar.RelationalAstarSolver = new AStar.RelationalSolver<Connection, Object>(((Labyrinth.Scene.LabyrinthTerrain)terrain).connect);
             LinkedList<Connection> test = AStar.RelationalAstarSolver.Search(new System.Drawing.Point(mapbuilder.bo + 1, mapbuilder.bs + 1), new System.Drawing.Point(mapbuilder.eo + 1, mapbuilder.es + 1), null);
 
@@ -73,60 +69,35 @@ namespace TotL.Scenes
             {
                 Initialize();
             }
-            cons.debugMessage($"base {mapbuilder.bo} {mapbuilder.bs}","generator");
-            cons.debugMessage($"enemy {mapbuilder.eo} {mapbuilder.es}","generator");
+            cons.debugMessage($"base {mapbuilder.bo} {mapbuilder.bs}", "generator");
+            cons.debugMessage($"enemy {mapbuilder.eo} {mapbuilder.es}", "generator");
 
             Vars.mapstate = internalstates.map_ready;
         }
 
-        
+
 
 
         public override void LoadContent()
         {
-            AClusterStatus.LoadContent();
-            BClusterStatus.LoadContent();
+            clusterA.Status.LoadContent();
+            clusterB.Status.LoadContent();
         }
-
-        #region unit managment globals
-        short clusterAtick = 0;
-        float ClusterAX;
-        float ClusterAY;
-        short selectedCluster = 0;
-        bool ClusterAhastarget = false;
-        short ClusterAtargetIndex = 0;
-        short ClusterAtargettick = 0;
-
-        short clusterBtick = 0;
-        float ClusterBX;
-        float ClusterBY;
-        bool clusterBhastarget = false;
-        short clusterBtargetIndex = 0;
-        short clusterBtargettick = 0;
-
-        short EnemyClustertick = 0;
-        float EnemyClusterX;
-        float EnemyClusterY;
-        bool EnemyClusterhastarget = false;
-        short EnemyClustertargetIndex = 0;
-        short EnemyClustertargettick = 0;
-
-        #endregion
 
         public override void Update(GameTime gameTime)
         {
 
             #region clusterA
-            clusterAtick++;
+            clusterA.Tick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.X))
             {
-                
-                if (spawnclusterA == false)
+
+                if (clusterA.Summon == false)
                 {
-                    spawnclusterA = true;
+                    clusterA.Summon = true;
                     selectedCluster = 1;
-                    AClusterStatus.Select();
-                    BClusterStatus.DeSelect();
+                    clusterA.Status.Select();
+                    clusterB.Status.DeSelect();
 
                 }
                 else
@@ -137,34 +108,34 @@ namespace TotL.Scenes
 
             }
 
-            if (spawnclusterA)
+            if (clusterA.Summon)
             {
-                if (clusterAsize != 10)
+                if (clusterA.Size != 10)
                 {
-                    if (clusterAtick >= 30)
+                    if (clusterA.Tick >= 30)
                     {
-                        
+
                         Units.PlayerUnit newunit = new Units.PlayerUnit(new Vector2(GetCoordinateFromLocation(mapbuilder.bo), GetCoordinateFromLocation(mapbuilder.bs)));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(mapbuilder.bo), GetCoordinateFromLocation(mapbuilder.bs));
                         clusterA.Add(newunit);
-                        clusterAsize++;
-                        clusterAtick = 0;
+                        clusterA.Size++;
+                        clusterA.Tick = 0;
                     }
 
                 }
                 else
                 {
-                    spawnclusterA = false;
+                    clusterA.Summon = false;
                 }
             }
             if (Vars.mymousemanager.GetState().LeftButton.Pressed)
             {
                 if (selectedCluster == 1)
                 {
-                    ClusterAX = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
-                    ClusterAY = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
-                    ClusterAhastarget = true;
-                    ClusterAtargetIndex = 0;
+                    clusterA.X = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
+                    clusterA.Y = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
+                    clusterA.HasTarget = true;
+                    clusterA.TargetIndex = 0;
 
                 }
 
@@ -172,30 +143,30 @@ namespace TotL.Scenes
 
 
             }
-            if (ClusterAhastarget)
+            if (clusterA.HasTarget)
             {
-                ClusterAtargettick++;
-                if (ClusterAtargettick >= 30)
+                clusterA.TargetTick++;
+                if (clusterA.TargetTick >= 30)
                 {
-                    if (ClusterAtargetIndex < clusterA.Count)
+                    if (clusterA.TargetIndex < clusterA.Count)
                     {
 
 
-                        clusterA[ClusterAtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterAX), GetLocationFromCoordinate((int)ClusterAY));
-                        if (ClusterAtargetIndex < clusterA.Count)
+                        clusterA[clusterA.TargetIndex].target = new Vector2(GetLocationFromCoordinate((int)clusterA.X), GetLocationFromCoordinate((int)clusterA.Y));
+                        if (clusterA.TargetIndex < clusterA.Count)
                         {
-                            ClusterAtargetIndex++;
+                            clusterA.TargetIndex++;
                         }
                         else if (clusterA.Count == 30)
                         {
-                            ClusterAhastarget = false;
-                            ClusterAtargetIndex = 0;
+                            clusterA.HasTarget = false;
+                            clusterA.TargetIndex = 0;
                         }
-                        ClusterAtargettick = 0;
+                        clusterA.TargetTick = 0;
                     }
                     else
                     {
-                        ClusterAtargetIndex = 0;
+                        clusterA.TargetIndex = 0;
                     }
                 }
 
@@ -204,20 +175,20 @@ namespace TotL.Scenes
             foreach (var item in clusterA)
             {
 
-                item.Update(mapbuilder.map,clusterA);
+                item.Update(mapbuilder.map, clusterA);
             }
             #endregion
 
             #region ClusterB
-            clusterBtick++;
+             clusterB.Tick++;
             if (Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.C))
             {
-                if (spawnclusterB == false)
+                if (clusterB.Summon == false)
                 {
-                    spawnclusterB = true;
+                    clusterB.Summon = true;
                     selectedCluster = 2;
-                    BClusterStatus.Select();
-                    AClusterStatus.DeSelect();
+                    clusterB.Status.Select();
+                    clusterA.Status.DeSelect();
                 }
                 else
                 {
@@ -226,36 +197,36 @@ namespace TotL.Scenes
 
             }
 
-            if (spawnclusterB)
+            if (clusterB.Summon)
             {
-                if (clusterBsize != 10)
+                if (clusterB.Size != 10)
                 {
-                    if (clusterBtick >= 30)
+                    if (clusterB.Tick >= 30)
                     {
-                        
+
                         Units.PlayerUnit newunit = new Units.PlayerUnit(new Vector2(GetCoordinateFromLocation(mapbuilder.bo), GetCoordinateFromLocation(mapbuilder.bs)));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(mapbuilder.bo), GetCoordinateFromLocation(mapbuilder.bs));
                         clusterB.Add(newunit);
-                        clusterBsize++;
-                        clusterBtick = 0;
+                        clusterB.Size++;
+                        clusterB.Tick = 0;
                     }
 
                 }
                 else
                 {
-                    spawnclusterB = false;
+                    clusterB.Summon = false;
                 }
             }
             if (Vars.mymousemanager.GetState().LeftButton.Pressed)
             {
                 if (selectedCluster == 2)
                 {
-                    ClusterBX = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
-                    ClusterBY = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
-                    clusterBhastarget = true;
-                    clusterBtargetIndex = 0;
-                    BClusterStatus.Select();
-                    AClusterStatus.DeSelect();
+                    clusterB.X = Vars.mymousemanager.GetState().X * Vars.ScreenWidth;
+                    clusterB.Y = Vars.mymousemanager.GetState().Y * Vars.ScreenHeight;
+                    clusterB.HasTarget = true;
+                    clusterB.TargetIndex = 0;
+                    clusterB.Status.Select();
+                    clusterA.Status.DeSelect();
                 }
 
 
@@ -263,98 +234,98 @@ namespace TotL.Scenes
 
 
             }
-            if (clusterBhastarget)
+            if (clusterB.HasTarget)
             {
-                if (clusterBtargetIndex < clusterB.Count)
+                if (clusterB.TargetIndex < clusterB.Count)
                 {
 
 
-                    clusterBtargettick++;
-                    if (clusterBtargettick >= 30)
+                    clusterB.TargetTick++;
+                    if (clusterB.TargetTick >= 30)
                     {
-                        clusterB[clusterBtargetIndex].target = new Vector2(GetLocationFromCoordinate((int)ClusterBX), GetLocationFromCoordinate((int)ClusterBY));
-                        if (clusterBtargetIndex < clusterB.Count)
+                        clusterB[clusterB.TargetIndex].target = new Vector2(GetLocationFromCoordinate((int)clusterB.X), GetLocationFromCoordinate((int)clusterB.Y));
+                        if (clusterB.TargetIndex < clusterB.Count)
                         {
-                            clusterBtargetIndex++;
+                            clusterB.TargetIndex++;
                         }
                         else if (clusterB.Count == 30)
                         {
-                            clusterBhastarget = false;
-                            clusterBtargetIndex = 0;
+                            clusterB.HasTarget = false;
+                            clusterB.TargetIndex = 0;
                         }
-                        clusterBtargettick = 0;
+                        clusterB.TargetTick = 0;
                     }
                 }
                 else
                 {
-                    clusterBtargetIndex = 0;
+                    clusterB.TargetIndex = 0;
                 }
 
             }
             foreach (var item in clusterB)
             {
 
-                item.Update(mapbuilder.map,clusterB);
+                item.Update(mapbuilder.map, clusterB);
             }
             #endregion
 
             #region enemyCluster
 
-            EnemyClustertick++;
+            EnemyCluster.Tick++;
             if (gameTime.TotalGameTime.Seconds > 15 || Vars.mykeyboardmanager.GetState().IsKeyPressed(Keys.T))
             {
 
-                spawnEnemy = true;
+                EnemyCluster.Summon = true;
 
 
 
 
             }
-            if (spawnEnemy)
+            if (EnemyCluster.Summon)
             {
-                if (EnemySize != 20)
+                if (EnemyCluster.Size != 20)
                 {
-                    if (EnemyClustertick >= 20)
+                    if (EnemyCluster.Tick >= 20)
                     {
                         Units.EnemyUnit newunit = new Units.EnemyUnit(new Vector2(GetCoordinateFromLocation(mapbuilder.eo), GetCoordinateFromLocation(mapbuilder.es)));
                         newunit.navcoordinate = new Vector2(GetCoordinateFromLocation(mapbuilder.eo), GetCoordinateFromLocation(mapbuilder.es));
                         EnemyCluster.Add(newunit);
-                        EnemySize++;
-                        EnemyClustertick = 0;
+                        EnemyCluster.Size++;
+                        EnemyCluster.Tick = 0;
                     }
 
                 }
                 else
                 {
-                    spawnEnemy = false;
+                    EnemyCluster.Summon = false;
                 }
             }
 
             if (EnemyCluster.Count == 20)
             {
-                EnemyClusterX = GetCoordinateFromLocation(mapbuilder.bo);
-                EnemyClusterY = GetCoordinateFromLocation(mapbuilder.bs);
-                EnemyClusterhastarget = true;
+                EnemyCluster.X = GetCoordinateFromLocation(mapbuilder.bo);
+                EnemyCluster.Y = GetCoordinateFromLocation(mapbuilder.bs);
+                EnemyCluster.HasTarget = true;
 
             }
 
 
-            if (EnemyClusterhastarget && EnemyCluster.Count == 20)
+            if (EnemyCluster.HasTarget && EnemyCluster.Count == 20)
             {
-                EnemyClustertargettick++;
-                if (EnemyClustertargettick >= 30)
+                EnemyCluster.TargetTick++;
+                if (EnemyCluster.TargetTick >= 30)
                 {
-                    EnemyCluster[EnemyClustertargetIndex].target = new Vector2(GetLocationFromCoordinate((int)EnemyClusterX), GetLocationFromCoordinate((int)EnemyClusterY));
-                    if (EnemyClustertargetIndex < EnemyCluster.Count - 1)
+                    EnemyCluster[EnemyCluster.TargetIndex].target = new Vector2(GetLocationFromCoordinate((int)EnemyCluster.X), GetLocationFromCoordinate((int)EnemyCluster.Y));
+                    if (EnemyCluster.TargetIndex < EnemyCluster.Count - 1)
                     {
-                        EnemyClustertargetIndex++;
+                        EnemyCluster.TargetIndex++;
                     }
                     else if (EnemyCluster.Count == 30)
                     {
-                        EnemyClusterhastarget = false;
-                        EnemyClustertargetIndex = 0;
+                        EnemyCluster.HasTarget = false;
+                        EnemyCluster.TargetIndex = 0;
                     }
-                    EnemyClustertargettick = 0;
+                    EnemyCluster.TargetTick = 0;
                 }
 
 
@@ -362,12 +333,12 @@ namespace TotL.Scenes
 
             for (int i = 0; i < EnemyCluster.Count; i++)
             {
-                EnemyCluster[i].Update(mapbuilder.map,EnemyCluster);
+                EnemyCluster[i].Update(mapbuilder.map, EnemyCluster);
             }
 
             #endregion
 
-            if ((clusterA.Count>0||clusterB.Count>0)&&EnemyCluster.Count>0&&!wasmovement)
+            if ((clusterA.Count > 0 || clusterB.Count > 0) && EnemyCluster.Count > 0 && !wasmovement)
             {
                 wasmovement = true;
             }
@@ -376,7 +347,7 @@ namespace TotL.Scenes
             {
                 int eLocationX;
                 int eLocationY;
-                if (EnemyCluster.Count>0)
+                if (EnemyCluster.Count > 0)
                 {
                     eLocationX = GetLocationFromCoordinate((int)EnemyCluster[ec].Coordinate.X);
                     eLocationY = GetLocationFromCoordinate((int)EnemyCluster[ec].Coordinate.Y);
@@ -385,15 +356,15 @@ namespace TotL.Scenes
                 {
                     break;
                 }
-                
+
 
                 for (int ca = 0; ca < clusterA.Count; ca++)
                 {
-                    if (clusterA.Count > 0&&EnemyCluster.Count>0)
+                    if (clusterA.Count > 0 && EnemyCluster.Count > 0)
                     {
                         int fLocationX;
                         int fLocationY;
-                        if (clusterA.Count > 0&&EnemyCluster.Count>0)
+                        if (clusterA.Count > 0 && EnemyCluster.Count > 0)
                         {
 
 
@@ -430,7 +401,7 @@ namespace TotL.Scenes
                 {
                     int fLocationX = -1;
                     int fLocationY = -1;
-                    if (clusterB.Count > 0&&EnemyCluster.Count>0)
+                    if (clusterB.Count > 0 && EnemyCluster.Count > 0)
                     {
                         fLocationX = GetLocationFromCoordinate((int)clusterB[cb].Coordinate.X);
                         fLocationY = GetLocationFromCoordinate((int)clusterB[cb].Coordinate.Y);
@@ -443,7 +414,7 @@ namespace TotL.Scenes
 
                     if (eLocationX == fLocationX && eLocationY == fLocationY)
                     {
-                        if (clusterB.Count > 0&&EnemyCluster.Count>0)
+                        if (clusterB.Count > 0 && EnemyCluster.Count > 0)
                         {
 
                             if (ec < EnemyCluster.Count)
@@ -485,14 +456,14 @@ namespace TotL.Scenes
 
                 }
             }
-            else if ((mapbuilder.map[mapbuilder.eo, mapbuilder.es] as UnitBase).isdestroyed||EnemyCluster.Count==0&&wasmovement)
+            else if ((mapbuilder.map[mapbuilder.eo, mapbuilder.es] as UnitBase).isdestroyed || EnemyCluster.Count == 0 && wasmovement)
             {
                 if (!Vars.noTextMode)
                 {
                     Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
                 }
             }
-            else if ((mapbuilder.map[mapbuilder.bo, mapbuilder.bs] as UnitBase).isdestroyed|| clusterA.Count == 0 && clusterB.Count == 0&&wasmovement)
+            else if ((mapbuilder.map[mapbuilder.bo, mapbuilder.bs] as UnitBase).isdestroyed || clusterA.Count == 0 && clusterB.Count == 0 && wasmovement)
             {
                 if (!Vars.noTextMode)
                 {
@@ -528,13 +499,13 @@ namespace TotL.Scenes
                 {
                     item.Draw(gameTime);
                 }
-                if (AClusterStatus != null)
+                if (clusterA.Status != null)
                 {
-                    AClusterStatus.Draw(gameTime);
+                    clusterA.Status.Draw(gameTime);
                 }
-                if (BClusterStatus != null)
+                if (clusterB.Status != null)
                 {
-                    BClusterStatus.Draw(gameTime);
+                    clusterB.Status.Draw(gameTime);
                 }
 
             }
@@ -542,7 +513,7 @@ namespace TotL.Scenes
 
         public override void UnloadContent()
         {
-            
+
         }
     }
 }

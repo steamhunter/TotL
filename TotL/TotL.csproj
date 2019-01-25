@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cluster.cs" />
     <Compile Include="Scenes\LabyrinthScene.cs" />
     <Compile Include="Scenes\RTSScene.cs" />
     <Compile Include="Program.cs" />
