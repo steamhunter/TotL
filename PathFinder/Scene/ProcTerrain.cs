@@ -11,10 +11,10 @@ namespace PathFinder.Scene
     {
         public ProcTerrain(TerrainTile[,] terrain,Connection[,] connection)
         {
-            map = terrain;
-            connect = connection;
+            Map = terrain;
+            Connect = connection;
         }
 
-        public Connection[,] connect;
+        public Connection[,] Connect { get; set; }
     }
 }

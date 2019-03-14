@@ -9,21 +9,23 @@ namespace PathFinder.Scene
 {
     public abstract class Scene:IGameObject
     {
-        public Terrain terrain;
-        private Game igame;
+        private Game game;
         protected bool ready = false;
-        public Game game
+        public Game Game
         {
             get
             {
-                return igame;
+                return game;
             }
             set
             {
-                igame = value;
+                game = value;
                 ready = true;
             }
         }
+
+        public Terrain Terrain { get; set; }
+
         public abstract  void Initialize();
 
         public abstract void LoadContent();

@@ -24,7 +24,7 @@ namespace TotL.Labyrinth.Scene
 
         public override void Initialize()
         {
-           mapBuilder = new LabyrinthBuilder(connect, map);
+           mapBuilder = new LabyrinthBuilder(Connect, Map);
 
             mapBuilder.Build();
         }

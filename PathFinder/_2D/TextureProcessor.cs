@@ -13,25 +13,25 @@ namespace PathFinder._2D
     {
         private struct Stexture
         {
-            public string texturename;
+            public string textureName;
             public Tex2D texture;
         }
         static List<Stexture> textures = new List<Stexture>();
-        public static Tex2D getTexture(string texturename)
+        public static Tex2D GetTexture(string textureName)
         {
             
             foreach (var item in textures)
             {
-                if (item.texturename == texturename)
+                if (item.textureName == textureName)
                 {
                     return item.texture;
                 }
             }
 
-            Tex2D res = Vars.game.Content.Load<Tex2D>(texturename); 
+            Tex2D res = Vars.game.Content.Load<Tex2D>(textureName); 
             Stexture tmp = new Stexture();
             tmp.texture = res;
-            tmp.texturename = texturename;
+            tmp.textureName = textureName;
             textures.Add(tmp);
             return res;
         }

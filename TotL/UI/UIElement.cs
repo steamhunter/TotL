@@ -20,7 +20,7 @@ namespace TotL.UI
         public UIElement(int x,int y,int width,int height,string textureName)
         {
             transform = GetComponent<Transform>();
-            AddComponent(new Drawer(parent));
+            AddComponent(new Drawer(Parent));
             transform.X = x;
             transform.Y = y;
             Width = width;

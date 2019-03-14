@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PathFinder
 {
-    interface IProcGeneralable
+    interface IProcedualyGenerateable
     {
         bool IsPopulated
         {

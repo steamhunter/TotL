@@ -16,7 +16,7 @@ namespace TotL.Scenes
         List<UIElement> UI = new List<UIElement>();
         public override void Draw(GameTime gameTime)
         {
-            foreach (var item in terrain.map)
+            foreach (var item in Terrain.Map)
             {
                 item.Draw(gameTime);
             }
@@ -38,7 +38,7 @@ namespace TotL.Scenes
 
         public override void LoadContent()
         {
-            foreach (var item in terrain.map)
+            foreach (var item in Terrain.Map)
             {
                 item.LoadContent();
             }
@@ -51,7 +51,7 @@ namespace TotL.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            foreach (var item in terrain.map)
+            foreach (var item in Terrain.Map)
             {
                 item.Update(gameTime);
             }

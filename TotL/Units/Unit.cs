@@ -68,13 +68,13 @@ namespace TotL.Units
         public Unit(Vector2 coordinate)
         {
             Coordinate = coordinate;
-            AddComponent(new Drawer(parent));
+            AddComponent(new Drawer(Parent));
         }
 
         public Unit(Vector2 coordinate, Vector2 targetcoordinate)
         {
             Coordinate = coordinate;
-            AddComponent(new Drawer(parent));
+            AddComponent(new Drawer(Parent));
         }
 
         public virtual void DamageUnit(short dmg)

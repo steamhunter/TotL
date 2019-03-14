@@ -11,30 +11,30 @@ namespace PathFinder
     {
         
        
-        int closedsides
+        int ClosedSides
         {
             get;
             set;
         }
-        bool up
-        {
-            get;
-            set;
-
-        }
-        bool down
+        bool Up
         {
             get;
             set;
 
         }
-        bool left
+        bool Down
+        {
+            get;
+            set;
+
+        }
+        bool Left
         {
             get;
             set;
         }
 
-        bool right
+        bool Right
         {
             get;
             set;

@@ -18,16 +18,16 @@ namespace TotL
 #if DEBUG
             if(!Directory.Exists("logs"))
              Directory.CreateDirectory("logs");
-            cons.onDebug = true;
-            cons.debugMessage("debug enabled", "info");
+            cons.OnDebug = true;
+            cons.DebugMessage("debug enabled", "info");
 #endif
             foreach (string ar in args)
             {
 
                 if (ar == "-console")
                 {
-                    cons.onDebug = true;
-                    cons.debugMessage("debug enabled","info");
+                    cons.OnDebug = true;
+                    cons.DebugMessage("debug enabled","info");
 
                 }
                 if (ar=="-path-debug-draw")
@@ -44,9 +44,9 @@ namespace TotL
                 game.Run();
             }
 
-            if (cons.onDebug)
+            if (cons.OnDebug)
             {
-                cons.Endlog();
+                cons.EndLog();
             }
 
 

@@ -17,20 +17,20 @@ namespace TotL.Labyrinth
     {
         public FullCell(int x,int y):base(x,y)
         {
-           GetComponent<Drawer>().Texture = TextureLoader.getTexture("FullCell");
+           GetComponent<Drawer>().Texture = TextureLoader.GetTexture("FullCell");
             
             SetRotation(0f);
-            closedsides = 4;
+            ClosedSides = 4;
         }
 
         public override void SetRotation(float rotation)
         {
             base.Rotation = 0;
            
-                up = false;
-                left = false;
-                down = false;
-                right = false;
+                Up = false;
+                Left = false;
+                Down = false;
+                Right = false;
            
 
         }
@@ -48,21 +48,21 @@ namespace TotL.Labyrinth
         }
         public override void SetBlockingVolumes()
         {
-            _blockedvolumes.Add(GetComponent<Drawer>().Rectangle);
+            _blockedVolumes.Add(GetComponent<Drawer>().Rectangle);
             //base.SetBlockingVolumes();
         }
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
-            if (closedsides >= Connection.getClosedSides(connect[co, cs-1], connect[co+1, cs], connect[co, cs+1], connect[co-1, cs]))
+            if (ClosedSides >= Connection.GetClosedSides(connect[co, cs-1], connect[co+1, cs], connect[co, cs+1], connect[co-1, cs]))
             {
-                if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
+                if (Connection.IsFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                 {
                     LocationX = 20 + ((o) * unitSize);
                     LocationY = 20 + ((s) * unitSize);
-                    connect[co,cs].up = up;
-                    connect[co,cs].down = down;
-                    connect[co,cs].left = left;
-                    connect[co,cs].right = right;
+                    connect[co,cs].Up = Up;
+                    connect[co,cs].Down = Down;
+                    connect[co,cs].Left = Left;
+                    connect[co,cs].Right = Right;
                     return true;
 
                 }

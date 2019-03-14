@@ -10,14 +10,13 @@ namespace PathFinder.Scene
 {
     public abstract class MapBuilder
     {
-       
-        public Connection[,] connect;
-        public TerrainTile[,] map;
+        public Connection[,] Connect { get; set; }
+        public TerrainTile[,] Map { get; set; }
 
         public MapBuilder(Connection[,] connect, TerrainTile[,] map)
         {
-            this.connect = connect;
-            this.map = map;
+            this.Connect = connect;
+            this.Map = map;
         }
 
         public abstract void Build();
@@ -31,22 +30,26 @@ namespace PathFinder.Scene
                 {
                     if (s == 0 || o == 0 || o == 26 || s == 16)
                     {
-                        connect[o, s] = new Connection(o, s);
-                        connect[o, s].up = false;
-                        connect[o, s].down = false;
-                        connect[o, s].left = false;
-                        connect[o, s].right = false;
-                        connect[o, s].closedsides = 4;
+                        connect[o, s] = new Connection(o, s)
+                        {
+                            Up = false,
+                            Down = false,
+                            Left = false,
+                            Right = false,
+                            ClosedSides = 4
+                        };
                     }
                     else
                     {
-                        connect[o, s] = new Connection(o, s);
-                        connect[o, s].closedsides = 0;
-                        connect[o, s].up = true; //map[i - 1, j - 1].up;
-                        connect[o, s].down = true; //map[i - 1, j - 1].down;
-                        connect[o, s].left = true;// map[i - 1, j - 1].left;
-                        connect[o, s].right = true;//map[i - 1, j - 1].right;
-                        connect[o, s].IsPopulated = false;
+                        connect[o, s] = new Connection(o, s)
+                        {
+                            ClosedSides = 0,
+                            Up = true, //map[i - 1, j - 1].up;
+                            Down = true, //map[i - 1, j - 1].down;
+                            Left = true,// map[i - 1, j - 1].left;
+                            Right = true,//map[i - 1, j - 1].right;
+                            IsPopulated = false
+                        };
                     }
                 }
             }

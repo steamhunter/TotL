@@ -9,7 +9,8 @@ namespace PathFinder.Scene
 {
     public abstract class Terrain : IGameObject
     {
-        public TerrainTile[,] map;
+        public TerrainTile[,] Map { get; set; }
+
         public abstract void Draw(GameTime gameTime);
         public abstract void Initialize();
         public abstract void LoadContent();

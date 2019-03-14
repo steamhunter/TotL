@@ -87,7 +87,7 @@
     <Compile Include="ICoordinate.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IGameObject.cs" />
-    <Compile Include="IProcGeneralable.cs" />
+    <Compile Include="IProcedualyGenerateable.cs" />
     <Compile Include="IRotatable.cs" />
     <Compile Include="IPathNode.cs" />
     <Compile Include="Scene\MapBuilder.cs" />

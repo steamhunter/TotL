@@ -11,7 +11,7 @@ namespace PathFinder
     {
       
         Boolean IsWalkable(TUserContext inContext);
-        Boolean IsWalkable(TUserContext inContext, IPathNode<TUserContext> centernode);
+        Boolean IsWalkable(TUserContext inContext, IPathNode<TUserContext> centerNode);
         object UserContext();
     }
 }

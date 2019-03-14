@@ -14,41 +14,38 @@ namespace PathFinder
 {
     
 
-   public abstract class TerrainTile :GameObject, IConnections,IProcGeneralable
+   public abstract class TerrainTile :GameObject, IConnections,IProcedualyGenerateable
     {
         #region Globals
         protected static float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
-        protected List<RectangleF> _blockedvolumes = new List<RectangleF>();
-        public float LocationXoffset;
-        public float LocationYoffset;
-        public Transform transform;
+        protected List<RectangleF> _blockedVolumes = new List<RectangleF>();
         #endregion
 
         public TerrainTile(int x,int y)
         {
-            transform = GetComponent<Transform>();
-            AddComponent(new Drawer(parent));
-            transform.setRotation = SetRotation;
-            transform.X = x;
-            transform.Y = y;
+            Transform = GetComponent<Transform>();
+            AddComponent(new Drawer(Parent));
+            Transform.setRotation = SetRotation;
+            Transform.X = x;
+            Transform.Y = y;
         }
         #region Propertys
-        public bool down
+        public bool Down
         {
             get;
             set;
         }
-        public bool left
+        public bool Left
         {
             get;
             set;
         }
-        public bool right
+        public bool Right
         {
             get;
             set;
         }
-        public bool up
+        public bool Up
         {
             get;
             set;
@@ -70,7 +67,7 @@ namespace PathFinder
             get;
             set;
         }
-        public int closedsides
+        public int ClosedSides
         {
             get;
 
@@ -83,11 +80,14 @@ namespace PathFinder
 
             set;
         }
+        public float LocationXoffset { get; set; }
+        public float LocationYoffset { get; set; }
+        public Transform Transform { get; set; }
 
-       
+
         #endregion
 
-        
+
 
         /// <summary>
         /// létrehozza a falat jelentö akadályt
@@ -109,9 +109,9 @@ namespace PathFinder
         {
             
             bool colision = false;
-            for (int i = 0; i < _blockedvolumes.Count && !colision; i++)
+            for (int i = 0; i < _blockedVolumes.Count && !colision; i++)
             {
-                colision = _blockedvolumes[i].Intersects(location);
+                colision = _blockedVolumes[i].Intersects(location);
             }
             return colision;
         }

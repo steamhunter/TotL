@@ -16,18 +16,18 @@ namespace TotL.Labyrinth
     {
         public CrossCell(int x,int y):base(x,y)
         {
-            GetComponent<PathFinder.Components.Drawer>().Texture = TextureLoader.getTexture("CrossCell");
-            closedsides = 0;
+            GetComponent<PathFinder.Components.Drawer>().Texture = TextureLoader.GetTexture("CrossCell");
+            ClosedSides = 0;
         }
 
         public override void SetRotation(float rotation)
         {
             base.Rotation = 0;
            
-            up = true;
-            left = true;
-            down = true;
-            right = true;
+            Up = true;
+            Left = true;
+            Down = true;
+            Right = true;
             
         }
 
@@ -45,64 +45,64 @@ namespace TotL.Labyrinth
         {
             float locationx = LocationX + LocationXoffset;
             float locationy = LocationY + LocationYoffset;
-            _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, locationy, unitSize / 4, unitSize / 4));
-            _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
-            _blockedvolumes.Add(new RectangleF(locationx, locationy, unitSize / 4, unitSize / 4));
-            _blockedvolumes.Add(new RectangleF(locationx , (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+            _blockedVolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, locationy, unitSize / 4, unitSize / 4));
+            _blockedVolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+            _blockedVolumes.Add(new RectangleF(locationx, locationy, unitSize / 4, unitSize / 4));
+            _blockedVolumes.Add(new RectangleF(locationx , (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
         }
 
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
-            if (closedsides >= Connection.getClosedSides(connect[co, cs-1], connect[co+1, cs], connect[co, cs+1], connect[co-1, cs]))
+            if (ClosedSides >= Connection.GetClosedSides(connect[co, cs-1], connect[co+1, cs], connect[co, cs+1], connect[co-1, cs]))
             {
-                if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
+                if (Connection.IsFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                 {
                     LocationX = 20 + ((o) * unitSize);
                     LocationY = 20 + ((s) * unitSize);
-                    connect[co, cs].up = up;
-                    connect[co, cs].down = down;
-                    connect[co, cs].left = left;
-                    connect[co, cs].right = right;
+                    connect[co, cs].Up = Up;
+                    connect[co, cs].Down = Down;
+                    connect[co, cs].Left = Left;
+                    connect[co, cs].Right = Right;
                     return true;
 
                 }
                 else
                 {
                     SetRotation(Rotaitions.plus90);
-                    if (Connection.isFiting(this,connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
+                    if (Connection.IsFiting(this,connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                     {
                         LocationX = 20 + ((o) * unitSize);
                         LocationY = 20 + ((s) * unitSize);
-                        connect[co, cs].up = up;
-                        connect[co, cs].down = down;
-                        connect[co, cs].left = left;
-                        connect[co, cs].right = right;
+                        connect[co, cs].Up = Up;
+                        connect[co, cs].Down = Down;
+                        connect[co, cs].Left = Left;
+                        connect[co, cs].Right = Right;
                         return true;
                     }
                     else
                     {
                         SetRotation(Rotaitions.half);
-                        if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
+                        if (Connection.IsFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                         {
                             LocationX = 20 + ((o) * unitSize);
                             LocationY = 20 + ((s) * unitSize);
-                            connect[co, cs].up = up;
-                            connect[co, cs].down = down;
-                            connect[co, cs].left = left;
-                            connect[co, cs].right = right;
+                            connect[co, cs].Up = Up;
+                            connect[co, cs].Down = Down;
+                            connect[co, cs].Left = Left;
+                            connect[co, cs].Right = Right;
                             return true;
                         }
                         else
                         {
                             SetRotation(Rotaitions.minus90);
-                            if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
+                            if (Connection.IsFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                             {
                                 LocationX = 20 + ((o) * unitSize);
                                 LocationY = 20 + ((s) * unitSize);
-                                connect[co, cs].up = up;
-                                connect[co, cs].down = down;
-                                connect[co, cs].left = left;
-                                connect[co, cs].right = right;
+                                connect[co, cs].Up = Up;
+                                connect[co, cs].Down = Down;
+                                connect[co, cs].Left = Left;
+                                connect[co, cs].Right = Right;
                                 return true;
                             }
                             else

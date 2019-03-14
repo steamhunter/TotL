@@ -47,9 +47,9 @@ namespace TotL.UI
 
         public override void LoadContent()
         {
-            GetComponent<Drawer>().Texture = TextureLoader.getTexture(TextureName + "_status");
+            GetComponent<Drawer>().Texture = TextureLoader.GetTexture(TextureName + "_status");
             notActive = GetComponent<Drawer>().Texture;
-            active = TextureLoader.getTexture(TextureName + "_status_selected");
+            active = TextureLoader.GetTexture(TextureName + "_status_selected");
         }
 
         public override void Initialize()

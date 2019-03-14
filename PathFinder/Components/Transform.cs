@@ -9,9 +9,7 @@ namespace PathFinder.Components
 {
     public class Transform : Component, IRotatable
     {
-        public Transform(GameObject parent) : base(parent)
-        {
-        }
+        public Transform(GameObject parent) : base(parent) {}
 
         public float Rotation { get; set; }
         public int X { get; set; }

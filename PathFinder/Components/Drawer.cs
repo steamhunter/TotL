@@ -19,7 +19,7 @@ namespace PathFinder.Components
 
 
 
-        public static Tex2D getTexture(string entity, Game game)
+        public static Tex2D GetTexture(string entity, Game game)
         {
 
             /*
@@ -39,12 +39,7 @@ namespace PathFinder.Components
 
         }
 
-        public Drawer(GameObject parent):base(parent)
-        {
-
-
-
-        }
+        public Drawer(GameObject parent):base(parent) {}
 
 
 

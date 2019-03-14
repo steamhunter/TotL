@@ -20,7 +20,7 @@ namespace TotL.Labyrinth.Scene
                 if (cell.CheckFitting(connect, co, cs, o, s))
                 {
 
-                    cons.groupedMessage(cell.ToString(), "generator","terrain");
+                    cons.GroupedMessage(cell.ToString(), "generator","terrain");
                     map[o, s] = cell;
                     return true;
                 }
@@ -34,13 +34,13 @@ namespace TotL.Labyrinth.Scene
 
         public LabyrinthBuilder(Connection[,] connect, TerrainTile[,] map):base(connect,map)
         {
-            this.connect = connect;
-            this.map = map;
+            this.Connect = connect;
+            this.Map = map;
         }
 
         public override void Build()
         {
-            GenerateBorder(connect);
+            GenerateBorder(Connect);
 
             bs = Vars.random.Next(1, 13);
             bo = Vars.random.Next(1, 13);
@@ -60,7 +60,7 @@ namespace TotL.Labyrinth.Scene
 
 
                     co++;
-                    cons.groupedMessage(o + " " + s, "generator","terrain");
+                    cons.GroupedMessage(o + " " + s, "generator","terrain");
                     #region valid cell gen
                     bool valid = false;
                     while (!valid)
@@ -80,37 +80,37 @@ namespace TotL.Labyrinth.Scene
                         int randomcellweight = Vars.random.Next(0, 101);
                         if (randomcellweight < fcw)
                         {
-                            valid = CellSelector.CheckCell(new FullCell(o, s), connect, map, co, cs, o, s);
+                            valid = CellSelector.CheckCell(new FullCell(o, s), Connect, Map, co, cs, o, s);
                         }
                         else if (randomcellweight < ccw)
                         {
-                            valid = CellSelector.CheckCell(new CrossCell(o, s), connect, map, co, cs, o, s);
+                            valid = CellSelector.CheckCell(new CrossCell(o, s), Connect, Map, co, cs, o, s);
 
                         }
                         else if (randomcellweight < dec)
                         {
 
-                            valid = CellSelector.CheckCell(new DeadEndCell(o, s), connect, map, co, cs, o, s);
+                            valid = CellSelector.CheckCell(new DeadEndCell(o, s), Connect, Map, co, cs, o, s);
                         }
                         else if (randomcellweight < tsb)
                         {
 
-                            valid = CellSelector.CheckCell(new TwoSideBlocked(o, s), connect, map, co, cs, o, s);
+                            valid = CellSelector.CheckCell(new TwoSideBlocked(o, s), Connect, Map, co, cs, o, s);
                         }
                         else if (randomcellweight < tcw)
                         {
 
-                            valid = CellSelector.CheckCell(new TunnelCell(o, s), connect, map, co, cs, o, s);
+                            valid = CellSelector.CheckCell(new TunnelCell(o, s), Connect, Map, co, cs, o, s);
                         }
                         else if (randomcellweight < osb)
                         {
 
-                            valid = CellSelector.CheckCell(new OneSideBlocked(o, s), connect, map, co, cs, o, s);
+                            valid = CellSelector.CheckCell(new OneSideBlocked(o, s), Connect, Map, co, cs, o, s);
                         }
                         #endregion
 
                     }
-                    map[o, s].SetBlockingVolumes();
+                    Map[o, s].SetBlockingVolumes();
 
                     #endregion
                 }
@@ -119,8 +119,8 @@ namespace TotL.Labyrinth.Scene
             cs = 0;
             co = 0;
 
-            map[bo, bs] = new UnitBase(map[bo, bs], "friendly", bo, bs);
-            map[eo, es] = new UnitBase(map[eo, es], "enemy", eo, es);
+            Map[bo, bs] = new UnitBase(Map[bo, bs], "friendly", bo, bs);
+            Map[eo, es] = new UnitBase(Map[eo, es], "enemy", eo, es);
         }
 
        

@@ -9,49 +9,51 @@ namespace PathFinder.Debug
     public class cons
     {
 
-        private static bool vanconsole = false;
-        public static bool onDebug = false;
+        private static bool hasConsole = false;
         private static StreamWriter logger = new StreamWriter("logs/debug.log");
         private static StreamWriter genlogger = new StreamWriter("logs/generator.log");
-        public static void debugMessage(string msg,string subgroup)
+
+        public static bool OnDebug { get; set; } = false;
+
+        public static void DebugMessage(string message,string subGroup)
         {
-            cons.groupedMessage(msg,"DEBUG",subgroup);
+            cons.GroupedMessage(message,"DEBUG",subGroup);
             
 
         }
 
-        public static void Endlog()
+        public static void EndLog()
         {
-            groupedMessage("stoping logger", "log", "exit_event");
+            GroupedMessage("stoping logger", "log", "exit_event");
             logger.Close();
             genlogger.Close();
         }
-        public static void groupedMessage(string msg,string group,string subgroup)
+        public static void GroupedMessage(string message,string group,string subGroup)
         {
-            if (onDebug)
+            if (OnDebug)
             {
               
-                if (vanconsole == false)
+                if (hasConsole == false)
                 {
                     if (NativeMethods.AllocConsole())
                     {
-                        string compmsg = $"[{group.ToUpper()}] [{subgroup.ToUpper()}] " + msg;
+                        string combinedMessage = $"[{group.ToUpper()}] [{subGroup.ToUpper()}] " + message;
                         if (group.ToUpper() == "GENERATOR")
-                            genlogger.WriteLine(compmsg);
+                            genlogger.WriteLine(combinedMessage);
                         else
-                            logger.WriteLine(compmsg);
-                        Console.WriteLine(compmsg);
-                        vanconsole = true;
+                            logger.WriteLine(combinedMessage);
+                        Console.WriteLine(combinedMessage);
+                        hasConsole = true;
                     }
                 }
                 else
                 {
-                    string compmsg = $"[{group.ToUpper()}] [{subgroup.ToUpper()}] " + msg;
+                    string combinedMessage = $"[{group.ToUpper()}] [{subGroup.ToUpper()}] " + message;
                     if (group.ToUpper() == "GENERATOR")
-                        genlogger.WriteLine(compmsg);
+                        genlogger.WriteLine(combinedMessage);
                     else
-                        logger.WriteLine(compmsg);
-                    Console.WriteLine($"[{group.ToUpper()}] [{subgroup.ToUpper()}] " + msg);
+                        logger.WriteLine(combinedMessage);
+                    Console.WriteLine($"[{group.ToUpper()}] [{subGroup.ToUpper()}] " + message);
                 }
             }
             
@@ -60,9 +62,9 @@ namespace PathFinder.Debug
 
 
 
-        public static void infoMessage(string msg,string subgroup)
+        public static void InfoMessage(string message,string subGroup)
         {
-            cons.groupedMessage(msg,"INFO",subgroup);
+            cons.GroupedMessage(message,"INFO",subGroup);
             
 
         }

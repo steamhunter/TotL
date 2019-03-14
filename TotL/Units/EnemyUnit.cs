@@ -25,7 +25,7 @@ namespace TotL.Units
         public EnemyUnit(Vector2 coordinate):base(coordinate)
         {
             Coordinate = coordinate;
-            GetComponent<Drawer>().Texture = TextureLoader.getTexture("transparent");
+            GetComponent<Drawer>().Texture = TextureLoader.GetTexture("transparent");
             HP = 100;
         }
 
@@ -34,7 +34,7 @@ namespace TotL.Units
 
             Coordinate = coordinate;
             this.navcoordinate = navcoordinate;
-            GetComponent<Drawer>().Texture = TextureLoader.getTexture("transparent");
+            GetComponent<Drawer>().Texture = TextureLoader.GetTexture("transparent");
             HP = 100;
         }
 
@@ -173,7 +173,7 @@ namespace TotL.Units
                 foreach (var item in path)
                 {
 
-                    Vars.spriteBatch.Draw(TextureLoader.getTexture("transparent"), new RectangleF((20 + ((item.X - 1) * Vars.cellSize + (Vars.cellSize / 2))) - 5, (20 + ((item.Y - 1) * Vars.cellSize + (Vars.cellSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
+                    Vars.spriteBatch.Draw(TextureLoader.GetTexture("transparent"), new RectangleF((20 + ((item.X - 1) * Vars.cellSize + (Vars.cellSize / 2))) - 5, (20 + ((item.Y - 1) * Vars.cellSize + (Vars.cellSize / 2))) - 5, 10, 10), null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
 
                 }
             }

@@ -25,8 +25,8 @@ namespace TotL.Labyrinth
 
         public UnitBase(TerrainTile realcell, string type,int x,int y):base(x,y)
         {
-            baseTexture =TextureLoader.getTexture("UnitBase");
-            closedsides = realcell.closedsides;
+            baseTexture =TextureLoader.GetTexture("UnitBase");
+            ClosedSides = realcell.ClosedSides;
             this.realcell = realcell;
             LocationX = realcell.LocationX/*+realcell.LocationXoffset*/;
             LocationY = realcell.LocationY/*+realcell.LocationYoffset*/;

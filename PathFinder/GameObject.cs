@@ -9,14 +9,14 @@ namespace PathFinder
 {
     public class GameObject:IGameObject
     {
-        public GameObject parent;
         public GameObject()
         {
-            parent = this;
+            Parent = this;
             Components.Add(new Components.Transform(this));
         }
 
         internal LinkedList<IComponent> Components { get; private set; } = new LinkedList<IComponent>();
+        public GameObject Parent { get; set; }
 
         public virtual void Draw(GameTime gameTime)
         {

@@ -15,8 +15,8 @@ namespace PathFinder.Toolkit
    public class PathFinderGame: Game
     {
         protected GraphicsDeviceManager deviceManager;
-        protected KeyboardManager Mykeyboardmanager;
-        protected MouseManager Mymousemanager;
+        protected KeyboardManager myKeyboardManager;
+        protected MouseManager myMouseManager;
         protected Graphics.SpriteBatch spriteBatch;
 
         /// <summary>

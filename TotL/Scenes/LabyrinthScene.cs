@@ -43,34 +43,34 @@ namespace TotL.Scenes
 
         public override void Initialize()
         {
-            terrain = new Labyrinth.Scene.LabyrinthTerrain(new TerrainTile[25, 15], new Connection[27, 18]);
+            Terrain = new Labyrinth.Scene.LabyrinthTerrain(new TerrainTile[25, 15], new Connection[27, 18]);
             Vars.mapstate = internalstates.map_initializing;
             #region Game system init
             float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
             int now = DateTime.Now.Millisecond * DateTime.Now.Second;
-            cons.debugMessage($"base time: {now.ToString()}", "generator");
+            cons.DebugMessage($"base time: {now.ToString()}", "generator");
             Random random = new Random(now);
             Vars.seed = random.Next(10000000, 99999999);
-            cons.debugMessage($"SEED: {Vars.seed.ToString()}", "generator");
+            cons.DebugMessage($"SEED: {Vars.seed.ToString()}", "generator");
             random = new Random(Vars.seed);
             Vars.random = random;
             clusterA.Status = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50, 128, 128, "A_cluster");
             clusterB.Status = new UI.ClusterStatus(Vars.ScreenWidth - 200, 50 + 128 + 30, 128, 128, "B_cluster");
             #endregion
 
-            mapbuilder = ((Labyrinth.Scene.LabyrinthBuilder)((Labyrinth.Scene.LabyrinthTerrain)terrain).mapBuilder);
+            mapbuilder = ((Labyrinth.Scene.LabyrinthBuilder)((Labyrinth.Scene.LabyrinthTerrain)Terrain).mapBuilder);
 
             mapbuilder.Build();
 
-            AStar.RelationalAstarSolver = new AStar.RelationalSolver<Connection, Object>(((Labyrinth.Scene.LabyrinthTerrain)terrain).connect);
+            AStar.RelationalAstarSolver = new AStar.RelationalSolver<Connection, Object>(((Labyrinth.Scene.LabyrinthTerrain)Terrain).Connect);
             LinkedList<Connection> test = AStar.RelationalAstarSolver.Search(new System.Drawing.Point(mapbuilder.bo + 1, mapbuilder.bs + 1), new System.Drawing.Point(mapbuilder.eo + 1, mapbuilder.es + 1), null);
 
             if (test == null)
             {
                 Initialize();
             }
-            cons.debugMessage($"base {mapbuilder.bo} {mapbuilder.bs}", "generator");
-            cons.debugMessage($"enemy {mapbuilder.eo} {mapbuilder.es}", "generator");
+            cons.DebugMessage($"base {mapbuilder.bo} {mapbuilder.bs}", "generator");
+            cons.DebugMessage($"enemy {mapbuilder.eo} {mapbuilder.es}", "generator");
 
             Vars.mapstate = internalstates.map_ready;
         }
@@ -175,7 +175,7 @@ namespace TotL.Scenes
             foreach (var item in clusterA)
             {
 
-                item.Update(mapbuilder.map, clusterA);
+                item.Update(mapbuilder.Map, clusterA);
             }
             #endregion
 
@@ -265,7 +265,7 @@ namespace TotL.Scenes
             foreach (var item in clusterB)
             {
 
-                item.Update(mapbuilder.map, clusterB);
+                item.Update(mapbuilder.Map, clusterB);
             }
             #endregion
 
@@ -333,7 +333,7 @@ namespace TotL.Scenes
 
             for (int i = 0; i < EnemyCluster.Count; i++)
             {
-                EnemyCluster[i].Update(mapbuilder.map, EnemyCluster);
+                EnemyCluster[i].Update(mapbuilder.Map, EnemyCluster);
             }
 
             #endregion
@@ -456,14 +456,14 @@ namespace TotL.Scenes
 
                 }
             }
-            else if ((mapbuilder.map[mapbuilder.eo, mapbuilder.es] as UnitBase).isdestroyed || EnemyCluster.Count == 0 && wasmovement)
+            else if ((mapbuilder.Map[mapbuilder.eo, mapbuilder.es] as UnitBase).isdestroyed || EnemyCluster.Count == 0 && wasmovement)
             {
                 if (!Vars.noTextMode)
                 {
                     Vars.spriteBatch.DrawString(Vars.font, "GYŐZTÉL (nyomj e-t a kilépéshez)", new Vector2(Vars.ScreenWidth / 2 - 100, Vars.ScreenHeight / 2), Color.Black);
                 }
             }
-            else if ((mapbuilder.map[mapbuilder.bo, mapbuilder.bs] as UnitBase).isdestroyed || clusterA.Count == 0 && clusterB.Count == 0 && wasmovement)
+            else if ((mapbuilder.Map[mapbuilder.bo, mapbuilder.bs] as UnitBase).isdestroyed || clusterA.Count == 0 && clusterB.Count == 0 && wasmovement)
             {
                 if (!Vars.noTextMode)
                 {
@@ -475,14 +475,14 @@ namespace TotL.Scenes
             {
                 if (!Vars.noTextMode)
                 {
-                    Vars.spriteBatch.DrawString(Vars.font, "Saját bázis élete :" + "10000/" + (mapbuilder.map[mapbuilder.bo, mapbuilder.bs] as UnitBase).hp, new Vector2(20, Vars.ScreenHeight - 50), Color.Black);
-                    Vars.spriteBatch.DrawString(Vars.font, "ellenséges bázis élete :" + "10000/" + (mapbuilder.map[mapbuilder.eo, mapbuilder.es] as UnitBase).hp, new Vector2(Vars.ScreenHeight - 50, Vars.ScreenHeight - 50), Color.Black);
+                    Vars.spriteBatch.DrawString(Vars.font, "Saját bázis élete :" + "10000/" + (mapbuilder.Map[mapbuilder.bo, mapbuilder.bs] as UnitBase).hp, new Vector2(20, Vars.ScreenHeight - 50), Color.Black);
+                    Vars.spriteBatch.DrawString(Vars.font, "ellenséges bázis élete :" + "10000/" + (mapbuilder.Map[mapbuilder.eo, mapbuilder.es] as UnitBase).hp, new Vector2(Vars.ScreenHeight - 50, Vars.ScreenHeight - 50), Color.Black);
                 }
                 for (int s = 0; s < 15; s++)
                 {
                     for (int o = 0; o < 25; o++)
                     {
-                        mapbuilder.map[o, s].Draw(gameTime);
+                        mapbuilder.Map[o, s].Draw(gameTime);
 
                     }
                 }

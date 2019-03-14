@@ -28,31 +28,31 @@ namespace TotL
         public TotL()
         {
             deviceManager = new GraphicsDeviceManager(this);
-            Mykeyboardmanager = new KeyboardManager(this);
-            Mymousemanager = new MouseManager(this);
+            myKeyboardManager = new KeyboardManager(this);
+            myMouseManager = new MouseManager(this);
             Content.RootDirectory = "Content";
-            PathFinder.Error.error.game = this;
+            PathFinder.Error.Error.Game = this;
         }
 
         protected override void Init()
         {
             Vars.config = configjson.getConfig();
-            Mykeyboardmanager.Initialize();
-            Mymousemanager.Initialize();
+            myKeyboardManager.Initialize();
+            myMouseManager.Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             deviceManager.IsFullScreen =Vars.config.isFullScreen;
             Vars.device = deviceManager.GraphicsDevice;
             Vars.spriteBatch = spriteBatch;
             Vars.game = this;
-            Vars.mykeyboardmanager = Mykeyboardmanager;
-            Vars.mymousemanager = Mymousemanager;
+            Vars.mykeyboardmanager = myKeyboardManager;
+            Vars.mymousemanager = myMouseManager;
 #pragma warning disable CS0618 // Type or member is obsolete
             deviceManager.PreferredBackBufferWidth = GraphicsDevice.Adapter.DesktopBounds.Width;
             deviceManager.PreferredBackBufferHeight = GraphicsDevice.Adapter.DesktopBounds.Height;
             Vars.ScreenWidth =  GraphicsDevice.Adapter.DesktopBounds.Width;
             Vars.ScreenHeight = GraphicsDevice.Adapter.DesktopBounds.Height;
             Vars.cellSize = (Vars.ScreenWidth * 0.83f) / 25f;
-            cons.debugMessage(Vars.cellSize.ToString(),"TOTL init");
+            cons.DebugMessage(Vars.cellSize.ToString(),"TOTL init");
 #pragma warning restore CS0618 // Type or member is obsolete
             deviceManager.ApplyChanges();
             IsMouseVisible = true;
@@ -84,7 +84,7 @@ namespace TotL
         }
         protected override void TickUpdate(GameTime gameTime)
         {
-                if (Mykeyboardmanager.GetState().IsKeyDown(Keys.E))
+                if (myKeyboardManager.GetState().IsKeyDown(Keys.E))
                 {
                     Exit();
                 }

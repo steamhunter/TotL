@@ -8,49 +8,50 @@ using PathFinder;
 
 namespace PathFinder.Scene
 {
-    public class Connection : IConnections, IPathNode<Object>,IProcGeneralable
+    public class Connection : IConnections, IPathNode<Object>,IProcedualyGenerateable
     {
-        private bool _up, _down, _left, _right;
-        private int _closedsides;
-        private float _rotation;
-        private bool _ispopulated;
+        private bool _up;
+        bool _down;
+        bool _left;
+        bool _right;
+
         public Connection(int x, int y)
         {
             IsPopulated = false;
-            _rotation = 0f;
+            Rotation = 0f;
             X = x;
             Y = y;
         }
-        public static int getClosedSides(Connection top, Connection right, Connection bottom, Connection left)
+        public static int GetClosedSides(Connection top, Connection right, Connection bottom, Connection left)
         {
-            int closedsides = 0;
-            if (top.IsPopulated && top.down == false)
+            int closedSidesCount = 0;
+            if (top.IsPopulated && top.Down == false)
             {
-                closedsides++;
+                closedSidesCount++;
             }
-            if (right.IsPopulated && right.left == false)
+            if (right.IsPopulated && right.Left == false)
             {
-                closedsides++;
+                closedSidesCount++;
             }
-            if (left.IsPopulated && left.right == false)
+            if (left.IsPopulated && left.Right == false)
             {
-                closedsides++;
+                closedSidesCount++;
             }
-            if (bottom.IsPopulated && bottom.up == false)
+            if (bottom.IsPopulated && bottom.Up == false)
             {
-                closedsides++;
+                closedSidesCount++;
             }
-            return closedsides;
+            return closedSidesCount;
         }
-        public static bool isFiting(TerrainTile cell, Connection top, Connection right, Connection bottom, Connection left)
+        public static bool IsFiting(TerrainTile cell, Connection top, Connection right, Connection bottom, Connection left)
         {
-            if (cell.up == top.down || !top.IsPopulated)
+            if (cell.Up == top.Down || !top.IsPopulated)
             {
-                if (cell.right == right.left || !right.IsPopulated)
+                if (cell.Right == right.Left || !right.IsPopulated)
                 {
-                    if (cell.down == bottom.up || !bottom.IsPopulated)
+                    if (cell.Down == bottom.Up || !bottom.IsPopulated)
                     {
-                        if (cell.left == left.right || !left.IsPopulated)
+                        if (cell.Left == left.Right || !left.IsPopulated)
                         {
                             return true;
                         }
@@ -62,7 +63,7 @@ namespace PathFinder.Scene
 
 
 
-        public bool down
+        public bool Down
         {
             get
             {
@@ -76,7 +77,7 @@ namespace PathFinder.Scene
             }
         }
 
-        public bool left
+        public bool Left
         {
             get
             {
@@ -90,7 +91,7 @@ namespace PathFinder.Scene
             }
         }
 
-        public bool right
+        public bool Right
         {
             get
             {
@@ -104,20 +105,9 @@ namespace PathFinder.Scene
             }
         }
 
-        public float rotation
-        {
-            get
-            {
-                return _rotation;
-            }
+        public float Rotation { get; set; }
 
-            set
-            {
-                _rotation = value;
-            }
-        }
-
-        public bool up
+        public bool Up
         {
             get
             {
@@ -131,31 +121,9 @@ namespace PathFinder.Scene
             }
         }
 
-        public int closedsides
-        {
-            get
-            {
-                return _closedsides;
-            }
+        public int ClosedSides { get; set; }
 
-            set
-            {
-                _closedsides = value;
-            }
-        }
-
-        public bool IsPopulated
-        {
-            get
-            {
-                return _ispopulated;
-            }
-
-            set
-            {
-                _ispopulated = value;
-            }
-        }
+        public bool IsPopulated { get; set; }
 
         public int X
         {
@@ -188,31 +156,31 @@ namespace PathFinder.Scene
             throw new Exception(" hívás a híbás paraméterü változatra");
         }
 
-        public bool IsWalkable(object inContext, IPathNode<object> centernode)
+        public bool IsWalkable(object inContext, IPathNode<object> centerNode)
         {
 
 
 
-            Connection centerConnection = centernode.UserContext() as Connection;
-            if (Y == centernode.Y && X == centernode.X)
+            Connection centerConnection = centerNode.UserContext() as Connection;
+            if (Y == centerNode.Y && X == centerNode.X)
             {
-                return closedsides != 4;
+                return ClosedSides != 4;
             }
-            if (Y < centernode.Y && X == centernode.X)
+            if (Y < centerNode.Y && X == centerNode.X)
             {
-                return centerConnection.up && down;
+                return centerConnection.Up && Down;
             }
-            if (Y == centernode.Y && X < centernode.X)
+            if (Y == centerNode.Y && X < centerNode.X)
             {
-                return centerConnection.left && right;
+                return centerConnection.Left && Right;
             }
-            if (Y == centernode.Y && X > centernode.X)
+            if (Y == centerNode.Y && X > centerNode.X)
             {
-                return centerConnection.right && left;
+                return centerConnection.Right && Left;
             }
-            if (Y > centernode.Y && X == centernode.X)
+            if (Y > centerNode.Y && X == centerNode.X)
             {
-                return centerConnection.down && up;
+                return centerConnection.Down && Up;
             }
 
             throw new Exception("Invalid path is open check at: start " + centerConnection.Y + " " + centerConnection.X + Environment.NewLine + "with context " + Y + " " + X);

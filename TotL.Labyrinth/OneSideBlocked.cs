@@ -17,10 +17,10 @@ namespace TotL.Labyrinth
     {
         public OneSideBlocked(int x,int y):base(x,y) 
         {
-           GetComponent<Drawer>().Texture = TextureLoader.getTexture("OneSideBlockedCell");
+           GetComponent<Drawer>().Texture = TextureLoader.GetTexture("OneSideBlockedCell");
 
             SetRotation(0f);
-            closedsides = 1;
+            ClosedSides = 1;
         }
 
         public override void SetRotation(float rotation)
@@ -28,20 +28,20 @@ namespace TotL.Labyrinth
             base.Rotation = rotation;
             if (rotation == Rotaitions.zero)
             {
-                up = true;
-                left = false;
-                down = true;
-                right = true;
+                Up = true;
+                Left = false;
+                Down = true;
+                Right = true;
             }
             else
             if (rotation == Rotaitions.minus90)
             {
                 float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
                 LocationXoffset = 0;// unitSize;
-                up = true;
-                left = true;
-                down = false;
-                right = true;
+                Up = true;
+                Left = true;
+                Down = false;
+                Right = true;
 
             }
             else
@@ -50,10 +50,10 @@ namespace TotL.Labyrinth
                 float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
                 LocationXoffset = unitSize;
                 LocationYoffset = unitSize;
-                up = true;
-                left = true;
-                down = true;
-                right = false;
+                Up = true;
+                Left = true;
+                Down = true;
+                Right = false;
 
             }
             else
@@ -61,10 +61,10 @@ namespace TotL.Labyrinth
             {
                 float unitSize = (Vars.ScreenWidth * 0.83f) / 25f;
                 LocationXoffset = unitSize;
-                up = false;
-                left = true;
-                down = true;
-                right = true;
+                Up = false;
+                Left = true;
+                Down = true;
+                Right = true;
 
             }
             
@@ -82,56 +82,56 @@ namespace TotL.Labyrinth
 
         public override bool CheckFitting(Connection[,] connect, int co, int cs, int o, int s)
         {
-            if (closedsides >= Connection.getClosedSides(connect[co, cs-1], connect[co+1, cs], connect[co, cs+1], connect[co-1, cs]))
+            if (ClosedSides >= Connection.GetClosedSides(connect[co, cs-1], connect[co+1, cs], connect[co, cs+1], connect[co-1, cs]))
             {
-                if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
+                if (Connection.IsFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                 {
                     LocationX = 20 + ((o) * unitSize);
                     LocationY = 20 + ((s) * unitSize);
-                    connect[co, cs].up = up;
-                    connect[co, cs].down = down;
-                    connect[co, cs].left = left;
-                    connect[co, cs].right = right;
+                    connect[co, cs].Up = Up;
+                    connect[co, cs].Down = Down;
+                    connect[co, cs].Left = Left;
+                    connect[co, cs].Right = Right;
                     return true;
 
                 }
                 else
                 {
                     SetRotation(Rotaitions.plus90);
-                    if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
+                    if (Connection.IsFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                     {
                         LocationX = 20 + ((o) * unitSize);
                         LocationY = 20 + ((s) * unitSize);
-                        connect[co, cs].up = up;
-                        connect[co, cs].down = down;
-                        connect[co, cs].left = left;
-                        connect[co, cs].right = right;
+                        connect[co, cs].Up = Up;
+                        connect[co, cs].Down = Down;
+                        connect[co, cs].Left = Left;
+                        connect[co, cs].Right = Right;
                         return true;
                     }
                     else
                     {
                         SetRotation(Rotaitions.half);
-                        if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
+                        if (Connection.IsFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                         {
                             LocationX = 20 + ((o) * unitSize);
                             LocationY = 20 + ((s) * unitSize);
-                            connect[co, cs].up = up;
-                            connect[co, cs].down = down;
-                            connect[co, cs].left = left;
-                            connect[co, cs].right = right;
+                            connect[co, cs].Up = Up;
+                            connect[co, cs].Down = Down;
+                            connect[co, cs].Left = Left;
+                            connect[co, cs].Right = Right;
                             return true;
                         }
                         else
                         {
                             SetRotation(Rotaitions.minus90);
-                            if (Connection.isFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
+                            if (Connection.IsFiting(this, connect[co, cs - 1], connect[co + 1, cs], connect[co, cs + 1], connect[co - 1, cs]))
                             {
                                 LocationX = 20 + ((o) * unitSize);
                                 LocationY = 20 + ((s) * unitSize);
-                                connect[co, cs].up = up;
-                                connect[co, cs].down = down;
-                                connect[co, cs].left = left;
-                                connect[co, cs].right = right;
+                                connect[co, cs].Up = Up;
+                                connect[co, cs].Down = Down;
+                                connect[co, cs].Left = Left;
+                                connect[co, cs].Right = Right;
                                 return true;
                             }
                             else
@@ -157,29 +157,29 @@ namespace TotL.Labyrinth
             float locationy = LocationY + LocationYoffset;
             if (Rotation == Rotaitions.zero)
             {
-                _blockedvolumes.Add(new RectangleF(locationx, locationy, unitSize / 4, unitSize));
-                _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, locationy, unitSize / 4, unitSize / 4));
-                _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF(locationx, locationy, unitSize / 4, unitSize));
+                _blockedVolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, locationy, unitSize / 4, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
             }
             else
             if (Rotation == Rotaitions.plus90)
             {
-                _blockedvolumes.Add(new RectangleF(locationx - unitSize, locationy, unitSize, unitSize / 4));
-                _blockedvolumes.Add(new RectangleF(locationx - unitSize, locationy + (unitSize - unitSize / 4), unitSize / 4, unitSize / 4));
-                _blockedvolumes.Add(new RectangleF(locationx - unitSize / 4, (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF(locationx - unitSize, locationy, unitSize, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF(locationx - unitSize, locationy + (unitSize - unitSize / 4), unitSize / 4, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF(locationx - unitSize / 4, (locationy + unitSize) - unitSize / 4, unitSize / 4, unitSize / 4));
             }
             else
             if (Rotation == Rotaitions.half)
             {
-                _blockedvolumes.Add(new RectangleF(locationx - unitSize / 4, locationy - unitSize, unitSize / 4, unitSize));
-                _blockedvolumes.Add(new RectangleF(locationx - unitSize, locationy - unitSize / 4, unitSize / 4, unitSize / 4));
-                _blockedvolumes.Add(new RectangleF(locationx - unitSize, locationy - unitSize, unitSize / 4, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF(locationx - unitSize / 4, locationy - unitSize, unitSize / 4, unitSize));
+                _blockedVolumes.Add(new RectangleF(locationx - unitSize, locationy - unitSize / 4, unitSize / 4, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF(locationx - unitSize, locationy - unitSize, unitSize / 4, unitSize / 4));
             }
             else if (Rotation == Rotaitions.minus90)
             {
-                _blockedvolumes.Add(new RectangleF(locationx, locationy - unitSize / 4, unitSize, unitSize / 4));
-                _blockedvolumes.Add(new RectangleF(locationx, locationy - unitSize, unitSize / 4, unitSize / 4));
-                _blockedvolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, locationy - unitSize, unitSize / 4, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF(locationx, locationy - unitSize / 4, unitSize, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF(locationx, locationy - unitSize, unitSize / 4, unitSize / 4));
+                _blockedVolumes.Add(new RectangleF((locationx + unitSize) - unitSize / 4, locationy - unitSize, unitSize / 4, unitSize / 4));
             }
         }
 
