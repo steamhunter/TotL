@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using PathFinder.AStar.SettlersEngine;
 using PathFinder.Scene;
-using TotL.Labyrinth;
 
 namespace PathFinder.AStar
 {

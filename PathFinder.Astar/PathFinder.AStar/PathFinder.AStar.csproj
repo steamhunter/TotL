@@ -122,10 +122,6 @@
       <Project>{23D8A555-8474-4C9E-8D1F-15EF0E088CF8}</Project>
       <Name>PathFinder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TotL.Labyrinth\TotL.Labyrinth.csproj">
-      <Project>{2e89ac9d-d468-4d35-a7fa-29c8fac33956}</Project>
-      <Name>TotL.Labyrinth</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
